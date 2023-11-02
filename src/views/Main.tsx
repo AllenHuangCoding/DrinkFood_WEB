@@ -11,19 +11,31 @@ import Calendar from "./Order/Calendar";
 import Score from "./Other/Score";
 import Reports from "./Other/Reports";
 import { Footer } from "flowbite-react";
+import ProtectedRoutes from "../utility/ProtectedRoutes";
+import { Permission } from "../models/PermissionModel";
+import loginInfo from "../datas/Login";
 
 export default function Main() {
   return (
     <>
-      {/* <Sidebar /> */}
-      <FlowBiteSideBar />
+      <Sidebar />
+      {/* <FlowBiteSideBar /> */}
       <div className="relative md:ml-64 bg-blueGray-100">
         <div className="px-4 md:px-10 mx-auto w-full">
           <Routes>
-            <Route index path="/admin/account" element={<Account />} />
-            <Route path="/admin/office" element={<Office />} />
-            <Route path="/admin/store" element={<Store />} />
-            <Route path="/admin/menu" element={<Menu />} />
+            <Route
+              element={
+                <ProtectedRoutes
+                  Info={loginInfo}
+                  Permission={[Permission.Admin]}
+                />
+              }
+            >
+              <Route index path="/admin/account" element={<Account />} />
+              <Route path="/admin/office" element={<Office />} />
+              <Route path="/admin/store" element={<Store />} />
+              <Route path="/admin/menu" element={<Menu />} />
+            </Route>
 
             <Route index path="/order/list" element={<List />} />
             <Route path="/order/calendar" element={<Calendar />} />
