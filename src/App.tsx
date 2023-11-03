@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Main from "./views/Main";
-import Login from "./views/Auth/Login";
-import ProtectedRoutes from "./utility/ProtectedRoutes";
+import Main from "./pages/Main";
+import Login from "./pages/Auth/Login";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { Permission } from "./models/PermissionModel";
 import loginInfo from "./datas/Login";
 
@@ -18,7 +18,7 @@ function App() {
             element={
               <ProtectedRoutes
                 Info={loginInfo}
-                Permission={[Permission.Admin, Permission.User]}
+                Access={[Permission.Admin, Permission.User]}
               />
             }
           >

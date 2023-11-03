@@ -12,5 +12,5 @@ export interface LoginInfoModel {
 
 export interface ProtectedRoutesProps {
   Info: LoginInfoModel;
-  Permission: string[];
+  Access: string[];
 }

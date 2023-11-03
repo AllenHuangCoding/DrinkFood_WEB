@@ -4,9 +4,9 @@ import { ProtectedRoutesProps } from "../models/PermissionModel";
 
 const ProtectedRoutes: FunctionComponent<
   PropsWithChildren<ProtectedRoutesProps>
-> = ({ Info, Permission }) => {
+> = ({ Info, Access: Permission }) => {
   return Info.login &&
-    Info.permission.find((per) => Permission.includes(per)) ? (
+    Info.permission.find((access) => Permission.includes(access)) ? (
     <Outlet />
   ) : (
     <Navigate to={"/"} />

@@ -1,6 +1,6 @@
-import FooterSmall from "../components/Footers/FooterSmall";
-import Sidebar from "../components/Sidebar/Sidebar";
-import FlowBiteSideBar from "../components/Sidebar/FlowBiteSideBar";
+import FooterSmall from "../navigation/components/FooterSmall";
+import Sidebar from "../navigation/components/Sidebar";
+import FlowBiteSideBar from "../navigation/components/FlowBiteSideBar";
 import { Routes, Route } from "react-router-dom";
 import Account from "./Admin/Account";
 import Office from "./Admin/Office";
@@ -11,7 +11,7 @@ import Calendar from "./Order/Calendar";
 import Score from "./Other/Score";
 import Reports from "./Other/Reports";
 import { Footer } from "flowbite-react";
-import ProtectedRoutes from "../utility/ProtectedRoutes";
+import ProtectedRoutes from "../utils/ProtectedRoutes";
 import { Permission } from "../models/PermissionModel";
 import loginInfo from "../datas/Login";
 
@@ -25,10 +25,7 @@ export default function Main() {
           <Routes>
             <Route
               element={
-                <ProtectedRoutes
-                  Info={loginInfo}
-                  Permission={[Permission.Admin]}
-                />
+                <ProtectedRoutes Info={loginInfo} Access={[Permission.Admin]} />
               }
             >
               <Route index path="/admin/account" element={<Account />} />
