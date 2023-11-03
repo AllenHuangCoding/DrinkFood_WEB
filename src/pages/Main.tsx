@@ -14,8 +14,15 @@ import { Footer } from "flowbite-react";
 import ProtectedRoutes from "../utils/ProtectedRoutes";
 import { Permission } from "../models/PermissionModel";
 import loginInfo from "../datas/Login";
+import {
+  GetOfficeList,
+  GetOfficeMemberList,
+} from "../services/Admin/OfficeService";
 
 export default function Main() {
+  // GetOfficeList();
+  // GetOfficeMemberList();
+
   return (
     <>
       <Sidebar />
