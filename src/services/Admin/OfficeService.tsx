@@ -1,30 +1,38 @@
-import { useRequestProcessor } from "../RequestProcessor";
-import { OfficeList, OfficeMemberList } from "./OfficeContext";
+import { axiosApiClient } from "../axiosClient";
+import { useQuery } from "@tanstack/react-query";
+
+interface Office {
+  OfficeID: string;
+}
+
+const fetchOffice = async () => {
+  const res = await axiosApiClient
+    .get("/Office/GetOfficeList")
+    .then((res) => res.data);
+  const response: BaseResponse<Office[]> = await res.json();
+  return response.Data;
+};
+
+const fetchOfficePromise = async (): Promise<BaseResponse<Office[]>> =>
+  axiosApiClient.get("/Office/GetOfficeList").then((response) => response.data);
 
 function GetOfficeList() {
-  const { query } = useRequestProcessor();
-  const test = OfficeList();
-  const { isLoading, isError } = query(test.key, () => test.client, {
-    enabled: true,
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ["GetOfficeList"],
+    queryFn: () => fetchOfficePromise,
   });
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
+  console.log(data?.toString());
 
-  return <ul>{}</ul>;
+  return (
+    <div>
+      {/* {data?.map((office: Office) => (
+        <div>{ office.OfficeID }</div>
+      ))} */}
+    </div>
+  );
 }
 
-function GetOfficeMemberList() {
-  const { query } = useRequestProcessor();
-  const test = OfficeMemberList("57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24");
-  const { isLoading, isError } = query(test.key, () => test.client, {
-    enabled: true,
-  });
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error :(</p>;
-
-  return <ul>{}</ul>;
-}
-
-export { GetOfficeList, GetOfficeMemberList };
+export { GetOfficeList };

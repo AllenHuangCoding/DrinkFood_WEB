@@ -1,3 +1,10 @@
+import { GetOfficeList } from "../../services/Admin/OfficeService";
+
 export default function Office() {
-  return <>This is Office Page</>;
+  return (
+    <>
+      <div>This is Office Page</div>
+      <div>{GetOfficeList()}</div>
+    </>
+  );
 }
