@@ -5,14 +5,7 @@ interface Office {
   OfficeID: string;
 }
 
-const fetchOffice = async () => {
-  const res = await axiosApiClient
-    .get("/Office/GetOfficeList")
-    .then((res) => res.data);
-  const response: BaseResponse<Office[]> = await res.json();
-  return response.Data;
-};
-
+// 辦公室
 const fetchOfficePromise = async (): Promise<BaseResponse<Office[]>> =>
   axiosApiClient.get("/Office/GetOfficeList").then((response) => response.data);
 
@@ -24,15 +17,24 @@ function GetOfficeList() {
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
-  console.log(data?.toString());
-
-  return (
-    <div>
-      {/* {data?.map((office: Office) => (
-        <div>{ office.OfficeID }</div>
-      ))} */}
-    </div>
-  );
+  return <div>Success</div>;
 }
 
-export { GetOfficeList };
+// 辦公室成員列表API
+const fetchOfficeMemberPromise = async (): Promise<BaseResponse<any[]>> =>
+  axiosApiClient
+    .get("/Office/GetOfficeMemberList/57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24")
+    .then((response) => response.data);
+
+function GetOfficeListMember() {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ["GetOfficeMemberList"],
+    queryFn: () => fetchOfficeMemberPromise,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error :(</p>;
+  return <div>Success</div>;
+}
+
+export { GetOfficeList, GetOfficeListMember };
