@@ -6,6 +6,7 @@ export default defineConfig(({ command, mode }) => {
     return {
       plugins: [react()],
         define: {
+            'process.env.REACT_APP_LOCAL_BASEURL': JSON.stringify(env.REACT_APP_LOCAL_BASEURL),
             'process.env.REACT_APP_API_BASEURL': JSON.stringify(env.REACT_APP_API_BASEURL),
         },
     };

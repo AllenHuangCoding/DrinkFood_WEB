@@ -1,40 +1,75 @@
-import { axiosApiClient } from "../axiosClient";
+import { axiosApiClient, axiosLocalClient } from "../axiosClient";
 import { useQuery } from "@tanstack/react-query";
+import { GET } from "../HttpClient";
 
 interface Office {
   OfficeID: string;
 }
 
-// 辦公室
-const fetchOfficePromise = async (): Promise<BaseResponse<Office[]>> =>
-  axiosApiClient.get("/Office/GetOfficeList").then((response) => response.data);
+function DependentQuries() {
+  const one = useQuery({
+    queryKey: ["GetOfficeList"],
+    queryFn: () => GET<Office[]>("/Office/GetOfficeList"),
+  });
 
+  const two = useQuery({
+    queryKey: ["GetOfficeMemberList"],
+    queryFn: () =>
+      GET<any[]>(
+        "/Office/GetOfficeMemberList/57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24"
+      ),
+    enabled: one.isSuccess,
+  });
+
+  const three = useQuery({
+    queryKey: ["GetOfficeMemberList"],
+    queryFn: async () =>
+      GET<any[]>(
+        "/Office/GetOfficeMemberList/57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24"
+      ),
+  });
+
+  return <>Success</>;
+}
+
+// 辦公室據點API
 function GetOfficeList() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["GetOfficeList"],
-    queryFn: () => fetchOfficePromise,
+    queryFn: async () => GET<Office[]>("/Office/GetOfficeList"),
   });
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
-  return <div>Success</div>;
+
+  return (
+    <div>
+      {data?.Data.map((x) => (
+        <p key={x.OfficeID}>{x.OfficeID}</p>
+      ))}
+    </div>
+  );
 }
 
 // 辦公室成員列表API
-const fetchOfficeMemberPromise = async (): Promise<BaseResponse<any[]>> =>
-  axiosApiClient
-    .get("/Office/GetOfficeMemberList/57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24")
-    .then((response) => response.data);
-
 function GetOfficeListMember() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["GetOfficeMemberList"],
-    queryFn: () => fetchOfficeMemberPromise,
+    queryFn: async () =>
+      GET<any[]>(
+        "/Office/GetOfficeMemberList/57DCBDCA-DBDC-4596-BCC6-CDEBE96F0C24"
+      ),
   });
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
-  return <div>Success</div>;
+  return (
+    <div>
+      {data?.Data.map((x) => (
+        <p key={x.Name}>{x.Name}</p>
+      ))}
+    </div>
+  );
 }
 
-export { GetOfficeList, GetOfficeListMember };
+export { GetOfficeList, GetOfficeListMember, DependentQuries };
