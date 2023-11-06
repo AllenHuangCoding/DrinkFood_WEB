@@ -1,3 +1,5 @@
+import TableComponent from "../../components/Table";
+
 export default function Account() {
-  return <>This is Account Page</>;
+  return <>{TableComponent()}</>;
 }
