@@ -10,7 +10,6 @@ import List from "./Order/List";
 import Calendar from "./Order/Calendar";
 import Score from "./Other/Score";
 import Reports from "./Other/Reports";
-import { Footer } from "flowbite-react";
 import ProtectedRoutes from "../utils/ProtectedRoutes";
 import { Permission } from "../models/PermissionModel";
 import loginInfo from "../datas/Login";
