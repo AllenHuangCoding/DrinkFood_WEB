@@ -6,6 +6,8 @@ import { Menu } from "primereact/menu";
 import { Tooltip } from 'primereact/tooltip';
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { formatCurrency } from "@/src/utils/IntExtension"
+import { BasicTable } from "@/src/components/BasicTable"
 
 const Dashboard = () => {
 
@@ -63,13 +65,6 @@ const Dashboard = () => {
     "DrinkFoodName": "山茶花鮮檸葡萄凍",
     "Price": "60"
   }]
-
-  const formatCurrency = (value: number) => {
-    return value?.toLocaleString('zh-TW', {
-        style: 'currency',
-        currency: 'TWD'
-    });
-  };
 
   return (
     <>
@@ -195,6 +190,9 @@ const Dashboard = () => {
         <div className="col-12 xl:col-9">
           <div className="card">
               <h5>歷史紀錄</h5>
+              {BasicTable(recentOrder)}
+
+              {/* 原始程式碼
               <DataTable value={recentOrder} rows={5} paginator>
                   <Column field="OrderDate" header="訂購日期" sortable style={{ width: '25%' }} />
                   <Column field="StoreName" header="店家名稱" sortable style={{ width: '25%' }} />
@@ -209,7 +207,8 @@ const Dashboard = () => {
                           </>
                       )}
                   />
-              </DataTable>
+              </DataTable> 
+              */}
           </div>
         </div>
       </div>
