@@ -7,7 +7,6 @@ export const metadata: Metadata = {
     "The ultimate collection of design-agnostic, flexible and accessible React UI Components.",
   robots: { index: false, follow: false },
   metadataBase: new URL("http://localhost:3000"),
-  // viewport: { initialScale: 1, width: "device-width" },
   openGraph: {
     type: "website",
     title: "PrimeReact SAKAI-REACT",
