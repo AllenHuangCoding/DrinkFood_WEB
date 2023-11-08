@@ -1,4 +1,10 @@
+import { GetOfficeList } from "../../../../services/admin/OfficeService";
+
 const Office = () => {
-  return <>This is Office Page</>;
+  return (
+    <>
+      <div>{}</div>
+    </>
+  );
 };
 export default Office;

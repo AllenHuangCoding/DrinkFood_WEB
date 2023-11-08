@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.7.2",
+    "@tanstack/react-query-devtools": "^5.7.4",
+    "axios": "^1.6.0",
+    "env-cmd": "^10.1.0",
     "next": "14.0.1",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primereact": "^10.0.9",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.48.2",
     "sass": "^1.69.5"
   },
   "devDependencies": {
