@@ -13,12 +13,12 @@ function AccountTable() {
       <Column field="Email" header="信箱/帳號" sortable></Column>
       <Column field="Name" header="姓名" sortable></Column>
       <Column field="Brief" header="暱稱" sortable></Column>
-      <Column header="所屬區域" body={"-"} sortable></Column>
       <Column
         header="功能"
         body={() => (
           <>
-            <Button icon="pi pi-search" text />
+            <Button icon="pi pi-user-edit" text />
+            <Button icon="pi pi-trash" style={{ color: "red" }} text />
           </>
         )}
       ></Column>

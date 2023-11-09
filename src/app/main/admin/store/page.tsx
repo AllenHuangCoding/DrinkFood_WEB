@@ -12,12 +12,14 @@ function StoreTable() {
       <Column field="BrandTypeDesc" header="類型" sortable></Column>
       <Column field="StoreName" header="分店" sortable></Column>
       <Column field="StoreAddress" header="地址" sortable></Column>
+      <Column field="PreviousOrderDate" header="上次訂餐日期" sortable></Column>
       <Column field="StorePhone" header="電話" sortable></Column>
       <Column
         header="功能"
         body={() => (
           <>
             <Button icon="pi pi-search" text />
+            <Button icon="pi pi-plus" text />
           </>
         )}
       ></Column>

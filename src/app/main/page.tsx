@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { BasicTable } from "@/src/components/BasicTable";
-import { useHomeRecentOrderDetail } from "@/src/services/order/OrderService";
+import { useHomeOrderDetailHistory } from "@/src/services/home/HomeService";
 
 const Dashboard = () => {
   const todayOrder = [
@@ -207,23 +207,23 @@ const Dashboard = () => {
             {
               <BasicTable
                 dataKey="OrderDetailID"
-                query={useHomeRecentOrderDetail()}
+                query={useHomeOrderDetailHistory()}
               >
                 <Column
-                  field="DrinkFoodID"
-                  header="訂購日期"
+                  field="OrderArrivalTime"
+                  header="抵達時間"
                   sortable
                   style={{ width: "25%" }}
                 />
                 <Column
-                  field="IceDesc"
-                  header="店家名稱"
+                  field="BrandName"
+                  header="品牌"
                   sortable
                   style={{ width: "25%" }}
                 />
                 <Column
                   field="DrinkFoodName"
-                  header="訂購品項"
+                  header="品項"
                   sortable
                   style={{ width: "25%" }}
                 />

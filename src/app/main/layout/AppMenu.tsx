@@ -39,17 +39,17 @@ const AppMenu = () => {
       label: "訂餐功能",
       items: [
         {
-          label: "列表",
+          label: "開團紀錄",
           icon: "pi pi-fw pi-list",
           to: "/main/order/list",
         },
         {
           label: "歷史紀錄",
           icon: "pi pi-fw pi-list",
-          to: "/main/order/list",
+          to: "/main/order/history",
         },
         {
-          label: "匯出",
+          label: "扣款統計",
           icon: "pi pi-fw pi-file-export",
           to: "/main/order/export",
         },

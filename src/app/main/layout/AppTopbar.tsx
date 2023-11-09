@@ -7,9 +7,11 @@ import React, {
   useContext,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react";
 import { AppTopbarRef } from "../../../types/types";
 import { LayoutContext } from "./context/layoutContext";
+import { Dropdown } from "primereact/dropdown";
 
 const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
   const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } =
@@ -24,6 +26,13 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     topbarmenu: topbarmenuRef.current,
     topbarmenubutton: topbarmenubuttonRef.current,
   }));
+
+  const [selectedOffice, setSelectedOffice] = useState(null);
+  const offices = [
+    { name: "台北建國辦公室", code: "taipei_jianguo" },
+    { name: "台北仁愛辦公室", code: "taipei_renai" },
+    { name: "高雄總部", code: "cleanaway" },
+  ];
 
   return (
     <div className="layout-topbar">
@@ -63,6 +72,14 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           "layout-topbar-menu-mobile-active": layoutState.profileSidebarVisible,
         })}
       >
+        <Dropdown
+          value={selectedOffice}
+          onChange={(e) => setSelectedOffice(e.value)}
+          options={offices}
+          optionLabel="name"
+          placeholder="選擇辦公室"
+          className="w-full md:w-14rem"
+        />
         <button type="button" className="p-link layout-topbar-button">
           <i className="pi pi-user"></i>
           <span>個人資料</span>

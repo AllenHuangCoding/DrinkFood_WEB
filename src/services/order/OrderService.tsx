@@ -9,14 +9,14 @@ const useOrderList = () => {
   });
 };
 
-const useHomeRecentOrderDetail = () => {
+const useOrderDetailHistory = () => {
   return useQuery({
-    queryKey: ["useHomeRecentOrderDetail"],
+    queryKey: ["GetOrderDetailHistory"],
     queryFn: async () =>
       GET<any[]>(
-        "/Order/GetHomeRecentOrderDetail/F0E38C50-EB7B-4696-A94E-B7D70BBA0B40"
+        "/Order/GetOrderDetailHistory/F0E38C50-EB7B-4696-A94E-B7D70BBA0B40"
       ),
   });
 };
 
-export { useOrderList, useHomeRecentOrderDetail };
+export { useOrderList, useOrderDetailHistory };
