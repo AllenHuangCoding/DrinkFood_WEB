@@ -146,7 +146,7 @@ const MainLayout = ({ children }: ChildContainerProps) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <div className={containerClass}>
         <AppTopbar ref={topbarRef} />
         <div ref={sidebarRef} className="layout-sidebar">
@@ -158,7 +158,7 @@ const MainLayout = ({ children }: ChildContainerProps) => {
         </div>
         <div className="layout-mask"></div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
