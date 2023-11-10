@@ -60,6 +60,8 @@ const BasicTable = (props: BasicTableProp) => {
         size={"small"}
         rows={5}
         rowsPerPageOptions={[5, 10, 25, 50]}
+        // scrollable
+        // scrollHeight="400px"
       >
         {props.children}
       </DataTable>

@@ -9,4 +9,11 @@ const useStoreList = () => {
   });
 };
 
-export { useStoreList };
+const useDrinkFoodList = (StoreID: string) => {
+  return useQuery({
+    queryKey: ["GetDrinkFoodList"],
+    queryFn: async () => GET<any[]>(`/DrinkFood/GetDrinkFoodList/${StoreID}`),
+  });
+};
+
+export { useStoreList, useDrinkFoodList };

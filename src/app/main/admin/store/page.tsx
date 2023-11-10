@@ -23,12 +23,12 @@ function StoreTable() {
       <Column field="PreviousOrderDate" header="上次訂餐日期" sortable></Column>
       <Column
         header="功能"
-        body={() => (
+        body={(x) => (
           <>
             <Button
               icon="pi pi-search"
               text
-              onClick={() => router.push("/main/admin/store/1234567")}
+              onClick={() => router.push(`/main/admin/store/${x.StoreID}`)}
             />
             <Button icon="pi pi-plus" text />
           </>

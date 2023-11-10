@@ -72,14 +72,14 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           "layout-topbar-menu-mobile-active": layoutState.profileSidebarVisible,
         })}
       >
-        <Dropdown
+        {/* <Dropdown
           value={selectedOffice}
           onChange={(e) => setSelectedOffice(e.value)}
           options={offices}
           optionLabel="name"
           placeholder="選擇辦公室"
           className="w-full md:w-14rem"
-        />
+        /> */}
         <button type="button" className="p-link layout-topbar-button">
           <i className="pi pi-user"></i>
           <span>個人資料</span>
