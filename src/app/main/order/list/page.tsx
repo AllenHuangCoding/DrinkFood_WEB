@@ -9,7 +9,7 @@ import { Column } from "primereact/column";
 function OrderTable() {
   return (
     <BasicTable dataKey="OrderID" query={useOrderList()}>
-      <Column field="OrderArrivalTime" header="抵達時間" sortable></Column>
+      <Column field="OrderArrivalTime" header="用餐時間" sortable></Column>
       <Column field="BrandName" header="品牌" sortable></Column>
       <Column field="StoreName" header="店家" sortable></Column>
       <Column field="OpenTime" header="開放時間" sortable></Column>

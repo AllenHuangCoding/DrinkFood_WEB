@@ -30,7 +30,7 @@ const AppMenu = () => {
         // },
         {
           label: "店家",
-          icon: "pi pi-fw pi-shopping-cart",
+          icon: "pi pi-fw pi-building",
           to: "/main/admin/store",
         },
       ],
@@ -40,7 +40,7 @@ const AppMenu = () => {
       items: [
         {
           label: "開團紀錄",
-          icon: "pi pi-fw pi-list",
+          icon: "pi pi-fw pi-shopping-cart",
           to: "/main/order/list",
         },
         {

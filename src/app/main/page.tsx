@@ -211,7 +211,7 @@ const Dashboard = () => {
               >
                 <Column
                   field="OrderArrivalTime"
-                  header="抵達時間"
+                  header="用餐時間"
                   sortable
                   style={{ width: "25%" }}
                 />

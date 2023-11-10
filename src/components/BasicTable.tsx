@@ -17,7 +17,7 @@ const BasicTable = (props: BasicTableProp) => {
   const { data, isError, isLoading } = props.query;
 
   if (isLoading) {
-    const items: any[] = Array.from({ length: 4 }, (v, i) => i);
+    const items: any[] = Array.from({ length: 3 }, (v, i) => i);
 
     return (
       <>
