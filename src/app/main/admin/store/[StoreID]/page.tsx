@@ -25,17 +25,17 @@ const MenuTemplate = (product: any) => {
             src={product.image}
             alt={product.name}
           /> */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <div className="text-lg font-bold text-900">
               {product.DrinkFoodName}
             </div>
-            <div className="gap-3">
+            <div className="gap-2">
               <span className="text-xl font-semibold">
                 {formatCurrency(product.DrinkFoodPrice)}
               </span>
             </div>
           </div>
-          <div className="gap-3">
+          <div className="gap-2">
             <span className="text-sm font-semibold text-gray-500">
               {product.DrinkFoodRemark}
             </span>
@@ -90,7 +90,7 @@ const MenuTabView = (query: UseQueryResult<BaseResponse<any[]>, Error>) => {
   );
 };
 
-const StoreCard = (query: UseQueryResult<BaseResponse<any>, Error>) => {
+const StoreInfo = (query: UseQueryResult<BaseResponse<any>, Error>) => {
   const { data, isLoading, isError } = query;
   const [totalCount, setTotalCount] = useState("All");
   if (isLoading) return <p>Loading...</p>;
@@ -100,8 +100,13 @@ const StoreCard = (query: UseQueryResult<BaseResponse<any>, Error>) => {
       <div className="bg-white p-2">
         <div className="grid grid-nogutter">
           <div className="col-12 md:col-6">
-            <div className="flex flex-row align-items-center gap-4">
-              <img src={data?.Data.BrandLogoUrl} className="h-6rem w-6rem" />
+            <div className="flex flex-row align-items-center gap-2">
+              <img
+                src={data?.Data.BrandLogoUrl}
+                className="h-6rem w-6rem cursor-pointer"
+                alt="Logo圖片"
+                onClick={() => window.open("https://www.google.com")}
+              />
 
               <div className="flex flex-column gap-2">
                 <div>
@@ -113,31 +118,39 @@ const StoreCard = (query: UseQueryResult<BaseResponse<any>, Error>) => {
             </div>
           </div>
           <div className="col-12 md:col-6">
-            <div>訂購統計</div>
-            <div className="flex flex-wrap gap-3">
-              <div className="flex align-items-center">
-                <RadioButton
-                  inputId="ingredient1"
-                  name="pizza"
-                  value="All"
-                  onChange={(e) => setTotalCount(e.value)}
-                  checked={totalCount === "All"}
-                />
-                <label htmlFor="ingredient1" className="ml-2">
-                  顯示全部
-                </label>
+            <div className="flex flex-column gap-2">
+              <div>
+                菜單原圖：<span className="cursor-pointer">點我看菜單</span>
               </div>
-              <div className="flex align-items-center">
-                <RadioButton
-                  inputId="ingredient2"
-                  name="pizza"
-                  value="Self"
-                  onChange={(e) => setTotalCount(e.value)}
-                  checked={totalCount === "Self"}
-                />
-                <label htmlFor="ingredient2" className="ml-2">
-                  顯示自己
-                </label>
+              <div>店家備註：{"這裡寫店家的常態性備註 EX: 不能飯少"}</div>
+              <div className="flex">
+                <div>訂購統計：</div>
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex align-items-center">
+                    <RadioButton
+                      inputId="ingredient1"
+                      name="pizza"
+                      value="All"
+                      onChange={(e) => setTotalCount(e.value)}
+                      checked={totalCount === "All"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      顯示全部
+                    </label>
+                  </div>
+                  <div className="flex align-items-center">
+                    <RadioButton
+                      inputId="ingredient2"
+                      name="pizza"
+                      value="Self"
+                      onChange={(e) => setTotalCount(e.value)}
+                      checked={totalCount === "Self"}
+                    />
+                    <label htmlFor="ingredient2" className="ml-2">
+                      顯示自己
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -216,7 +229,7 @@ export default function ViewStore({
   return (
     <>
       <div className="flex flex-column gap-4">
-        {StoreCard(useStoreData(params.StoreID))}
+        {StoreInfo(useStoreData(params.StoreID))}
         {MenuTabView(useDrinkFoodList(params.StoreID))}
         {ScoreCarusel()}
       </div>

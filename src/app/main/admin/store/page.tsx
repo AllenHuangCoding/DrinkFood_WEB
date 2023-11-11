@@ -11,16 +11,12 @@ function StoreTable() {
 
   return (
     <BasicTable dataKey="StoreID" query={useStoreList()}>
-      <Column field="BrandName" header="品牌" sortable></Column>
-      <Column field="BrandTypeDesc" header="類型" sortable></Column>
-      <Column field="StoreName" header="分店" sortable></Column>
-      <Column field="StorePhone" header="電話" sortable></Column>
-      <Column
-        field="StoreAddress"
-        header="地址 (加Google Map)"
-        sortable
-      ></Column>
-      <Column field="PreviousOrderDate" header="上次訂餐日期" sortable></Column>
+      <Column field="BrandTypeDesc" header="類型" sortable />
+      <Column field="BrandName" header="品牌" sortable />
+      <Column field="StoreName" header="分店" sortable />
+      <Column field="StorePhone" header="電話" sortable />
+      <Column field="StoreAddress" header="地址 (加Google Map)" sortable />
+      <Column field="PreviousOrderDate" header="上次訂餐日期" sortable />
       <Column
         header="功能"
         body={(x) => (
@@ -33,7 +29,7 @@ function StoreTable() {
             <Button icon="pi pi-plus" text />
           </>
         )}
-      ></Column>
+      />
     </BasicTable>
   );
 }
