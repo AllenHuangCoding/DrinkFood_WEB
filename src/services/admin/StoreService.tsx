@@ -9,6 +9,14 @@ const useStoreList = () => {
   });
 };
 
+const useStoreData = (StoreID: string) => {
+  return useQuery({
+    queryKey: ["GetStore"],
+    queryFn: async () => GET<any[]>(`/Store/GetStore/${StoreID}`),
+  });
+};
+
+// 店家品項
 const useDrinkFoodList = (StoreID: string) => {
   return useQuery({
     queryKey: ["GetDrinkFoodList"],
@@ -16,4 +24,4 @@ const useDrinkFoodList = (StoreID: string) => {
   });
 };
 
-export { useStoreList, useDrinkFoodList };
+export { useStoreData, useStoreList, useDrinkFoodList };
