@@ -11,46 +11,35 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { Checkbox } from "primereact/checkbox";
-import { Password } from "primereact/password";
 
 interface UpdateProfileModel {
+  name: string;
+  email: string;
   brief: string;
+  lunchPayment: string;
+  drinkPayment: string;
 }
 
-function AccountTable() {
-  const [visible, setVisible] = useState(false);
-  // const footerContent = (
-  //   <div>
-  //     <Button
-  //       label="關閉"
-  //       icon="pi pi-times"
-  //       onClick={() => setVisible(false)}
-  //       className="p-button-text"
-  //     />
-  //     <Button
-  //       label="確認"
-  //       icon="pi pi-check"
-  //       onClick={() => setVisible(false)}
-  //       autoFocus
-  //     />
-  //   </div>
-  // );
-
-  const payments = [
+const AccountTable = () => {
+  const lunchDefaultPayments = [
     { ID: 1, name: "儲值金" },
-    { ID: 1, name: "Line Bank" },
-    { ID: 1, name: "Line Pay Money" },
+    { ID: 2, name: "現金" },
   ];
 
-  const [lunchPayment, setLunchPayment] = useState(null);
+  const drinkDefaultPayments = [
+    { ID: 1, name: "現金" },
+    { ID: 2, name: "Line Pay Money" },
+    { ID: 3, name: "Line Bank" },
+  ];
 
-  const router = useRouter();
+  const [visible, setVisible] = useState(false);
 
-  const defaultValues = {
+  const defaultValues: UpdateProfileModel = {
     name: "",
     email: "",
-    password: "",
+    brief: "",
+    lunchPayment: "",
+    drinkPayment: "",
   };
 
   const {
@@ -62,119 +51,160 @@ function AccountTable() {
 
   const onSubmit = (data: any) => {
     console.log(data);
-    // reset();
+    reset();
   };
+
+  const router = useRouter();
 
   return (
     <>
       <Dialog
         header="基本資料"
         visible={visible}
-        style={{ width: "30vw", height: "70vh" }}
+        className="w-8 md:w-6 lg:w-5 xl:w-3"
         onHide={() => setVisible(false)}
       >
         <div className="flex justify-content-center">
-          <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-            <div className="field">
-              <span className="p-float-label">
-                <Controller
-                  name="name"
-                  control={control}
-                  rules={{ required: "Name is required." }}
-                  render={({ field, fieldState }) => (
-                    <InputText
-                      id={field.name}
-                      {...field}
-                      autoFocus
-                      className={classNames({
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full flex flex-column gap-3"
+          >
+            <div>
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    {...field}
+                    id={field.name}
+                    placeholder="姓名"
+                    className={classNames(
+                      {
                         "p-invalid": fieldState.invalid,
-                      })}
-                    />
-                  )}
-                />
-                <label
-                  htmlFor="name"
-                  className={classNames({ "p-error": errors.name })}
-                >
-                  Name*
-                </label>
-              </span>
+                      },
+                      "w-full"
+                    )}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.name?.message}</small>
             </div>
-            <div className="field">
-              <span className="p-float-label p-input-icon-right">
-                <Controller
-                  name="email"
-                  control={control}
-                  rules={{
-                    required: "Email is required.",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "Invalid email address. E.g. example@email.com",
-                    },
-                  }}
-                  render={({ field, fieldState }) => (
-                    <InputText
-                      id={field.name}
-                      {...field}
-                      className={classNames({
+
+            <div>
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: "必填欄位",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "須符合信箱格式 例如: example@email.com",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    {...field}
+                    id={field.name}
+                    placeholder="信箱"
+                    className={classNames(
+                      {
                         "p-invalid": fieldState.invalid,
-                      })}
-                    />
-                  )}
-                />
-                <label
-                  htmlFor="email"
-                  className={classNames({ "p-error": !!errors.email })}
-                >
-                  Email*
-                </label>
-              </span>
+                      },
+                      "w-full"
+                    )}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.email?.message}</small>
+            </div>
+
+            <div>
+              <Controller
+                name="brief"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    {...field}
+                    id={field.name}
+                    placeholder="暱稱"
+                    className={classNames(
+                      {
+                        "p-invalid": fieldState.invalid,
+                      },
+                      "w-full"
+                    )}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.brief?.message}</small>
+            </div>
+
+            <div>
+              <Controller
+                name="lunchPayment"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                render={({ field, fieldState }) => (
+                  <Dropdown
+                    id={field.name}
+                    value={field.value}
+                    options={lunchDefaultPayments}
+                    optionLabel="name"
+                    optionValue="ID"
+                    placeholder="選擇午餐預設付款方式"
+                    className={classNames(
+                      {
+                        "p-invalid": fieldState.invalid,
+                      },
+                      "w-full"
+                    )}
+                    onChange={(e) => {
+                      field.onChange(e.value);
+                    }}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.lunchPayment?.message}</small>
+            </div>
+
+            <div>
+              <Controller
+                name="drinkPayment"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                render={({ field, fieldState }) => (
+                  <Dropdown
+                    id={field.name}
+                    value={field.value}
+                    options={drinkDefaultPayments}
+                    optionLabel="name"
+                    optionValue="ID"
+                    placeholder="選擇飲料預設付款方式"
+                    className={classNames(
+                      {
+                        "p-invalid": fieldState.invalid,
+                      },
+                      "w-full"
+                    )}
+                    onChange={(e) => {
+                      field.onChange(e.value);
+                    }}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.drinkPayment?.message}</small>
             </div>
 
             <Button
               type="submit"
               label="確認"
               icon="pi pi-check"
-              className="mt-2"
+              className="w-full"
             />
           </form>
         </div>
-        {/* <div className="bg-white p-2">
-            <div className="grid grid-nogutter gap-3">
-              <div>姓名： {"AAA"}</div>
-              <div>信箱：{"BBB"}</div>
-              <div className="flex flex-row align-items-center">
-                <div>暱稱：</div>
-                <InputText
-                  type="text"
-                  className="p-inputtext-sm"
-                  {...register("brief")}
-                />
-              </div>
-              <div className="flex flex-row align-items-center">
-                <div>午餐：</div>
-              />
-                <Dropdown
-                  value={lunchPayment}
-                  onChange={(e) => setLunchPayment(e.value)}
-                  options={payments}
-                  optionLabel="name"
-                  editable
-                  placeholder="Select a City"
-                  className="w-full md:w-14rem"
-                />
-              </div>
-              <div className="flex flex-row align-items-center">
-                <div>飲料：</div>
-                <InputText
-                  type="text"
-                  className="p-inputtext-sm"
-                  value={"Line Pay Money"}
-                />
-              </div>
-              <input type="submit" />
-            </div>
-          </div> */}
       </Dialog>
 
       <BasicTable dataKey="AccountID" query={useAccountList()}>
@@ -206,7 +236,7 @@ function AccountTable() {
       </BasicTable>
     </>
   );
-}
+};
 
 const Account = () => {
   return <>{AccountTable()}</>;
