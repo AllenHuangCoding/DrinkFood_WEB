@@ -246,33 +246,41 @@ export default () => {
         </div>
       </Dialog>
 
-      <BasicTable dataKey="AccountID" query={useAccountList()} header={header}>
-        <Column field="Email" header="信箱/帳號" sortable />
-        <Column field="Name" header="姓名" sortable />
-        <Column field="Brief" header="暱稱" sortable />
-        <Column
-          header="功能"
-          body={(x) => (
-            <>
-              <Button
-                icon="pi pi-user-edit"
-                text
-                onClick={() => {
-                  setUserData(x);
-                  setDialogHeader("編輯");
-                  setVisible(true);
-                }}
-              />
-              <Button
-                icon="pi pi-list"
-                text
-                onClick={() => router.push(`./account/history/${x.AccountID}`)}
-              />
-              <Button icon="pi pi-trash" style={{ color: "red" }} text />
-            </>
-          )}
-        />
-      </BasicTable>
+      <div className="card">
+        <BasicTable
+          dataKey="AccountID"
+          query={useAccountList()}
+          header={header}
+        >
+          <Column field="Email" header="信箱/帳號" sortable />
+          <Column field="Name" header="姓名" sortable />
+          <Column field="Brief" header="暱稱" sortable />
+          <Column
+            header="功能"
+            body={(x) => (
+              <>
+                <Button
+                  icon="pi pi-user-edit"
+                  text
+                  onClick={() => {
+                    setUserData(x);
+                    setDialogHeader("編輯");
+                    setVisible(true);
+                  }}
+                />
+                <Button
+                  icon="pi pi-list"
+                  text
+                  onClick={() =>
+                    router.push(`./account/history/${x.AccountID}`)
+                  }
+                />
+                <Button icon="pi pi-trash" style={{ color: "red" }} text />
+              </>
+            )}
+          />
+        </BasicTable>
+      </div>
     </>
   );
 };

@@ -8,5 +8,9 @@ export default ({
   params: { AccountID: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  return <>{HistoryTable(params.AccountID)}</>;
+  return (
+    <>
+      <div className="card">{HistoryTable(params.AccountID)}</div>
+    </>
+  );
 };
