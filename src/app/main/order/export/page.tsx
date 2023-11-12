@@ -1,4 +1,3 @@
-const Export = () => {
+export default () => {
   return <>This is Export Page</>;
 };
-export default Export;

@@ -21,6 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default ({ children }: { children: React.ReactNode }) => {
   return <MainLayout>{children}</MainLayout>;
-}
+};

@@ -2,7 +2,7 @@
 
 import { useAccountList } from "../../../../services/admin/AccountService";
 import { Column } from "primereact/column";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BasicTable } from "@/src/components/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
@@ -11,16 +11,17 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
+import { Update } from "next/dist/build/swc";
 
 interface UpdateProfileModel {
   name: string;
   email: string;
   brief: string;
-  lunchPayment: string;
-  drinkPayment: string;
+  lunchPayment: number | null;
+  drinkPayment: number | null;
 }
 
-const AccountTable = () => {
+export default () => {
   const lunchDefaultPayments = [
     { ID: 1, name: "儲值金" },
     { ID: 2, name: "現金" },
@@ -32,20 +33,22 @@ const AccountTable = () => {
     { ID: 3, name: "Line Bank" },
   ];
 
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [dialogHeader, setDialogHeader] = useState<string>("基本資料");
+  const [userData, setUserData] = useState<any | null>(null);
 
   const defaultValues: UpdateProfileModel = {
     name: "",
     email: "",
     brief: "",
-    lunchPayment: "",
-    drinkPayment: "",
+    lunchPayment: null,
+    drinkPayment: null,
   };
 
   const {
     control,
-    handleSubmit,
     formState: { errors },
+    handleSubmit,
     reset,
   } = useForm({ defaultValues });
 
@@ -54,12 +57,48 @@ const AccountTable = () => {
     reset();
   };
 
+  const header = (
+    <div className="flex align-items-center justify-content-end gap-2">
+      <Button
+        label="新增"
+        icon="pi pi-plus"
+        severity="info"
+        onClick={() => {
+          setUserData(null);
+          setDialogHeader("新增");
+          setVisible(true);
+        }}
+      />
+    </div>
+  );
+
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(userData);
+    if (userData) {
+      reset({
+        name: userData.Name,
+        brief: userData.Brief,
+        email: userData.Email,
+        lunchPayment: null,
+        drinkPayment: null,
+      });
+    } else {
+      reset({
+        name: "",
+        brief: "",
+        email: "",
+        lunchPayment: null,
+        drinkPayment: null,
+      });
+    }
+  }, [userData, reset]);
 
   return (
     <>
       <Dialog
-        header="基本資料"
+        header={dialogHeader}
         visible={visible}
         className="w-8 md:w-6 lg:w-5 xl:w-3"
         onHide={() => setVisible(false)}
@@ -207,7 +246,7 @@ const AccountTable = () => {
         </div>
       </Dialog>
 
-      <BasicTable dataKey="AccountID" query={useAccountList()}>
+      <BasicTable dataKey="AccountID" query={useAccountList()} header={header}>
         <Column field="Email" header="信箱/帳號" sortable />
         <Column field="Name" header="姓名" sortable />
         <Column field="Brief" header="暱稱" sortable />
@@ -219,15 +258,15 @@ const AccountTable = () => {
                 icon="pi pi-user-edit"
                 text
                 onClick={() => {
+                  setUserData(x);
+                  setDialogHeader("編輯");
                   setVisible(true);
                 }}
               />
               <Button
                 icon="pi pi-list"
                 text
-                onClick={() =>
-                  router.push(`/main/admin/account/history/${x.AccountID}`)
-                }
+                onClick={() => router.push(`./account/history/${x.AccountID}`)}
               />
               <Button icon="pi pi-trash" style={{ color: "red" }} text />
             </>
@@ -237,8 +276,3 @@ const AccountTable = () => {
     </>
   );
 };
-
-const Account = () => {
-  return <>{AccountTable()}</>;
-};
-export default Account;

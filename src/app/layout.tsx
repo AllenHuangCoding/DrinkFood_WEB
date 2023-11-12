@@ -8,11 +8,7 @@ import { LayoutProvider } from "./main/layout/context/layoutContext";
 import ReactQueryProvider from "../utils/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default ({ children }: { children: React.ReactNode }) => {
   return (
     <ReactQueryProvider>
       <html lang="en" suppressHydrationWarning>
@@ -32,4 +28,4 @@ export default function RootLayout({
       </html>
     </ReactQueryProvider>
   );
-}
+};

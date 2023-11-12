@@ -3,7 +3,7 @@
 import { useOfficeList } from "../../../../services/admin/OfficeService";
 import { Card } from "primereact/card";
 
-function OfficeCard() {
+export default () => {
   const { data, isLoading, isError } = useOfficeList();
 
   if (isLoading) return <p>Loading...</p>;
@@ -23,9 +23,4 @@ function OfficeCard() {
       ))}
     </div>
   );
-}
-
-const Office = () => {
-  return <>{OfficeCard()}</>;
 };
-export default Office;

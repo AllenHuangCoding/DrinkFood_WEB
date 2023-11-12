@@ -6,7 +6,7 @@ import { BasicTable } from "@/src/components/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
 
-function StoreTable() {
+export default () => {
   const router = useRouter();
 
   return (
@@ -24,7 +24,7 @@ function StoreTable() {
             <Button
               icon="pi pi-search"
               text
-              onClick={() => router.push(`/main/admin/store/${x.StoreID}`)}
+              onClick={() => router.push(`./store/${x.StoreID}`)}
             />
             <Button icon="pi pi-plus" text />
           </>
@@ -32,9 +32,4 @@ function StoreTable() {
       />
     </BasicTable>
   );
-}
-
-const Store = () => {
-  return <>{StoreTable()}</>;
 };
-export default Store;

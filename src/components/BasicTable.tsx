@@ -11,9 +11,12 @@ interface BasicTableProp {
   children: React.ReactNode;
   query: UseQueryResult<BaseResponse<any[]>, Error>;
   dataKey: string;
+  header?: React.ReactNode | null;
 }
 
-const BasicTable = (props: BasicTableProp) => {
+const BasicTable: React.FC<
+  BasicTableProp & React.TableHTMLAttributes<HTMLTableElement>
+> = (props: BasicTableProp) => {
   const { data, isError, isLoading } = props.query;
 
   if (isLoading) {
@@ -60,6 +63,7 @@ const BasicTable = (props: BasicTableProp) => {
         size={"small"}
         rows={5}
         rowsPerPageOptions={[5, 10, 25, 50]}
+        header={props.header}
         // scrollable
         // scrollHeight="400px"
       >

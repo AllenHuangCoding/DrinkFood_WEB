@@ -2,13 +2,27 @@
 
 import { BasicTable } from "@/src/components/BasicTable";
 import { useOrderList } from "@/src/services/order/OrderService";
-import { formatCurrency } from "@/src/utils/IntExtension";
+import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 
-function OrderTable() {
+export default () => {
+  const router = useRouter();
+  const header = (
+    <div className="flex align-items-center justify-content-end gap-2">
+      <Button
+        label="新增"
+        icon="pi pi-plus"
+        severity="info"
+        onClick={() => {
+          router.push("./add");
+        }}
+      />
+    </div>
+  );
+
   return (
-    <BasicTable dataKey="OrderID" query={useOrderList()}>
+    <BasicTable dataKey="OrderID" query={useOrderList()} header={header}>
       <Column field="OrderArrivalTime" header="用餐時間" sortable />
       <Column field="BrandName" header="品牌" sortable />
       <Column field="StoreName" header="店家" sortable />
@@ -28,9 +42,4 @@ function OrderTable() {
       />
     </BasicTable>
   );
-}
-
-const List = () => {
-  return <>{OrderTable()}</>;
 };
-export default List;

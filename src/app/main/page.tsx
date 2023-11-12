@@ -10,7 +10,7 @@ import { formatCurrency } from "@/src/utils/IntExtension";
 import { BasicTable } from "@/src/components/BasicTable";
 import { useHomeOrderDetailHistory } from "@/src/services/home/HomeService";
 
-const Dashboard = () => {
+export default () => {
   const todayOrder = [
     {
       OrderDetailID: "1",
@@ -260,4 +260,3 @@ const Dashboard = () => {
     </>
   );
 };
-export default Dashboard;
