@@ -9,6 +9,7 @@ import Link from "next/link";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { BasicTable } from "@/src/components/BasicTable";
 import { useHomeOrderDetailHistory } from "@/src/services/home/HomeService";
+import { useOrderDetailHistory } from "@/src/services/order/OrderService";
 
 export default () => {
   const todayOrder = [
@@ -207,32 +208,40 @@ export default () => {
             {
               <BasicTable
                 dataKey="OrderDetailID"
-                query={useHomeOrderDetailHistory()}
+                query={useOrderDetailHistory(
+                  "f0e38c50-eb7b-4696-a94e-b7d70bba0b40"
+                )}
               >
                 <Column
-                  field="OrderArrivalTime"
+                  field="ArrivalTime"
                   header="用餐時間"
+                  style={{ width: "20%" }}
                   sortable
-                  style={{ width: "25%" }}
                 />
                 <Column
                   field="BrandName"
                   header="品牌"
+                  style={{ width: "20%" }}
                   sortable
-                  style={{ width: "25%" }}
                 />
                 <Column
                   field="DrinkFoodName"
                   header="品項"
+                  style={{ width: "30%" }}
                   sortable
-                  style={{ width: "25%" }}
+                />
+                <Column
+                  field="Quantity"
+                  header="數量"
+                  style={{ width: "15%" }}
+                  sortable
                 />
                 <Column
                   field="DrinkFoodPrice"
-                  header="價錢"
-                  sortable
-                  style={{ width: "10%" }}
+                  header="單價"
+                  style={{ width: "15%" }}
                   body={(data) => formatCurrency(data.DrinkFoodPrice)}
+                  sortable
                 />
               </BasicTable>
             }

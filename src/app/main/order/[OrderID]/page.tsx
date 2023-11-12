@@ -2,6 +2,7 @@
 
 import { useOrder } from "@/src/services/order/OrderService";
 import { DataView } from "primereact/dataview";
+import { classNames } from "primereact/utils";
 
 export default ({
   params,
@@ -27,11 +28,11 @@ export default ({
     },
     {
       Title: "用餐時間",
-      Content: data?.Data.DrinkTime,
+      Content: data?.Data.ArrivalTime,
     },
     {
-      Title: "團主",
-      Content: data?.Data.CreateName,
+      Title: "團長",
+      Content: data?.Data.OwnerName,
     },
     {
       Title: "地點",
@@ -79,17 +80,25 @@ export default ({
               <div className="flex flex-row align-items-center gap-2 border-bottom-3 border-300">
                 <img
                   src={data?.Data.BrandLogoUrl}
-                  className="h-6rem w-6rem cursor-pointer"
+                  className={classNames(
+                    {
+                      "cursor-pointer": data?.Data.BrandOfficialUrl,
+                    },
+                    "h-6rem w-6rem"
+                  )}
                   alt="Logo圖片"
-                  onClick={() => window.open("https://www.google.com")}
+                  onClick={() => {
+                    const url = data?.Data.BrandOfficialUrl;
+                    if (url) {
+                      window.open(url);
+                    }
+                  }}
                 />
 
                 <div className="flex flex-column gap-2">
-                  <div>
-                    {data?.Data.BrandName} {data?.Data.StoreName}
-                  </div>
-                  <div>店家電話{data?.Data.StorePhone}</div>
-                  <div>店家地址{data?.Data.StoreAddress}</div>
+                  <div>{data?.Data.BrandStoreName}</div>
+                  <div>{data?.Data.StorePhone}</div>
+                  <div>{data?.Data.StoreAddress}</div>
                 </div>
               </div>
 

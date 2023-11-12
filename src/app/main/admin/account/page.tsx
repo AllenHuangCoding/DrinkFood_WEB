@@ -252,11 +252,39 @@ export default () => {
           query={useAccountList()}
           header={header}
         >
-          <Column field="Email" header="信箱/帳號" sortable />
-          <Column field="Name" header="姓名" sortable />
-          <Column field="Brief" header="暱稱" sortable />
+          <Column
+            field="Email"
+            header="信箱/帳號"
+            style={{ width: "25%" }}
+            sortable
+          />
+          <Column
+            field="Name"
+            header="姓名"
+            style={{ width: "10%" }}
+            sortable
+          />
+          <Column
+            field="Brief"
+            header="暱稱"
+            style={{ width: "10%" }}
+            sortable
+          />
+          <Column
+            field="DefaultLunchPaymentDesc"
+            header="午餐付款方式"
+            style={{ width: "15%" }}
+            sortable
+          />
+          <Column
+            field="DefaultDrinkPaymentDesc"
+            header="飲料付款方式"
+            style={{ width: "15%" }}
+            sortable
+          />
           <Column
             header="功能"
+            style={{ width: "25%" }}
             body={(x) => (
               <>
                 <Button
@@ -275,7 +303,7 @@ export default () => {
                     router.push(`./account/history/${x.AccountID}`)
                   }
                 />
-                <Button icon="pi pi-trash" style={{ color: "red" }} text />
+                {/* <Button icon="pi pi-trash" style={{ color: "red" }} text /> */}
               </>
             )}
           />

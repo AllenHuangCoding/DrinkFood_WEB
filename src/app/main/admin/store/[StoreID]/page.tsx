@@ -11,6 +11,7 @@ import { formatCurrency } from "@/src/utils/IntExtension";
 import { Carousel } from "primereact/carousel";
 import { RadioButton } from "primereact/radiobutton";
 import { useState } from "react";
+import { classNames } from "primereact/utils";
 
 const MenuTemplate = (product: any) => {
   return (
@@ -103,9 +104,19 @@ const StoreInfo = (query: UseQueryResult<BaseResponse<any>, Error>) => {
             <div className="flex flex-row align-items-center gap-2">
               <img
                 src={data?.Data.BrandLogoUrl}
-                className="h-6rem w-6rem cursor-pointer"
+                className={classNames(
+                  {
+                    "cursor-pointer": data?.Data.BrandOfficialUrl,
+                  },
+                  "h-6rem w-6rem"
+                )}
                 alt="Logo圖片"
-                onClick={() => window.open("https://www.google.com")}
+                onClick={() => {
+                  const url = data?.Data.BrandOfficialUrl;
+                  if (url) {
+                    window.open(url);
+                  }
+                }}
               />
 
               <div className="flex flex-column gap-2">
@@ -120,9 +131,17 @@ const StoreInfo = (query: UseQueryResult<BaseResponse<any>, Error>) => {
           <div className="col-12 md:col-6">
             <div className="flex flex-column gap-2">
               <div>
-                菜單原圖：<span className="cursor-pointer">點我看菜單</span>
+                菜單原圖：
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    alert("尚未設定菜單圖片");
+                  }}
+                >
+                  點我看菜單
+                </span>
               </div>
-              <div>店家備註：{"這裡寫店家的常態性備註 EX: 不能飯少"}</div>
+              <div>店家備註：{data?.Data.StoreRemark}</div>
               <div className="flex">
                 <div>訂購統計：</div>
                 <div className="flex flex-wrap gap-2">

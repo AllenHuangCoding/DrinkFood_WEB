@@ -14,7 +14,7 @@ const HistoryTable = (AccountID: string) => {
         icon="pi pi-upload"
         severity="info"
         onClick={() => {
-          alert("匯出檔案");
+          alert("功能尚未開放");
         }}
       />
     </div>
@@ -27,19 +27,49 @@ const HistoryTable = (AccountID: string) => {
         query={useOrderDetailHistory(AccountID)}
         header={header}
       >
-        <Column field="OrderArrivalTime" header="用餐時間" sortable />
-        <Column field="BrandName" header="品牌" sortable />
-        <Column field="StoreName" header="店家" sortable />
-        <Column field="DrinkFoodName" header="品項" sortable />
+        <Column
+          field="ArrivalTime"
+          header="用餐時間"
+          style={{ width: "15%" }}
+          sortable
+        />
+        <Column
+          field="BrandStoreName"
+          header="品牌 / 店家"
+          style={{ width: "25%" }}
+          sortable
+        />
+        <Column
+          field="DrinkFoodName"
+          header="品項"
+          style={{ width: "15%" }}
+          sortable
+        />
+        <Column
+          field="Quantity"
+          header="數量"
+          style={{ width: "8%" }}
+          sortable
+        />
         <Column
           field="DrinkFoodPrice"
-          header="價格"
+          header="單價"
+          style={{ width: "8%" }}
           body={(data) => formatCurrency(data.DrinkFoodPrice)}
           sortable
         />
-        <Column field="PaymentDesc" header="付款方式" sortable />
-        <Column field="OfficeName" header="地點" sortable />
-        <Column field="OrderDetailRemark" header="備註" sortable />
+        <Column
+          field="PaymentDesc"
+          header="付款方式"
+          style={{ width: "14%" }}
+          sortable
+        />
+        <Column
+          field="OfficeName"
+          header="地點"
+          style={{ width: "15%" }}
+          sortable
+        />
       </BasicTable>
     </>
   );
