@@ -75,7 +75,7 @@ export default function OrderListPage() {
                 icon="pi pi-search"
                 text
                 onClick={() => {
-                  router.push(`./${x.OrderID}`);
+                  router.push(`../${x.OrderID}`);
                 }}
               />
             </>

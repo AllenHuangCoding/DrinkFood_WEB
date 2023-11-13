@@ -296,14 +296,11 @@ export default function AccountPage() {
                     setVisible(true);
                   }}
                 />
-                <Button
+                {/* <Button
                   icon="pi pi-list"
                   text
-                  onClick={() =>
-                    router.push(`./account/history/${x.AccountID}`)
-                  }
-                />
-                {/* <Button icon="pi pi-trash" style={{ color: "red" }} text /> */}
+                  onClick={() => router.push(`./history/${x.AccountID}`)}
+                /> */}
               </>
             )}
           />
