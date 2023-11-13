@@ -32,24 +32,13 @@ export default function Dashboard() {
   function TodayOrderItem(todayOrder: any) {
     return (
       <>
-        {/* Tooltip 範例
-        <Tooltip target=".custom-target-icon" />
-        <i className="custom-target-icon pi pi-envelope p-text-secondary p-overlay-badge"
-            data-pr-tooltip="No notifications"
-            data-pr-position="right"
-            data-pr-at="right+5 top"
-            data-pr-my="left center-2"
-            style={{ fontSize: '2rem', cursor: 'pointer' }}>
-        </i> 
-        */}
-
-        <span
-          key={todayOrder.OrderDetailID}
-          className="block text-600 font-medium mb-1"
-        >
+        <span className="block text-600 font-medium mb-1">
           {todayOrder.StoreName}
         </span>
-        <ul className="p-0 mx-0 mt-0 mb-4 list-none">
+        <ul
+          key={todayOrder.OrderDetailID}
+          className="p-0 mx-0 mt-0 mb-4 list-none"
+        >
           <li className="flex align-items-center py-2 border-bottom-1 surface-border">
             <span
               className="text-900 line-height-3"
@@ -170,18 +159,15 @@ export default function Dashboard() {
           <div className="card xl:h-20rem">
             <div className="flex align-items-center justify-content-between">
               <h5>今日點餐</h5>
-              {/* <h5>{formatCurrency(195)}元</h5> */}
             </div>
-            {todayOrder.map((x) => {
-              return <>{TodayOrderItem(x)}</>;
-            })}
-            {/* 原始HTML
-            <span className="block text-600 font-medium mb-1">池上木片便當</span>
+            <span className="block text-600 font-medium mb-1">
+              池上木片便當
+            </span>
             <ul className="p-0 mx-0 mt-0 mb-4 list-none">
               <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                 <span className="text-900 line-height-3">
                   招牌飯 (特餐)
-                  <span className="text-blue-500">{' '}140元</span>
+                  <span className="text-blue-500"> 140元</span>
                 </span>
               </li>
             </ul>
@@ -189,12 +175,11 @@ export default function Dashboard() {
             <ul className="p-0 mx-0 mt-0 mb-4 list-none">
               <li className="flex align-items-center py-2 border-bottom-1 surface-border">
                 <span className="text-900 line-height-3">
-                清香烏龍奶霜(L) 微糖/微冰
-                  <span className="text-blue-500">{' '}55元</span>
+                  清香烏龍奶霜(L) 微糖/微冰
+                  <span className="text-blue-500"> 55元</span>
                 </span>
               </li>
-            </ul> 
-            */}
+            </ul>
           </div>
         </div>
 
