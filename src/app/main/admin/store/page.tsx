@@ -50,7 +50,7 @@ export default function StorePage() {
               <Button
                 icon="pi pi-search"
                 text
-                onClick={() => router.push(`./store/${x.StoreID}`)}
+                onClick={() => router.push(`./${x.StoreID}`)}
               />
               <Button
                 icon="pi pi-plus"

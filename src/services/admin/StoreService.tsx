@@ -12,7 +12,7 @@ const useStoreList = () => {
 const useStoreData = (StoreID: string) => {
   return useQuery({
     queryKey: ["GetStore"],
-    queryFn: async () => GET<any[]>(`/Store/GetStore/${StoreID}`),
+    queryFn: async () => GET<any>(`/Store/GetStore/${StoreID}`),
   });
 };
 
