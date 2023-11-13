@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 
-export default () => {
+export default function OrderListPage() {
   const router = useRouter();
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
@@ -84,4 +84,4 @@ export default () => {
       </BasicTable>
     </div>
   );
-};
+}

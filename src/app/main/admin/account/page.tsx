@@ -21,7 +21,7 @@ interface UpdateProfileModel {
   drinkPayment: number | null;
 }
 
-export default () => {
+export default function AccountPage() {
   const lunchDefaultPayments = [
     { ID: 1, name: "儲值金" },
     { ID: 2, name: "現金" },
@@ -311,4 +311,4 @@ export default () => {
       </div>
     </>
   );
-};
+}

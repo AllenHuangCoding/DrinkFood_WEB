@@ -238,13 +238,13 @@ const ScoreCarusel = () => {
   );
 };
 
-export default ({
+export default function StoreDetailPage({
   params,
   searchParams,
 }: {
   params: { StoreID: string };
   searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+}) {
   return (
     <>
       <div className="flex flex-column gap-4">
@@ -254,4 +254,4 @@ export default ({
       </div>
     </>
   );
-};
+}

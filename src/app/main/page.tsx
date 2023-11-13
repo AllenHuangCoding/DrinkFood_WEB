@@ -11,7 +11,7 @@ import { BasicTable } from "@/src/components/BasicTable";
 import { useHomeOrderDetailHistory } from "@/src/services/home/HomeService";
 import { useOrderDetailHistory } from "@/src/services/order/OrderService";
 
-export default () => {
+export default function Dashboard() {
   const todayOrder = [
     {
       OrderDetailID: "1",
@@ -268,4 +268,4 @@ export default () => {
       </div>
     </>
   );
-};
+}

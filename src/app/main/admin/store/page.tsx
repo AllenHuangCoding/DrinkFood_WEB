@@ -6,7 +6,7 @@ import { BasicTable } from "@/src/components/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
 
-export default () => {
+export default function StorePage() {
   const router = useRouter();
 
   return (
@@ -63,4 +63,4 @@ export default () => {
       </BasicTable>
     </div>
   );
-};
+}

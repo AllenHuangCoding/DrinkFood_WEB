@@ -2,7 +2,7 @@
 
 import HistoryTable from "@/src/components/HistoryTable";
 
-export default () => {
+export default function OrderHistoryPage() {
   return (
     <>
       <div className="card">
@@ -10,4 +10,4 @@ export default () => {
       </div>
     </>
   );
-};
+}

@@ -4,13 +4,13 @@ import { useOrder } from "@/src/services/order/OrderService";
 import { DataView } from "primereact/dataview";
 import { classNames } from "primereact/utils";
 
-export default ({
+export default function OrderDetailPage({
   params,
   searchParams,
 }: {
   params: { OrderID: string };
   searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+}) {
   const { data, isError, isLoading } = useOrder(params.OrderID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -136,4 +136,4 @@ export default ({
       </div>
     </>
   );
-};
+}
