@@ -15,7 +15,9 @@ export default function OrderListPage() {
         icon="pi pi-plus"
         severity="info"
         onClick={() => {
-          router.push("./add");
+          alert(
+            "類型、開團時間、抵達時間、結單時間、公開訂單、選擇辦公室、選擇店家、"
+          );
         }}
       />
     </div>

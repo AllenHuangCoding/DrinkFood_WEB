@@ -11,7 +11,8 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { Update } from "next/dist/build/swc";
+import { Checkbox } from "primereact/checkbox";
+import { InputNumber } from "primereact/inputnumber";
 
 interface UpdateProfileModel {
   name: string;
@@ -19,6 +20,9 @@ interface UpdateProfileModel {
   brief: string;
   lunchPayment: number | null;
   drinkPayment: number | null;
+  lunchNotify: boolean;
+  drinkNotify: boolean;
+  closeNotify: number;
 }
 
 export default function AccountPage() {
@@ -43,6 +47,9 @@ export default function AccountPage() {
     brief: "",
     lunchPayment: null,
     drinkPayment: null,
+    lunchNotify: false,
+    drinkNotify: false,
+    closeNotify: 10,
   };
 
   const {
@@ -236,6 +243,62 @@ export default function AccountPage() {
               <small className="p-error">{errors.drinkPayment?.message}</small>
             </div>
 
+            <div>
+              <Controller
+                name="closeNotify"
+                control={control}
+                rules={{ required: "必填欄位 (數值格式0 ~ 15)" }}
+                render={({ field, fieldState }) => (
+                  <InputNumber
+                    id={field.name}
+                    value={field.value}
+                    placeholder="結單前N分鐘提醒"
+                    min={0}
+                    max={15}
+                    className={classNames(
+                      {
+                        "p-invalid": fieldState.invalid,
+                      },
+                      "w-full"
+                    )}
+                    onChange={(e) => field.onChange(e.value)}
+                  />
+                )}
+              />
+              <small className="p-error">{errors.closeNotify?.message}</small>
+            </div>
+
+            <div className="flex justify-content-between align-items-center">
+              <Controller
+                name="lunchNotify"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div className="flex gap-2">
+                    <Checkbox
+                      inputId={field.name}
+                      onChange={(e) => field.onChange(e.checked)}
+                      checked={field.value}
+                    />
+                    <label htmlFor="lunchNotify">我是午餐團常客</label>
+                  </div>
+                )}
+              />
+              <Controller
+                name="drinkNotify"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div className="flex gap-2">
+                    <Checkbox
+                      inputId={field.name}
+                      onChange={(e) => field.onChange(e.checked)}
+                      checked={field.value}
+                    />
+                    <label htmlFor="drinkNotify">我是飲料團常客</label>
+                  </div>
+                )}
+              />
+            </div>
+
             <Button
               type="submit"
               label="確認"
@@ -283,8 +346,15 @@ export default function AccountPage() {
             sortable
           />
           <Column
+            field="CloseNotify"
+            header="結單提醒"
+            style={{ width: "10%" }}
+            body={(x) => <> {`前${x.CloseNotify}分鐘`}</>}
+            sortable
+          />
+          <Column
             header="功能"
-            style={{ width: "25%" }}
+            style={{ width: "10%" }}
             body={(x) => (
               <>
                 <Button
