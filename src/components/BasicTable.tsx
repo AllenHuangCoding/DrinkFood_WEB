@@ -66,6 +66,7 @@ const BasicTable: React.FC<
         header={props.header}
         // scrollable
         // scrollHeight="400px"
+        loading={isLoading}
       >
         {props.children}
       </DataTable>

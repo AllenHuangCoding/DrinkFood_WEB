@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cross-env TARGET_ENV=development next",
+    "test": "cross-env TARGET_ENV=test next",
+    "old_dev": "next dev",
+    "build:dev": "cross-env TARGET_ENV=development next build",
+    "build:test": "cross-env TARGET_ENV=test next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,6 +15,7 @@
     "@tanstack/react-query": "^5.7.2",
     "@tanstack/react-query-devtools": "^5.7.4",
     "axios": "^1.6.0",
+    "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
     "next": "^13.5.6",
     "primeflex": "^3.3.1",

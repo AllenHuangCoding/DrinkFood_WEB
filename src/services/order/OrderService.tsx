@@ -12,10 +12,17 @@ const useOrderList = () => {
 
 const useOrderDetailHistory = (AccountID: string) => {
   return useQuery({
-    queryKey: ["GetOrderDetailHistory"],
+    queryKey: ["GetOrderDetailHistory", AccountID],
     queryFn: async () =>
       GET<any[]>(`/Order/GetOrderDetailHistory/${AccountID}`),
   });
 };
 
-export { useOrderList, useOrderDetailHistory };
+const useOrder = (OrderID: string) => {
+  return useQuery({
+    queryKey: ["GetOrder", OrderID],
+    queryFn: async () => GET<any>(`/Order/GetOrder/${OrderID}`),
+  });
+};
+
+export { useOrder, useOrderList, useOrderDetailHistory };

@@ -21,7 +21,7 @@ interface UpdateProfileModel {
   drinkPayment: number | null;
 }
 
-export default () => {
+export default function AccountPage() {
   const lunchDefaultPayments = [
     { ID: 1, name: "儲值金" },
     { ID: 2, name: "現金" },
@@ -246,33 +246,66 @@ export default () => {
         </div>
       </Dialog>
 
-      <BasicTable dataKey="AccountID" query={useAccountList()} header={header}>
-        <Column field="Email" header="信箱/帳號" sortable />
-        <Column field="Name" header="姓名" sortable />
-        <Column field="Brief" header="暱稱" sortable />
-        <Column
-          header="功能"
-          body={(x) => (
-            <>
-              <Button
-                icon="pi pi-user-edit"
-                text
-                onClick={() => {
-                  setUserData(x);
-                  setDialogHeader("編輯");
-                  setVisible(true);
-                }}
-              />
-              <Button
-                icon="pi pi-list"
-                text
-                onClick={() => router.push(`./account/history/${x.AccountID}`)}
-              />
-              <Button icon="pi pi-trash" style={{ color: "red" }} text />
-            </>
-          )}
-        />
-      </BasicTable>
+      <div className="card">
+        <BasicTable
+          dataKey="AccountID"
+          query={useAccountList()}
+          header={header}
+        >
+          <Column
+            field="Email"
+            header="信箱/帳號"
+            style={{ width: "25%" }}
+            sortable
+          />
+          <Column
+            field="Name"
+            header="姓名"
+            style={{ width: "10%" }}
+            sortable
+          />
+          <Column
+            field="Brief"
+            header="暱稱"
+            style={{ width: "10%" }}
+            sortable
+          />
+          <Column
+            field="DefaultLunchPaymentDesc"
+            header="午餐付款方式"
+            style={{ width: "15%" }}
+            sortable
+          />
+          <Column
+            field="DefaultDrinkPaymentDesc"
+            header="飲料付款方式"
+            style={{ width: "15%" }}
+            sortable
+          />
+          <Column
+            header="功能"
+            style={{ width: "25%" }}
+            body={(x) => (
+              <>
+                <Button
+                  icon="pi pi-user-edit"
+                  text
+                  onClick={() => {
+                    setUserData(x);
+                    setDialogHeader("編輯");
+                    setVisible(true);
+                  }}
+                />
+                {/* <Button
+                  icon="pi pi-list"
+                  text
+                  onClick={() => router.push(`./history/${x.AccountID}`)}
+                /> */}
+              </>
+            )}
+          />
+        </BasicTable>
+      </div>
     </>
   );
-};
+}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosApiClient = axios.create({
-  baseURL: "https://localhost:44374/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
 });
 
 // 增加自訂擴展方法

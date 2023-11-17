@@ -1,12 +1,19 @@
-"use client";
 import HistoryTable from "@/src/components/HistoryTable";
 
-export default ({
+export async function generateStaticParams() {
+  return [{ AccountID: "5471fa67-70fc-48b5-908f-15430112be36" }];
+}
+
+export default function AccountHistoryPage({
   params,
   searchParams,
 }: {
   params: { AccountID: string };
   searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  return <>{HistoryTable(params.AccountID)}</>;
-};
+}) {
+  return (
+    <>
+      <div className="card">{/* {HistoryTable(params.AccountID)} */}</div>
+    </>
+  );
+}

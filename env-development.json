@@ -1,0 +1,4 @@
+{
+  "NEXT_PUBLIC_API_BASEURL": "https://localhost:44374/api",
+  "NEXT_PUBLIC_WEB_BASEURL": "http://localhost:5173/"
+}

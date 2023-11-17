@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 
-export default () => {
+export default function OrderListPage() {
   const router = useRouter();
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
@@ -22,24 +22,66 @@ export default () => {
   );
 
   return (
-    <BasicTable dataKey="OrderID" query={useOrderList()} header={header}>
-      <Column field="OrderArrivalTime" header="用餐時間" sortable />
-      <Column field="BrandName" header="品牌" sortable />
-      <Column field="StoreName" header="店家" sortable />
-      <Column field="OpenTime" header="開放時間" sortable />
-      <Column field="CloseTime" header="結單時間" sortable />
-      <Column field="OfficeName" header="地點" sortable />
-      <Column field="CreateName" header="團長" sortable />
-      <Column field="OrderStatusDesc" header="訂單狀態" sortable />
-      <Column field="Remark" header="備註" sortable />
-      <Column
-        header="功能"
-        body={() => (
-          <>
-            <Button icon="pi pi-search" text />
-          </>
-        )}
-      />
-    </BasicTable>
+    <div className="card">
+      <BasicTable dataKey="OrderID" query={useOrderList()} header={header}>
+        <Column
+          field="ArrivalTime"
+          header="用餐時間"
+          style={{ width: "15%" }}
+          sortable
+        />
+        <Column
+          field="BrandStoreName"
+          header="品牌 / 店家"
+          style={{ width: "25%" }}
+          sortable
+        />
+        <Column
+          field="CloseTime"
+          header="結單時間"
+          style={{ width: "15%" }}
+          sortable
+        />
+        <Column
+          field="OfficeName"
+          header="地點"
+          style={{ width: "10%" }}
+          sortable
+        />
+        <Column
+          field="OwnerName"
+          header="團長"
+          style={{ width: "8%" }}
+          sortable
+        />
+        <Column
+          field="OrderStatusDesc"
+          header="訂單狀態"
+          style={{ width: "12%" }}
+          sortable
+        />
+        <Column
+          field="Remark"
+          header="備註"
+          style={{ width: "10%" }}
+          sortable
+        />
+        <Column
+          header="功能"
+          style={{ width: "10%" }}
+          body={(x) => (
+            <>
+              <Button
+                icon="pi pi-search"
+                text
+                onClick={() => {
+                  router.push(`../${x.OrderID}`);
+                }}
+              />
+            </>
+          )}
+        />
+      </BasicTable>
+    </div>
   );
-};
+}
