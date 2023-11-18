@@ -15,12 +15,14 @@ const OrderDetail = (params: { OrderID: string }) => {
       {data?.Data.Detail.map((x: any) => {
         return (
           <>
-            <div className="p-3 bg-gray-100">
+            <div className="p-3 bg-gray-100" key={x.Name}>
               <div>{`${x.Name} / N元 / N份`}</div>
               {x.OrderDetailList.map((y: any) => {
                 return (
                   <>
-                    <div>{`${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice} / N份 / 這裡是訂單備註`}</div>
+                    <div
+                      key={y.OrderDetailID}
+                    >{`${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice} / N份 / 這裡是訂單備註`}</div>
                   </>
                 );
               })}

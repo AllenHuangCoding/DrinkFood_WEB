@@ -2,7 +2,7 @@
 const nextConfig = {
     env: getEnvConfig(),
     trailingSlash: true,
-    output: 'export',
+    // output: 'export',
     distDir: 'out',
 }
 

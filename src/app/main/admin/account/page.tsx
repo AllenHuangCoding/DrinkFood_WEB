@@ -104,6 +104,7 @@ export default function AccountPage() {
 
   return (
     <>
+      {/* <ProfileDialog selected={visible} /> */}
       <Dialog
         header={dialogHeader}
         visible={visible}
@@ -354,7 +355,7 @@ export default function AccountPage() {
           />
           <Column
             header="功能"
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
             body={(x) => (
               <>
                 <Button
@@ -366,11 +367,11 @@ export default function AccountPage() {
                     setVisible(true);
                   }}
                 />
-                {/* <Button
+                <Button
                   icon="pi pi-list"
                   text
                   onClick={() => router.push(`./history/${x.AccountID}`)}
-                /> */}
+                />
               </>
             )}
           />
