@@ -15,6 +15,7 @@ const AppFooter = () => {
         }.svg`}
         alt="Logo"
         height="20"
+        width="40"
         className="mr-2"
       />
       by

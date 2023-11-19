@@ -41,8 +41,9 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           src={`/layout/images/logo-${
             layoutConfig.colorScheme !== "light" ? "white" : "dark"
           }.svg`}
-          className="w-5 h-2rem"
           alt="logo"
+          width="80"
+          height="32"
         />
         <span>SAKAI</span>
       </Link>
