@@ -36,8 +36,8 @@ const useCreateOrderDialogOptions = () => {
   });
 };
 
-const useCreateOrder = (Param: RequestPostOrderModel) => {
-  POST<any>("/Order/PostOrder", Param);
+const CreateOrder = (Param: RequestPostOrderModel) => {
+  return POST<any>("/Order/PostOrder", Param);
 };
 
 export {
@@ -45,5 +45,5 @@ export {
   useOrderList,
   useOrderDetailHistory,
   useCreateOrderDialogOptions,
-  useCreateOrder,
+  CreateOrder,
 };

@@ -7,6 +7,7 @@ import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import Image from "next/image";
+import { Login } from "../services/admin/AccountService";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ const LoginPage = () => {
                 alt="Image"
                 height="50"
                 className="mb-3"
+                width="50"
               />
               <div className="text-900 text-3xl font-medium mb-3">Welcome</div>
               <span className="text-600 font-medium">趕快登入點餐</span>
@@ -100,7 +102,13 @@ const LoginPage = () => {
                 label="登入"
                 className="w-full p-3 text-xl"
                 onClick={() => {
-                  router.push("/main");
+                  Login({
+                    Email: "allenhuang@chase.com.tw",
+                    Password: "allenhuang@chase.com.tw",
+                  }).then((data) => {
+                    localStorage.setItem("ID", data.AccountID);
+                    router.push("/main");
+                  });
                 }}
               ></Button>
             </div>

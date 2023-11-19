@@ -16,15 +16,21 @@
 import * as runtime from '../runtime';
 import type {
   RequestCreateAccountModel,
+  RequestLoginModel,
   RequestUpdateProfileModel,
+  ResponseLoginModel,
   ResponseModel,
   ViewAccount,
 } from '../models/index';
 import {
     RequestCreateAccountModelFromJSON,
     RequestCreateAccountModelToJSON,
+    RequestLoginModelFromJSON,
+    RequestLoginModelToJSON,
     RequestUpdateProfileModelFromJSON,
     RequestUpdateProfileModelToJSON,
+    ResponseLoginModelFromJSON,
+    ResponseLoginModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
     ViewAccountFromJSON,
@@ -35,9 +41,8 @@ export interface ApiAccountCreateAccountPostRequest {
     requestCreateAccountModel?: RequestCreateAccountModel;
 }
 
-export interface ApiAccountLoginGetRequest {
-    number?: string;
-    password?: string;
+export interface ApiAccountLoginPostRequest {
+    requestLoginModel?: RequestLoginModel;
 }
 
 export interface ApiAccountUpdateProfileAccountIDPutRequest {
@@ -103,33 +108,28 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiAccountLoginGetRaw(requestParameters: ApiAccountLoginGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountLoginPostRaw(requestParameters: ApiAccountLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseLoginModel>> {
         const queryParameters: any = {};
-
-        if (requestParameters.number !== undefined) {
-            queryParameters['Number'] = requestParameters.number;
-        }
-
-        if (requestParameters.password !== undefined) {
-            queryParameters['Password'] = requestParameters.password;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
         const response = await this.request({
             path: `/api/Account/Login`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: RequestLoginModelToJSON(requestParameters.requestLoginModel),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseLoginModelFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiAccountLoginGet(requestParameters: ApiAccountLoginGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
-        const response = await this.apiAccountLoginGetRaw(requestParameters, initOverrides);
+    async apiAccountLoginPost(requestParameters: ApiAccountLoginPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseLoginModel> {
+        const response = await this.apiAccountLoginPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
