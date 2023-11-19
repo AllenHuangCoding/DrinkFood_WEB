@@ -3,7 +3,11 @@
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
 
-const ScoreTemplate = (score: any) => {
+interface ScoreMessageModel {
+  message: string;
+}
+
+const ScoreTemplate = (score: ScoreMessageModel) => {
   return (
     <>
       <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">

@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { GET } from "../httpClient";
+import { ResponseStoreListModel } from "@/src/models/models/ResponseStoreListModel";
+import { GroupDrinkFoodModel } from "@/src/models/models/GroupDrinkFoodModel";
 
 // 店家清單API
 const useStoreList = () => {
   return useQuery({
     queryKey: ["GetStoreList"],
-    queryFn: async () => GET<any[]>("/Store/GetStoreList"),
+    queryFn: async () => GET<ResponseStoreListModel[]>("/Store/GetStoreList"),
   });
 };
 
 const useStoreData = (StoreID: string) => {
   return useQuery({
     queryKey: ["GetStore"],
-    queryFn: async () => GET<any>(`/Store/GetStore/${StoreID}`),
+    queryFn: async () =>
+      GET<ResponseStoreListModel>(`/Store/GetStore/${StoreID}`),
   });
 };
 
@@ -20,7 +23,8 @@ const useStoreData = (StoreID: string) => {
 const useDrinkFoodList = (StoreID: string) => {
   return useQuery({
     queryKey: ["GetDrinkFoodList"],
-    queryFn: async () => GET<any[]>(`/DrinkFood/GetDrinkFoodList/${StoreID}`),
+    queryFn: async () =>
+      GET<GroupDrinkFoodModel[]>(`/DrinkFood/GetDrinkFoodList/${StoreID}`),
   });
 };
 

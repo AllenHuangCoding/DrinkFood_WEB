@@ -1,9 +1,11 @@
+"use client";
+
 import OrderDetail from "./OrderDetail";
 import OrderInfo from "./OrderInfo";
 
-export async function generateStaticParams() {
-  return [{ OrderID: "5471fa67-70fc-48b5-908f-15430112be36" }];
-}
+// export async function generateStaticParams() {
+//   return [{ OrderID: "5471fa67-70fc-48b5-908f-15430112be36" }];
+// }
 
 export default function OrderDetailPage({
   params,

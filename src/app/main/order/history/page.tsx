@@ -5,9 +5,7 @@ import HistoryTable from "@/src/components/HistoryTable";
 export default function OrderHistoryPage() {
   return (
     <>
-      <div className="card">
-        {HistoryTable("F0E38C50-EB7B-4696-A94E-B7D70BBA0B40")}
-      </div>
+      <div className="card">{HistoryTable(localStorage.getItem("ID")!)}</div>
     </>
   );
 }

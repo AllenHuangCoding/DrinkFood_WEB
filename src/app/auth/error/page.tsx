@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "primereact/button";
+import Image from "next/image";
 
 const ErrorPage = () => {
   const router = useRouter();
@@ -10,10 +11,12 @@ const ErrorPage = () => {
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
       <div className="flex flex-column align-items-center justify-content-center">
-        <img
+        <Image
           src="/demo/images/error/logo-error.svg"
           alt="Sakai logo"
-          className="mb-5 w-6rem flex-shrink-0"
+          className="mb-5 flex-shrink-0"
+          width="100"
+          height="100"
         />
         <div
           style={{
@@ -35,11 +38,13 @@ const ErrorPage = () => {
             </div>
             <h1 className="text-900 font-bold text-5xl mb-2">Error Occured</h1>
             <div className="text-600 mb-5">Something went wrong.</div>
-            <img
+            <Image
               src="/demo/images/error/asset-error.svg"
               alt="Error"
               className="mb-5"
-              width="80%"
+              width={0}
+              height={0}
+              style={{ width: "80%", height: "auto" }}
             />
             <Button
               icon="pi pi-arrow-left"

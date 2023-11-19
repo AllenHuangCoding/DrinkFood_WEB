@@ -20,7 +20,7 @@ const BasicTable: React.FC<
   const { data, isError, isLoading } = props.query;
 
   if (isLoading) {
-    const items: any[] = Array.from({ length: 3 }, (v, i) => i);
+    const items: number[] = Array.from({ length: 3 }, (v, i) => i);
 
     return (
       <>

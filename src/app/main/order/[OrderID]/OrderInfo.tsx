@@ -3,6 +3,12 @@
 import { useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
+import Image from "next/image";
+
+interface TitleContentCell {
+  Title: string;
+  Content: string | null | undefined;
+}
 
 const OrderInfo = (params: { OrderID: string }) => {
   const { data, isError, isLoading } = useOrder(params.OrderID);
@@ -10,7 +16,7 @@ const OrderInfo = (params: { OrderID: string }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
-  const orderInfo: any[] = [];
+  const orderInfo: TitleContentCell[] = [];
   orderInfo.push(
     {
       Title: "訂單編號",
@@ -42,7 +48,7 @@ const OrderInfo = (params: { OrderID: string }) => {
     }
   );
 
-  const orderInfoTemplate = (orderInfo: any) => {
+  const orderInfoTemplate = (orderInfo: TitleContentCell) => {
     return (
       <div className="col-6 sm:col-12">
         <div className="flex flex-column xl:flex-row xl:align-items-start p-3 gap-4">
@@ -64,22 +70,24 @@ const OrderInfo = (params: { OrderID: string }) => {
   return (
     <>
       <div className="flex flex-row align-items-center gap-2 border-bottom-3 border-300">
-        <img
-          src={data?.Data.BrandLogoUrl}
-          className={classNames(
-            {
-              "cursor-pointer": data?.Data.BrandOfficialUrl,
-            },
-            "h-6rem w-6rem"
-          )}
-          alt="Logo圖片"
-          onClick={() => {
-            const url = data?.Data.BrandOfficialUrl;
-            if (url) {
-              window.open(url);
-            }
-          }}
-        />
+        {data?.Data.BrandLogoUrl && (
+          <Image
+            src={data?.Data.BrandLogoUrl}
+            className={classNames(
+              {
+                "cursor-pointer": data?.Data.BrandOfficialUrl,
+              },
+              "h-6rem w-6rem"
+            )}
+            alt="Logo圖片"
+            onClick={() => {
+              const url = data?.Data.BrandOfficialUrl;
+              if (url) {
+                window.open(url);
+              }
+            }}
+          />
+        )}
 
         <div className="flex flex-column gap-2">
           <div>{data?.Data.BrandStoreName}</div>
