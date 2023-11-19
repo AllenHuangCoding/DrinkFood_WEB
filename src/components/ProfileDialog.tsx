@@ -1,11 +1,7 @@
 "use client";
 
-import { useAccountList } from "../../../../services/admin/AccountService";
-import { Column } from "primereact/column";
-import { useEffect, useState } from "react";
-import { BasicTable } from "@/src/components/BasicTable";
+import { useEffect } from "react";
 import { Button } from "primereact/button";
-import { useRouter } from "next/navigation";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
@@ -25,7 +21,17 @@ interface UpdateProfileModel {
   closeNotify: number;
 }
 
-export default function ProfileDialog({ selected }: { selected: boolean }) {
+export default function ProfileDialog({
+  visible,
+  userData,
+  action,
+  closeDialog,
+}: {
+  visible: boolean;
+  userData: any | null;
+  action: "View" | "Create" | "Update";
+  closeDialog: () => void;
+}) {
   const lunchDefaultPayments = [
     { ID: 1, name: "儲值金" },
     { ID: 2, name: "現金" },
@@ -36,9 +42,6 @@ export default function ProfileDialog({ selected }: { selected: boolean }) {
     { ID: 2, name: "Line Pay Money" },
     { ID: 3, name: "Line Bank" },
   ];
-
-  const [dialogHeader, setDialogHeader] = useState<string>("基本資料");
-  const [userData, setUserData] = useState<any | null>(null);
 
   const defaultValues: UpdateProfileModel = {
     name: "",
@@ -51,6 +54,8 @@ export default function ProfileDialog({ selected }: { selected: boolean }) {
     closeNotify: 10,
   };
 
+  var dialogHeader: string = "";
+
   const {
     control,
     formState: { errors },
@@ -62,23 +67,6 @@ export default function ProfileDialog({ selected }: { selected: boolean }) {
     console.log(data);
     reset();
   };
-
-  const header = (
-    <div className="flex align-items-center justify-content-end gap-2">
-      <Button
-        label="新增"
-        icon="pi pi-plus"
-        severity="info"
-        onClick={() => {
-          setUserData(null);
-          setDialogHeader("新增");
-          selected = false;
-        }}
-      />
-    </div>
-  );
-
-  const router = useRouter();
 
   useEffect(() => {
     console.log(userData);
@@ -101,12 +89,26 @@ export default function ProfileDialog({ selected }: { selected: boolean }) {
     }
   }, [userData, reset]);
 
+  switch (action) {
+    case "View":
+      dialogHeader = "基本資料";
+      break;
+    case "Create":
+      dialogHeader = "新增使用者";
+      break;
+    case "Update":
+      dialogHeader = "編輯使用者";
+      break;
+  }
+
   return (
     <Dialog
       header={dialogHeader}
-      visible={selected}
+      visible={visible}
       className="w-8 md:w-6 lg:w-5 xl:w-3"
-      onHide={() => (selected = false)}
+      onHide={() => {
+        closeDialog();
+      }}
     >
       <div className="flex justify-content-center">
         <form
