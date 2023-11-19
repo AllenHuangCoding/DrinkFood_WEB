@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './GroupDrinkFoodModel';
 export * from './GroupOrderDetailModel';
+export * from './OptionsModel';
 export * from './OrderListModel';
 export * from './RequestCreateAccountModel';
 export * from './RequestPostOrderDetailModel';
@@ -11,6 +12,7 @@ export * from './RequestPutPaymentDateTimeModel';
 export * from './RequestPutPaymentModel';
 export * from './RequestUpdateProfileModel';
 export * from './ResponseModel';
+export * from './ResponseOrderDialogOptions';
 export * from './ResponseStoreListModel';
 export * from './ViewAccount';
 export * from './ViewDetailHistory';

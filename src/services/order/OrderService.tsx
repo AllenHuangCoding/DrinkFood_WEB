@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { GET } from "../httpClient";
+import { GET, POST } from "../httpClient";
 import Account from "@/src/app/main/admin/account/page";
 import { OrderListModel } from "@/src/models/models/OrderListModel";
 import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
 import { ViewOrderAndDetail } from "@/src/models/models/ViewOrderAndDetail";
+import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel";
 
 // 成員API
 const useOrderList = () => {
@@ -28,4 +29,21 @@ const useOrder = (OrderID: string) => {
   });
 };
 
-export { useOrder, useOrderList, useOrderDetailHistory };
+const useCreateOrderDialogOptions = () => {
+  return useQuery({
+    queryKey: ["GetCreateOrderDialogOptions"],
+    queryFn: async () => GET<any>("/Order/GetCreateOrderDialogOptions"),
+  });
+};
+
+const useCreateOrder = (Param: RequestPostOrderModel) => {
+  POST<any>("/Order/PostOrder", Param);
+};
+
+export {
+  useOrder,
+  useOrderList,
+  useOrderDetailHistory,
+  useCreateOrderDialogOptions,
+  useCreateOrder,
+};

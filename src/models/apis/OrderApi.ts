@@ -22,6 +22,7 @@ import type {
   RequestPutPaymentDateTimeModel,
   RequestPutPaymentModel,
   ResponseModel,
+  ResponseOrderDialogOptions,
   ViewDetailHistory,
   ViewOrderAndDetail,
 } from '../models/index';
@@ -40,6 +41,8 @@ import {
     RequestPutPaymentModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
+    ResponseOrderDialogOptionsFromJSON,
+    ResponseOrderDialogOptionsToJSON,
     ViewDetailHistoryFromJSON,
     ViewDetailHistoryToJSON,
     ViewOrderAndDetailFromJSON,
@@ -52,6 +55,10 @@ export interface ApiOrderCloseOrderOrderIDPutRequest {
 
 export interface ApiOrderDeleteOrderDetailOrderDetailIDDeleteRequest {
     orderDetailID: string;
+}
+
+export interface ApiOrderGetCreateOrderDialogOptionsGetRequest {
+    typeID?: string;
 }
 
 export interface ApiOrderGetOrderDetailHistoryAccountIDGetRequest {
@@ -143,6 +150,34 @@ export class OrderApi extends runtime.BaseAPI {
      */
     async apiOrderDeleteOrderDetailOrderDetailIDDelete(requestParameters: ApiOrderDeleteOrderDetailOrderDetailIDDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
         const response = await this.apiOrderDeleteOrderDetailOrderDetailIDDeleteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiOrderGetCreateOrderDialogOptionsGetRaw(requestParameters: ApiOrderGetCreateOrderDialogOptionsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseOrderDialogOptions>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.typeID !== undefined) {
+            queryParameters['TypeID'] = requestParameters.typeID;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/Order/GetCreateOrderDialogOptions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseOrderDialogOptionsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiOrderGetCreateOrderDialogOptionsGet(requestParameters: ApiOrderGetCreateOrderDialogOptionsGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseOrderDialogOptions> {
+        const response = await this.apiOrderGetCreateOrderDialogOptionsGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
-// import { LayoutContext } from '../../../../layout/context/layoutcontext';
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import Image from "next/image";
@@ -101,7 +99,9 @@ const LoginPage = () => {
               <Button
                 label="登入"
                 className="w-full p-3 text-xl"
-                onClick={() => router.push("/main")}
+                onClick={() => {
+                  router.push("/main");
+                }}
               ></Button>
             </div>
           </div>

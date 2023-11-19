@@ -42,25 +42,31 @@ export interface RequestPostOrderModel {
      * @type {string}
      * @memberof RequestPostOrderModel
      */
-    OrderTypeID?: string;
+    TypeID?: string;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    ArrivalTime?: Date;
+    ArrivalTime?: Date | undefined;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    OpenTime?: Date;
+    OpenTime?: Date | undefined;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    CloseTime?: Date;
+    CloseTime?: Date | undefined;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RequestPostOrderModel
+     */
+    IsPublic: boolean;
 }
 
 /**
@@ -85,10 +91,11 @@ export function RequestPostOrderModelFromJSONTyped(json: any, ignoreDiscriminato
         'OfficeID': !exists(json, 'OfficeID') ? undefined : json['OfficeID'],
         'CreateAccountID': !exists(json, 'CreateAccountID') ? undefined : json['CreateAccountID'],
         'StoreID': !exists(json, 'StoreID') ? undefined : json['StoreID'],
-        'OrderTypeID': !exists(json, 'OrderTypeID') ? undefined : json['OrderTypeID'],
+        'TypeID': !exists(json, 'TypeID') ? undefined : json['TypeID'],
         'ArrivalTime': !exists(json, 'ArrivalTime') ? undefined : (new Date(json['ArrivalTime'])),
         'OpenTime': !exists(json, 'OpenTime') ? undefined : (new Date(json['OpenTime'])),
         'CloseTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
+        'IsPublic': !exists(json, 'IsPublic') ? undefined : json['IsPublic'],
     };
 }
 
@@ -104,10 +111,11 @@ export function RequestPostOrderModelToJSON(value?: RequestPostOrderModel | null
         'OfficeID': value.OfficeID,
         'CreateAccountID': value.CreateAccountID,
         'StoreID': value.StoreID,
-        'OrderTypeID': value.OrderTypeID,
+        'TypeID': value.TypeID,
         'ArrivalTime': value.ArrivalTime === undefined ? undefined : (value.ArrivalTime.toISOString()),
         'OpenTime': value.OpenTime === undefined ? undefined : (value.OpenTime.toISOString()),
         'CloseTime': value.CloseTime === undefined ? undefined : (value.CloseTime.toISOString()),
+        'IsPublic': value.IsPublic,
     };
 }
 

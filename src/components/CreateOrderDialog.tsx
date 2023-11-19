@@ -8,17 +8,11 @@ import { classNames } from "primereact/utils";
 import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from "primereact/inputnumber";
 import { Calendar } from "primereact/calendar";
-
-interface CreateOrderModel {
-  createAccountID: string | null;
-  officeID: string | null;
-  storeID: string | null;
-  orderTypeID: string | null;
-  arrivalTime: Date | null;
-  openTime: Date | null;
-  closeTime: Date | null;
-  isPublic: boolean;
-}
+import {
+  useCreateOrder,
+  useCreateOrderDialogOptions,
+} from "../services/order/OrderService";
+import { RequestPostOrderModel } from "../models/models/RequestPostOrderModel";
 
 export default function CreateOrderDialog({
   visible,
@@ -27,25 +21,15 @@ export default function CreateOrderDialog({
   visible: boolean;
   closeDialog: () => void;
 }) {
-  const typeDefaultValue = [
-    { ID: 1, name: "午餐" },
-    { ID: 2, name: "飲料" },
-    { ID: 2, name: "下午茶" },
-  ];
-
-  const officeDefaultValue = [{ ID: 1, name: "建國辦公室" }];
-
-  const storeDefaultValue = [{ ID: 1, name: "可不可熟成紅茶" }];
-
-  const defaultValues: CreateOrderModel = {
-    createAccountID: null,
-    officeID: null,
-    storeID: null,
-    orderTypeID: null,
-    arrivalTime: null,
-    openTime: null,
-    closeTime: null,
-    isPublic: true,
+  const defaultValues: RequestPostOrderModel = {
+    CreateAccountID: "",
+    OfficeID: "",
+    StoreID: "",
+    TypeID: "",
+    ArrivalTime: undefined,
+    OpenTime: undefined,
+    CloseTime: undefined,
+    IsPublic: true,
   };
 
   const {
@@ -55,10 +39,13 @@ export default function CreateOrderDialog({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (data: CreateOrderModel) => {
-    console.log(data);
+  const onSubmit = (param: RequestPostOrderModel) => {
+    console.log(param);
+    useCreateOrder(param);
     reset();
   };
+
+  const { data } = useCreateOrderDialogOptions();
 
   return (
     <Dialog
@@ -74,15 +61,15 @@ export default function CreateOrderDialog({
         >
           <div>
             <Controller
-              name="officeID"
+              name="OfficeID"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
                 <Dropdown
                   id={field.name}
                   value={field.value}
-                  options={officeDefaultValue}
-                  optionLabel="name"
+                  options={data?.Data.Office}
+                  optionLabel="Text"
                   optionValue="ID"
                   placeholder="選擇辦公室"
                   className={classNames(
@@ -97,48 +84,20 @@ export default function CreateOrderDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.officeID?.message}</small>
+            <small className="p-error">{errors.OfficeID?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="storeID"
+              name="TypeID"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
                 <Dropdown
                   id={field.name}
                   value={field.value}
-                  options={storeDefaultValue}
-                  optionLabel="name"
-                  optionValue="ID"
-                  placeholder="選擇店家"
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                  onChange={(e) => {
-                    field.onChange(e.value);
-                  }}
-                />
-              )}
-            />
-            <small className="p-error">{errors.storeID?.message}</small>
-          </div>
-
-          <div>
-            <Controller
-              name="orderTypeID"
-              control={control}
-              rules={{ required: "必填欄位" }}
-              render={({ field, fieldState }) => (
-                <Dropdown
-                  id={field.name}
-                  value={field.value}
-                  options={typeDefaultValue}
-                  optionLabel="name"
+                  options={data?.Data.Type}
+                  optionLabel="Text"
                   optionValue="ID"
                   placeholder="選擇類型"
                   className={classNames(
@@ -153,12 +112,40 @@ export default function CreateOrderDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.orderTypeID?.message}</small>
+            <small className="p-error">{errors.TypeID?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="arrivalTime"
+              name="StoreID"
+              control={control}
+              rules={{ required: "必填欄位" }}
+              render={({ field, fieldState }) => (
+                <Dropdown
+                  id={field.name}
+                  value={field.value}
+                  options={data?.Data.Store}
+                  optionLabel="Text"
+                  optionValue="ID"
+                  placeholder="選擇店家"
+                  className={classNames(
+                    {
+                      "p-invalid": fieldState.invalid,
+                    },
+                    "w-full"
+                  )}
+                  onChange={(e) => {
+                    field.onChange(e.value);
+                  }}
+                />
+              )}
+            />
+            <small className="p-error">{errors.StoreID?.message}</small>
+          </div>
+
+          <div>
+            <Controller
+              name="ArrivalTime"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -179,12 +166,12 @@ export default function CreateOrderDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.arrivalTime?.message}</small>
+            <small className="p-error">{errors.ArrivalTime?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="openTime"
+              name="OpenTime"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -205,12 +192,12 @@ export default function CreateOrderDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.openTime?.message}</small>
+            <small className="p-error">{errors.OpenTime?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="closeTime"
+              name="CloseTime"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -231,12 +218,12 @@ export default function CreateOrderDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.closeTime?.message}</small>
+            <small className="p-error">{errors.CloseTime?.message}</small>
           </div>
 
           <div className="flex justify-content-between align-items-center">
             <Controller
-              name="isPublic"
+              name="IsPublic"
               control={control}
               render={({ field, fieldState }) => (
                 <div className="flex gap-2">

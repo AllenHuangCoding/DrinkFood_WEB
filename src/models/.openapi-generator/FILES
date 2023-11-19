@@ -11,6 +11,7 @@ apis/index.ts
 index.ts
 models/GroupDrinkFoodModel.ts
 models/GroupOrderDetailModel.ts
+models/OptionsModel.ts
 models/OrderListModel.ts
 models/RequestCreateAccountModel.ts
 models/RequestPostOrderDetailModel.ts
@@ -20,6 +21,7 @@ models/RequestPutPaymentDateTimeModel.ts
 models/RequestPutPaymentModel.ts
 models/RequestUpdateProfileModel.ts
 models/ResponseModel.ts
+models/ResponseOrderDialogOptions.ts
 models/ResponseStoreListModel.ts
 models/ViewAccount.ts
 models/ViewDetailHistory.ts
