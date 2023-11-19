@@ -24,13 +24,13 @@ export interface RequestPutOrderTimeModel {
      * @type {Date}
      * @memberof RequestPutOrderTimeModel
      */
-    drinkTime?: Date;
+    DrinkTime?: Date;
     /**
      * 
      * @type {Date}
      * @memberof RequestPutOrderTimeModel
      */
-    closeTime?: Date;
+    CloseTime?: Date;
 }
 
 /**
@@ -52,8 +52,8 @@ export function RequestPutOrderTimeModelFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'drinkTime': !exists(json, 'DrinkTime') ? undefined : (new Date(json['DrinkTime'])),
-        'closeTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
+        'DrinkTime': !exists(json, 'DrinkTime') ? undefined : (new Date(json['DrinkTime'])),
+        'CloseTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
     };
 }
 
@@ -66,8 +66,8 @@ export function RequestPutOrderTimeModelToJSON(value?: RequestPutOrderTimeModel 
     }
     return {
         
-        'DrinkTime': value.drinkTime === undefined ? undefined : (value.drinkTime.toISOString()),
-        'CloseTime': value.closeTime === undefined ? undefined : (value.closeTime.toISOString()),
+        'DrinkTime': value.DrinkTime === undefined ? undefined : (value.DrinkTime.toISOString()),
+        'CloseTime': value.CloseTime === undefined ? undefined : (value.CloseTime.toISOString()),
     };
 }
 

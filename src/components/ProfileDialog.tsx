@@ -9,17 +9,8 @@ import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from "primereact/inputnumber";
-
-interface UpdateProfileModel {
-  name: string;
-  email: string;
-  brief: string;
-  lunchPayment: number | null;
-  drinkPayment: number | null;
-  lunchNotify: boolean;
-  drinkNotify: boolean;
-  closeNotify: number;
-}
+import { ViewAccount } from "../models/models/ViewAccount";
+import { RequestCreateAccountModel } from "../models/models/RequestCreateAccountModel";
 
 export default function ProfileDialog({
   visible,
@@ -28,7 +19,7 @@ export default function ProfileDialog({
   closeDialog,
 }: {
   visible: boolean;
-  userData: any | null;
+  userData: RequestCreateAccountModel | null;
   action: "View" | "Create" | "Update";
   closeDialog: () => void;
 }) {
@@ -43,15 +34,15 @@ export default function ProfileDialog({
     { ID: 3, name: "Line Bank" },
   ];
 
-  const defaultValues: UpdateProfileModel = {
-    name: "",
-    email: "",
-    brief: "",
-    lunchPayment: null,
-    drinkPayment: null,
-    lunchNotify: false,
-    drinkNotify: false,
-    closeNotify: 10,
+  const defaultValues: RequestCreateAccountModel = {
+    Name: "",
+    Email: "",
+    Brief: "",
+    LunchDefaultPayment: null,
+    DrinkDefaultPayment: null,
+    LunchNotify: false,
+    DrinkNotify: false,
+    CloseNotify: 10,
   };
 
   var dialogHeader: string = "";
@@ -63,7 +54,7 @@ export default function ProfileDialog({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: RequestCreateAccountModel) => {
     console.log(data);
     reset();
   };
@@ -72,19 +63,19 @@ export default function ProfileDialog({
     console.log(userData);
     if (userData) {
       reset({
-        name: userData.Name,
-        brief: userData.Brief,
-        email: userData.Email,
-        lunchPayment: null,
-        drinkPayment: null,
+        Name: userData.Name,
+        Brief: userData.Brief,
+        Email: userData.Email,
+        LunchDefaultPayment: userData.LunchDefaultPayment,
+        DrinkDefaultPayment: userData.DrinkDefaultPayment,
       });
     } else {
       reset({
-        name: "",
-        brief: "",
-        email: "",
-        lunchPayment: null,
-        drinkPayment: null,
+        Name: "",
+        Brief: "",
+        Email: "",
+        LunchDefaultPayment: null,
+        DrinkDefaultPayment: null,
       });
     }
   }, [userData, reset]);
@@ -117,7 +108,7 @@ export default function ProfileDialog({
         >
           <div>
             <Controller
-              name="name"
+              name="Name"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -134,12 +125,12 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.name?.message}</small>
+            <small className="p-error">{errors.Name?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="email"
+              name="Email"
               control={control}
               rules={{
                 required: "必填欄位",
@@ -162,12 +153,12 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.email?.message}</small>
+            <small className="p-error">{errors.Email?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="brief"
+              name="Brief"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -184,12 +175,12 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.brief?.message}</small>
+            <small className="p-error">{errors.Brief?.message}</small>
           </div>
 
           <div>
             <Controller
-              name="lunchPayment"
+              name="LunchDefaultPayment"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -212,12 +203,14 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.lunchPayment?.message}</small>
+            <small className="p-error">
+              {errors.LunchDefaultPayment?.message}
+            </small>
           </div>
 
           <div>
             <Controller
-              name="drinkPayment"
+              name="DrinkDefaultPayment"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -240,12 +233,14 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.drinkPayment?.message}</small>
+            <small className="p-error">
+              {errors.DrinkDefaultPayment?.message}
+            </small>
           </div>
 
           <div>
             <Controller
-              name="closeNotify"
+              name="CloseNotify"
               control={control}
               rules={{ required: "必填欄位 (數值格式0 ~ 15)" }}
               render={({ field, fieldState }) => (
@@ -265,12 +260,12 @@ export default function ProfileDialog({
                 />
               )}
             />
-            <small className="p-error">{errors.closeNotify?.message}</small>
+            <small className="p-error">{errors.CloseNotify?.message}</small>
           </div>
 
           <div className="flex justify-content-between align-items-center">
             <Controller
-              name="lunchNotify"
+              name="LunchNotify"
               control={control}
               render={({ field, fieldState }) => (
                 <div className="flex gap-2">
@@ -279,12 +274,12 @@ export default function ProfileDialog({
                     onChange={(e) => field.onChange(e.checked)}
                     checked={field.value}
                   />
-                  <label htmlFor="lunchNotify">我是午餐團常客</label>
+                  <label htmlFor="LunchNotify">我是午餐團常客</label>
                 </div>
               )}
             />
             <Controller
-              name="drinkNotify"
+              name="DrinkNotify"
               control={control}
               render={({ field, fieldState }) => (
                 <div className="flex gap-2">
@@ -293,7 +288,7 @@ export default function ProfileDialog({
                     onChange={(e) => field.onChange(e.checked)}
                     checked={field.value}
                   />
-                  <label htmlFor="drinkNotify">我是飲料團常客</label>
+                  <label htmlFor="DrinkNotify">我是飲料團常客</label>
                 </div>
               )}
             />

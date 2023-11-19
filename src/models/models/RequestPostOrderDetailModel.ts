@@ -24,43 +24,43 @@ export interface RequestPostOrderDetailModel {
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDOrderId?: string;
+    OD_order_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDDrinkFoodId?: string;
+    OD_drink_food_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDSugarId?: string;
+    OD_sugar_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDIceId?: string;
+    OD_ice_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDSizeId?: string;
+    OD_size_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDAccountId?: string;
+    OD_account_id?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderDetailModel
      */
-    oDRemark?: string | null;
+    OD_remark?: string | null;
 }
 
 /**
@@ -82,13 +82,13 @@ export function RequestPostOrderDetailModelFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'oDOrderId': !exists(json, 'OD_order_id') ? undefined : json['OD_order_id'],
-        'oDDrinkFoodId': !exists(json, 'OD_drink_food_id') ? undefined : json['OD_drink_food_id'],
-        'oDSugarId': !exists(json, 'OD_sugar_id') ? undefined : json['OD_sugar_id'],
-        'oDIceId': !exists(json, 'OD_ice_id') ? undefined : json['OD_ice_id'],
-        'oDSizeId': !exists(json, 'OD_size_id') ? undefined : json['OD_size_id'],
-        'oDAccountId': !exists(json, 'OD_account_id') ? undefined : json['OD_account_id'],
-        'oDRemark': !exists(json, 'OD_remark') ? undefined : json['OD_remark'],
+        'OD_order_id': !exists(json, 'OD_order_id') ? undefined : json['OD_order_id'],
+        'OD_drink_food_id': !exists(json, 'OD_drink_food_id') ? undefined : json['OD_drink_food_id'],
+        'OD_sugar_id': !exists(json, 'OD_sugar_id') ? undefined : json['OD_sugar_id'],
+        'OD_ice_id': !exists(json, 'OD_ice_id') ? undefined : json['OD_ice_id'],
+        'OD_size_id': !exists(json, 'OD_size_id') ? undefined : json['OD_size_id'],
+        'OD_account_id': !exists(json, 'OD_account_id') ? undefined : json['OD_account_id'],
+        'OD_remark': !exists(json, 'OD_remark') ? undefined : json['OD_remark'],
     };
 }
 
@@ -101,13 +101,13 @@ export function RequestPostOrderDetailModelToJSON(value?: RequestPostOrderDetail
     }
     return {
         
-        'OD_order_id': value.oDOrderId,
-        'OD_drink_food_id': value.oDDrinkFoodId,
-        'OD_sugar_id': value.oDSugarId,
-        'OD_ice_id': value.oDIceId,
-        'OD_size_id': value.oDSizeId,
-        'OD_account_id': value.oDAccountId,
-        'OD_remark': value.oDRemark,
+        'OD_order_id': value.OD_order_id,
+        'OD_drink_food_id': value.OD_drink_food_id,
+        'OD_sugar_id': value.OD_sugar_id,
+        'OD_ice_id': value.OD_ice_id,
+        'OD_size_id': value.OD_size_id,
+        'OD_account_id': value.OD_account_id,
+        'OD_remark': value.OD_remark,
     };
 }
 

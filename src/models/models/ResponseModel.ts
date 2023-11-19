@@ -24,19 +24,19 @@ export interface ResponseModel {
      * @type {number}
      * @memberof ResponseModel
      */
-    code?: number;
+    Code?: number;
     /**
      * 
      * @type {boolean}
      * @memberof ResponseModel
      */
-    success?: boolean;
+    Success?: boolean;
     /**
      * 
      * @type {string}
      * @memberof ResponseModel
      */
-    message?: string | null;
+    Message?: string | null;
 }
 
 /**
@@ -58,9 +58,9 @@ export function ResponseModelFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'code': !exists(json, 'Code') ? undefined : json['Code'],
-        'success': !exists(json, 'Success') ? undefined : json['Success'],
-        'message': !exists(json, 'Message') ? undefined : json['Message'],
+        'Code': !exists(json, 'Code') ? undefined : json['Code'],
+        'Success': !exists(json, 'Success') ? undefined : json['Success'],
+        'Message': !exists(json, 'Message') ? undefined : json['Message'],
     };
 }
 
@@ -73,9 +73,9 @@ export function ResponseModelToJSON(value?: ResponseModel | null): any {
     }
     return {
         
-        'Code': value.code,
-        'Success': value.success,
-        'Message': value.message,
+        'Code': value.Code,
+        'Success': value.Success,
+        'Message': value.Message,
     };
 }
 

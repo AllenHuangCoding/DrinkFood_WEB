@@ -1,10 +1,11 @@
 "use client";
 
+import { GroupDrinkFoodModel, ViewDrinkFoodModel } from "@/src/models";
 import { useDrinkFoodList } from "@/src/services/admin/StoreService";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { TabPanel, TabView } from "primereact/tabview";
 
-const MenuTemplate = (product: any) => {
+const MenuTemplate = (product: ViewDrinkFoodModel) => {
   return (
     <>
       <div className="col-12 sm:col-6 md:col-6 lg:col-4 xl:col-3">
@@ -47,11 +48,11 @@ function MenuTabView(params: { StoreID: string }) {
   return (
     <>
       <TabView>
-        {data?.Data.map((x) => {
+        {data?.Data.map((x: GroupDrinkFoodModel) => {
           return (
             <TabPanel key={x.DrinkFoodTypeID} header={x.DrinkFoodTypeDesc}>
               <div className="grid">
-                {x.DrinkFoodList.map((y: any) => {
+                {x.DrinkFoodList?.map((y: ViewDrinkFoodModel) => {
                   return <>{MenuTemplate(y)}</>;
                 })}
               </div>

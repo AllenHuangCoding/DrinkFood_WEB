@@ -24,7 +24,7 @@ export interface RequestPutPaymentModel {
      * @type {string}
      * @memberof RequestPutPaymentModel
      */
-    paymentID?: string | null;
+    PaymentID?: string | null;
 }
 
 /**
@@ -46,7 +46,7 @@ export function RequestPutPaymentModelFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'paymentID': !exists(json, 'PaymentID') ? undefined : json['PaymentID'],
+        'PaymentID': !exists(json, 'PaymentID') ? undefined : json['PaymentID'],
     };
 }
 
@@ -59,7 +59,7 @@ export function RequestPutPaymentModelToJSON(value?: RequestPutPaymentModel | nu
     }
     return {
         
-        'PaymentID': value.paymentID,
+        'PaymentID': value.PaymentID,
     };
 }
 

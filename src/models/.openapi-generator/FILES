@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/AccountApi.ts
 apis/BrandApi.ts
 apis/DrinkFoodApi.ts
@@ -10,6 +9,9 @@ apis/OrderApi.ts
 apis/StoreApi.ts
 apis/index.ts
 index.ts
+models/GroupDrinkFoodModel.ts
+models/GroupOrderDetailModel.ts
+models/OrderListModel.ts
 models/RequestCreateAccountModel.ts
 models/RequestPostOrderDetailModel.ts
 models/RequestPostOrderModel.ts
@@ -18,5 +20,12 @@ models/RequestPutPaymentDateTimeModel.ts
 models/RequestPutPaymentModel.ts
 models/RequestUpdateProfileModel.ts
 models/ResponseModel.ts
+models/ResponseStoreListModel.ts
+models/ViewAccount.ts
+models/ViewDetailHistory.ts
+models/ViewDrinkFoodModel.ts
+models/ViewMenu.ts
+models/ViewOrderAndDetail.ts
+models/ViewOrderDetail.ts
 models/index.ts
 runtime.ts

@@ -3,6 +3,7 @@
 import { useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
+import { GroupOrderDetailModel, ViewOrderDetail } from "@/src/models";
 
 const OrderDetail = (params: { OrderID: string }) => {
   const { data, isError, isLoading } = useOrder(params.OrderID);
@@ -12,12 +13,12 @@ const OrderDetail = (params: { OrderID: string }) => {
 
   return (
     <>
-      {data?.Data.Detail.map((x: any) => {
+      {data?.Data.Detail?.map((x: GroupOrderDetailModel) => {
         return (
           <>
             <div className="p-3 bg-gray-100" key={x.Name}>
               <div>{`${x.Name} / N元 / N份`}</div>
-              {x.OrderDetailList.map((y: any) => {
+              {x.OrderDetailList?.map((y: ViewOrderDetail) => {
                 return (
                   <>
                     <div

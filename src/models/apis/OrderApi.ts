@@ -15,14 +15,19 @@
 
 import * as runtime from '../runtime';
 import type {
+  OrderListModel,
   RequestPostOrderDetailModel,
   RequestPostOrderModel,
   RequestPutOrderTimeModel,
   RequestPutPaymentDateTimeModel,
   RequestPutPaymentModel,
   ResponseModel,
+  ViewDetailHistory,
+  ViewOrderAndDetail,
 } from '../models/index';
 import {
+    OrderListModelFromJSON,
+    OrderListModelToJSON,
     RequestPostOrderDetailModelFromJSON,
     RequestPostOrderDetailModelToJSON,
     RequestPostOrderModelFromJSON,
@@ -35,6 +40,10 @@ import {
     RequestPutPaymentModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
+    ViewDetailHistoryFromJSON,
+    ViewDetailHistoryToJSON,
+    ViewOrderAndDetailFromJSON,
+    ViewOrderAndDetailToJSON,
 } from '../models/index';
 
 export interface ApiOrderCloseOrderOrderIDPutRequest {
@@ -43,11 +52,6 @@ export interface ApiOrderCloseOrderOrderIDPutRequest {
 
 export interface ApiOrderDeleteOrderDetailOrderDetailIDDeleteRequest {
     orderDetailID: string;
-}
-
-export interface ApiOrderGetMyOrderListAccountIDGetRequest {
-    accountID: string;
-    requestData?: object;
 }
 
 export interface ApiOrderGetOrderDetailHistoryAccountIDGetRequest {
@@ -144,39 +148,7 @@ export class OrderApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiOrderGetMyOrderListAccountIDGetRaw(requestParameters: ApiOrderGetMyOrderListAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
-        if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
-            throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiOrderGetMyOrderListAccountIDGet.');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.requestData !== undefined) {
-            queryParameters['RequestData'] = requestParameters.requestData;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/api/Order/GetMyOrderList/{AccountID}`.replace(`{${"AccountID"}}`, encodeURIComponent(String(requestParameters.accountID))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async apiOrderGetMyOrderListAccountIDGet(requestParameters: ApiOrderGetMyOrderListAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
-        const response = await this.apiOrderGetMyOrderListAccountIDGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async apiOrderGetOrderDetailHistoryAccountIDGetRaw(requestParameters: ApiOrderGetOrderDetailHistoryAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiOrderGetOrderDetailHistoryAccountIDGetRaw(requestParameters: ApiOrderGetOrderDetailHistoryAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ViewDetailHistory>>> {
         if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
             throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiOrderGetOrderDetailHistoryAccountIDGet.');
         }
@@ -192,19 +164,19 @@ export class OrderApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ViewDetailHistoryFromJSON));
     }
 
     /**
      */
-    async apiOrderGetOrderDetailHistoryAccountIDGet(requestParameters: ApiOrderGetOrderDetailHistoryAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiOrderGetOrderDetailHistoryAccountIDGet(requestParameters: ApiOrderGetOrderDetailHistoryAccountIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ViewDetailHistory>> {
         const response = await this.apiOrderGetOrderDetailHistoryAccountIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiOrderGetOrderListGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiOrderGetOrderListGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OrderListModel>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -216,19 +188,19 @@ export class OrderApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrderListModelFromJSON));
     }
 
     /**
      */
-    async apiOrderGetOrderListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiOrderGetOrderListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrderListModel>> {
         const response = await this.apiOrderGetOrderListGetRaw(initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiOrderGetOrderOrderIDGetRaw(requestParameters: ApiOrderGetOrderOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiOrderGetOrderOrderIDGetRaw(requestParameters: ApiOrderGetOrderOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ViewOrderAndDetail>> {
         if (requestParameters.orderID === null || requestParameters.orderID === undefined) {
             throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderGetOrderOrderIDGet.');
         }
@@ -244,12 +216,12 @@ export class OrderApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ViewOrderAndDetailFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiOrderGetOrderOrderIDGet(requestParameters: ApiOrderGetOrderOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiOrderGetOrderOrderIDGet(requestParameters: ApiOrderGetOrderOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ViewOrderAndDetail> {
         const response = await this.apiOrderGetOrderOrderIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -15,11 +15,11 @@
 
 import * as runtime from '../runtime';
 import type {
-  ResponseModel,
+  ViewMenu,
 } from '../models/index';
 import {
-    ResponseModelFromJSON,
-    ResponseModelToJSON,
+    ViewMenuFromJSON,
+    ViewMenuToJSON,
 } from '../models/index';
 
 export interface ApiMenuGetBrandMenuListBrandIDGetRequest {
@@ -38,7 +38,7 @@ export class MenuApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiMenuGetBrandMenuListBrandIDGetRaw(requestParameters: ApiMenuGetBrandMenuListBrandIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiMenuGetBrandMenuListBrandIDGetRaw(requestParameters: ApiMenuGetBrandMenuListBrandIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ViewMenu>>> {
         if (requestParameters.brandID === null || requestParameters.brandID === undefined) {
             throw new runtime.RequiredError('brandID','Required parameter requestParameters.brandID was null or undefined when calling apiMenuGetBrandMenuListBrandIDGet.');
         }
@@ -58,19 +58,19 @@ export class MenuApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ViewMenuFromJSON));
     }
 
     /**
      */
-    async apiMenuGetBrandMenuListBrandIDGet(requestParameters: ApiMenuGetBrandMenuListBrandIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiMenuGetBrandMenuListBrandIDGet(requestParameters: ApiMenuGetBrandMenuListBrandIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ViewMenu>> {
         const response = await this.apiMenuGetBrandMenuListBrandIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiMenuGetStoreMenuListStoreIDGetRaw(requestParameters: ApiMenuGetStoreMenuListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiMenuGetStoreMenuListStoreIDGetRaw(requestParameters: ApiMenuGetStoreMenuListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ViewMenu>> {
         if (requestParameters.storeID === null || requestParameters.storeID === undefined) {
             throw new runtime.RequiredError('storeID','Required parameter requestParameters.storeID was null or undefined when calling apiMenuGetStoreMenuListStoreIDGet.');
         }
@@ -86,12 +86,12 @@ export class MenuApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ViewMenuFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiMenuGetStoreMenuListStoreIDGet(requestParameters: ApiMenuGetStoreMenuListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiMenuGetStoreMenuListStoreIDGet(requestParameters: ApiMenuGetStoreMenuListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ViewMenu> {
         const response = await this.apiMenuGetStoreMenuListStoreIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

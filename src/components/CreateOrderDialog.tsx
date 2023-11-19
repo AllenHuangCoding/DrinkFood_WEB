@@ -55,7 +55,7 @@ export default function CreateOrderDialog({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: CreateOrderModel) => {
     console.log(data);
     reset();
   };

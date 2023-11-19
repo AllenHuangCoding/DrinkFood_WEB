@@ -24,43 +24,43 @@ export interface RequestPostOrderModel {
      * @type {string}
      * @memberof RequestPostOrderModel
      */
-    officeID?: string;
+    OfficeID?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderModel
      */
-    createAccountID?: string;
+    CreateAccountID?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderModel
      */
-    storeID?: string;
+    StoreID?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestPostOrderModel
      */
-    orderTypeID?: string;
+    OrderTypeID?: string;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    arrivalTime?: Date;
+    ArrivalTime?: Date;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    openTime?: Date;
+    OpenTime?: Date;
     /**
      * 
      * @type {Date}
      * @memberof RequestPostOrderModel
      */
-    closeTime?: Date;
+    CloseTime?: Date;
 }
 
 /**
@@ -82,13 +82,13 @@ export function RequestPostOrderModelFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'officeID': !exists(json, 'OfficeID') ? undefined : json['OfficeID'],
-        'createAccountID': !exists(json, 'CreateAccountID') ? undefined : json['CreateAccountID'],
-        'storeID': !exists(json, 'StoreID') ? undefined : json['StoreID'],
-        'orderTypeID': !exists(json, 'OrderTypeID') ? undefined : json['OrderTypeID'],
-        'arrivalTime': !exists(json, 'ArrivalTime') ? undefined : (new Date(json['ArrivalTime'])),
-        'openTime': !exists(json, 'OpenTime') ? undefined : (new Date(json['OpenTime'])),
-        'closeTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
+        'OfficeID': !exists(json, 'OfficeID') ? undefined : json['OfficeID'],
+        'CreateAccountID': !exists(json, 'CreateAccountID') ? undefined : json['CreateAccountID'],
+        'StoreID': !exists(json, 'StoreID') ? undefined : json['StoreID'],
+        'OrderTypeID': !exists(json, 'OrderTypeID') ? undefined : json['OrderTypeID'],
+        'ArrivalTime': !exists(json, 'ArrivalTime') ? undefined : (new Date(json['ArrivalTime'])),
+        'OpenTime': !exists(json, 'OpenTime') ? undefined : (new Date(json['OpenTime'])),
+        'CloseTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
     };
 }
 
@@ -101,13 +101,13 @@ export function RequestPostOrderModelToJSON(value?: RequestPostOrderModel | null
     }
     return {
         
-        'OfficeID': value.officeID,
-        'CreateAccountID': value.createAccountID,
-        'StoreID': value.storeID,
-        'OrderTypeID': value.orderTypeID,
-        'ArrivalTime': value.arrivalTime === undefined ? undefined : (value.arrivalTime.toISOString()),
-        'OpenTime': value.openTime === undefined ? undefined : (value.openTime.toISOString()),
-        'CloseTime': value.closeTime === undefined ? undefined : (value.closeTime.toISOString()),
+        'OfficeID': value.OfficeID,
+        'CreateAccountID': value.CreateAccountID,
+        'StoreID': value.StoreID,
+        'OrderTypeID': value.OrderTypeID,
+        'ArrivalTime': value.ArrivalTime === undefined ? undefined : (value.ArrivalTime.toISOString()),
+        'OpenTime': value.OpenTime === undefined ? undefined : (value.OpenTime.toISOString()),
+        'CloseTime': value.CloseTime === undefined ? undefined : (value.CloseTime.toISOString()),
     };
 }
 

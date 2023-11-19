@@ -7,10 +7,13 @@ import { BasicTable } from "@/src/components/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
 import ProfileDialog from "@/src/components/ProfileDialog";
+import { RequestCreateAccountModel } from "@/src/models/models/RequestCreateAccountModel";
 
 export default function AccountPage() {
   const [visible, setVisible] = useState<boolean>(false);
-  const [userData, setUserData] = useState<any | null>(null);
+  const [userData, setUserData] = useState<RequestCreateAccountModel | null>(
+    null
+  );
   const [action, setAction] = useState<"View" | "Create" | "Update">("View");
 
   const header = (

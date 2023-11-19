@@ -15,11 +15,11 @@
 
 import * as runtime from '../runtime';
 import type {
-  ResponseModel,
+  ResponseStoreListModel,
 } from '../models/index';
 import {
-    ResponseModelFromJSON,
-    ResponseModelToJSON,
+    ResponseStoreListModelFromJSON,
+    ResponseStoreListModelToJSON,
 } from '../models/index';
 
 export interface ApiStoreGetStoreListGetRequest {
@@ -37,7 +37,7 @@ export class StoreApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiStoreGetStoreListGetRaw(requestParameters: ApiStoreGetStoreListGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiStoreGetStoreListGetRaw(requestParameters: ApiStoreGetStoreListGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ResponseStoreListModel>>> {
         const queryParameters: any = {};
 
         if (requestParameters.searchKey !== undefined) {
@@ -53,19 +53,19 @@ export class StoreApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ResponseStoreListModelFromJSON));
     }
 
     /**
      */
-    async apiStoreGetStoreListGet(requestParameters: ApiStoreGetStoreListGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiStoreGetStoreListGet(requestParameters: ApiStoreGetStoreListGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ResponseStoreListModel>> {
         const response = await this.apiStoreGetStoreListGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiStoreGetStoreStoreIDGetRaw(requestParameters: ApiStoreGetStoreStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiStoreGetStoreStoreIDGetRaw(requestParameters: ApiStoreGetStoreStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseStoreListModel>> {
         if (requestParameters.storeID === null || requestParameters.storeID === undefined) {
             throw new runtime.RequiredError('storeID','Required parameter requestParameters.storeID was null or undefined when calling apiStoreGetStoreStoreIDGet.');
         }
@@ -81,12 +81,12 @@ export class StoreApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseStoreListModelFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiStoreGetStoreStoreIDGet(requestParameters: ApiStoreGetStoreStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiStoreGetStoreStoreIDGet(requestParameters: ApiStoreGetStoreStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseStoreListModel> {
         const response = await this.apiStoreGetStoreStoreIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

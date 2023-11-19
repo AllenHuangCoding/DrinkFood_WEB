@@ -24,7 +24,7 @@ export interface RequestPutPaymentDateTimeModel {
      * @type {Date}
      * @memberof RequestPutPaymentDateTimeModel
      */
-    paymentDateTime?: Date | null;
+    PaymentDateTime?: Date | null;
 }
 
 /**
@@ -46,7 +46,7 @@ export function RequestPutPaymentDateTimeModelFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'paymentDateTime': !exists(json, 'PaymentDateTime') ? undefined : (json['PaymentDateTime'] === null ? null : new Date(json['PaymentDateTime'])),
+        'PaymentDateTime': !exists(json, 'PaymentDateTime') ? undefined : (json['PaymentDateTime'] === null ? null : new Date(json['PaymentDateTime'])),
     };
 }
 
@@ -59,7 +59,7 @@ export function RequestPutPaymentDateTimeModelToJSON(value?: RequestPutPaymentDa
     }
     return {
         
-        'PaymentDateTime': value.paymentDateTime === undefined ? undefined : (value.paymentDateTime === null ? null : value.paymentDateTime.toISOString()),
+        'PaymentDateTime': value.PaymentDateTime === undefined ? undefined : (value.PaymentDateTime === null ? null : value.PaymentDateTime.toISOString()),
     };
 }
 

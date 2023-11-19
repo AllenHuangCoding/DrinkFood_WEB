@@ -15,11 +15,11 @@
 
 import * as runtime from '../runtime';
 import type {
-  ResponseModel,
+  GroupDrinkFoodModel,
 } from '../models/index';
 import {
-    ResponseModelFromJSON,
-    ResponseModelToJSON,
+    GroupDrinkFoodModelFromJSON,
+    GroupDrinkFoodModelToJSON,
 } from '../models/index';
 
 export interface ApiDrinkFoodGetDrinkFoodListStoreIDGetRequest {
@@ -33,7 +33,7 @@ export class DrinkFoodApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiDrinkFoodGetDrinkFoodListStoreIDGetRaw(requestParameters: ApiDrinkFoodGetDrinkFoodListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiDrinkFoodGetDrinkFoodListStoreIDGetRaw(requestParameters: ApiDrinkFoodGetDrinkFoodListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GroupDrinkFoodModel>>> {
         if (requestParameters.storeID === null || requestParameters.storeID === undefined) {
             throw new runtime.RequiredError('storeID','Required parameter requestParameters.storeID was null or undefined when calling apiDrinkFoodGetDrinkFoodListStoreIDGet.');
         }
@@ -49,12 +49,12 @@ export class DrinkFoodApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GroupDrinkFoodModelFromJSON));
     }
 
     /**
      */
-    async apiDrinkFoodGetDrinkFoodListStoreIDGet(requestParameters: ApiDrinkFoodGetDrinkFoodListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiDrinkFoodGetDrinkFoodListStoreIDGet(requestParameters: ApiDrinkFoodGetDrinkFoodListStoreIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GroupDrinkFoodModel>> {
         const response = await this.apiDrinkFoodGetDrinkFoodListStoreIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

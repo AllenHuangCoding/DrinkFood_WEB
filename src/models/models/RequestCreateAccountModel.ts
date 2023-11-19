@@ -24,49 +24,49 @@ export interface RequestCreateAccountModel {
      * @type {string}
      * @memberof RequestCreateAccountModel
      */
-    brief?: string | null;
+    Brief?: string;
     /**
      * 
      * @type {string}
      * @memberof RequestCreateAccountModel
      */
-    lunchDefaultPayment?: string | null;
+    LunchDefaultPayment?: string | null;
     /**
      * 
      * @type {string}
      * @memberof RequestCreateAccountModel
      */
-    drinkDefaultPayment?: string | null;
+    DrinkDefaultPayment?: string | null;
     /**
      * 
      * @type {boolean}
      * @memberof RequestCreateAccountModel
      */
-    lunchNotify?: boolean;
+    LunchNotify: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof RequestCreateAccountModel
      */
-    drinkNotify?: boolean;
+    DrinkNotify: boolean;
     /**
      * 
      * @type {number}
      * @memberof RequestCreateAccountModel
      */
-    closeNotify?: number;
+    CloseNotify?: number;
     /**
      * 
      * @type {string}
      * @memberof RequestCreateAccountModel
      */
-    name?: string | null;
+    Name: string;
     /**
      * 
      * @type {string}
      * @memberof RequestCreateAccountModel
      */
-    email?: string | null;
+    Email: string;
 }
 
 /**
@@ -88,14 +88,14 @@ export function RequestCreateAccountModelFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'brief': !exists(json, 'Brief') ? undefined : json['Brief'],
-        'lunchDefaultPayment': !exists(json, 'LunchDefaultPayment') ? undefined : json['LunchDefaultPayment'],
-        'drinkDefaultPayment': !exists(json, 'DrinkDefaultPayment') ? undefined : json['DrinkDefaultPayment'],
-        'lunchNotify': !exists(json, 'LunchNotify') ? undefined : json['LunchNotify'],
-        'drinkNotify': !exists(json, 'DrinkNotify') ? undefined : json['DrinkNotify'],
-        'closeNotify': !exists(json, 'CloseNotify') ? undefined : json['CloseNotify'],
-        'name': !exists(json, 'Name') ? undefined : json['Name'],
-        'email': !exists(json, 'Email') ? undefined : json['Email'],
+        'Brief': !exists(json, 'Brief') ? undefined : json['Brief'],
+        'LunchDefaultPayment': !exists(json, 'LunchDefaultPayment') ? undefined : json['LunchDefaultPayment'],
+        'DrinkDefaultPayment': !exists(json, 'DrinkDefaultPayment') ? undefined : json['DrinkDefaultPayment'],
+        'LunchNotify': !exists(json, 'LunchNotify') ? undefined : json['LunchNotify'],
+        'DrinkNotify': !exists(json, 'DrinkNotify') ? undefined : json['DrinkNotify'],
+        'CloseNotify': !exists(json, 'CloseNotify') ? undefined : json['CloseNotify'],
+        'Name': !exists(json, 'Name') ? undefined : json['Name'],
+        'Email': !exists(json, 'Email') ? undefined : json['Email'],
     };
 }
 
@@ -108,14 +108,14 @@ export function RequestCreateAccountModelToJSON(value?: RequestCreateAccountMode
     }
     return {
         
-        'Brief': value.brief,
-        'LunchDefaultPayment': value.lunchDefaultPayment,
-        'DrinkDefaultPayment': value.drinkDefaultPayment,
-        'LunchNotify': value.lunchNotify,
-        'DrinkNotify': value.drinkNotify,
-        'CloseNotify': value.closeNotify,
-        'Name': value.name,
-        'Email': value.email,
+        'Brief': value.Brief,
+        'LunchDefaultPayment': value.LunchDefaultPayment,
+        'DrinkDefaultPayment': value.DrinkDefaultPayment,
+        'LunchNotify': value.LunchNotify,
+        'DrinkNotify': value.DrinkNotify,
+        'CloseNotify': value.CloseNotify,
+        'Name': value.Name,
+        'Email': value.Email,
     };
 }
 

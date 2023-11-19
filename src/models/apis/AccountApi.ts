@@ -18,6 +18,7 @@ import type {
   RequestCreateAccountModel,
   RequestUpdateProfileModel,
   ResponseModel,
+  ViewAccount,
 } from '../models/index';
 import {
     RequestCreateAccountModelFromJSON,
@@ -26,6 +27,8 @@ import {
     RequestUpdateProfileModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
+    ViewAccountFromJSON,
+    ViewAccountToJSON,
 } from '../models/index';
 
 export interface ApiAccountCreateAccountPostRequest {
@@ -76,7 +79,7 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiAccountGetAccountListGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountGetAccountListGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ViewAccount>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -88,12 +91,12 @@ export class AccountApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ViewAccountFromJSON));
     }
 
     /**
      */
-    async apiAccountGetAccountListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiAccountGetAccountListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ViewAccount>> {
         const response = await this.apiAccountGetAccountListGetRaw(initOverrides);
         return await response.value();
     }
