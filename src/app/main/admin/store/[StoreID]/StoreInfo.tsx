@@ -4,6 +4,7 @@ import { useStoreData } from "@/src/services/admin/StoreService";
 import { RadioButton } from "primereact/radiobutton";
 import { classNames } from "primereact/utils";
 import { useState } from "react";
+import Image from "next/image";
 
 const StoreInfo = (params: { StoreID: string }) => {
   const { data, isLoading, isError } = useStoreData(params.StoreID);
@@ -18,22 +19,24 @@ const StoreInfo = (params: { StoreID: string }) => {
         <div className="grid grid-nogutter">
           <div className="col-12 md:col-6">
             <div className="flex flex-row align-items-center gap-2">
-              <img
-                src={data?.Data.BrandLogoUrl}
-                className={classNames(
-                  {
-                    "cursor-pointer": data?.Data.BrandOfficialUrl,
-                  },
-                  "h-6rem w-6rem"
-                )}
-                alt="Logo圖片"
-                onClick={() => {
-                  const url = data?.Data.BrandOfficialUrl;
-                  if (url) {
-                    window.open(url);
-                  }
-                }}
-              />
+              {data?.Data.BrandLogoUrl && (
+                <Image
+                  src={data?.Data.BrandLogoUrl}
+                  className={classNames(
+                    {
+                      "cursor-pointer": data?.Data.BrandOfficialUrl,
+                    },
+                    "h-6rem w-6rem"
+                  )}
+                  alt="Logo圖片"
+                  onClick={() => {
+                    const url = data?.Data.BrandOfficialUrl;
+                    if (url) {
+                      window.open(url);
+                    }
+                  }}
+                />
+              )}
 
               <div className="flex flex-column gap-2">
                 <div>

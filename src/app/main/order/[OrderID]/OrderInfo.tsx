@@ -3,6 +3,7 @@
 import { useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
+import Image from "next/image";
 
 interface TitleContentCell {
   Title: string;
@@ -70,7 +71,7 @@ const OrderInfo = (params: { OrderID: string }) => {
     <>
       <div className="flex flex-row align-items-center gap-2 border-bottom-3 border-300">
         {data?.Data.BrandLogoUrl && (
-          <img
+          <Image
             src={data?.Data.BrandLogoUrl}
             className={classNames(
               {

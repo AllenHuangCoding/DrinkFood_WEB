@@ -8,6 +8,7 @@ import { Password } from "primereact/password";
 // import { LayoutContext } from '../../../../layout/context/layoutcontext';
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
+import Image from "next/image";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
@@ -39,7 +40,7 @@ const LoginPage = () => {
             style={{ borderRadius: "53px" }}
           >
             <div className="text-center mb-5">
-              <img
+              <Image
                 src="/demo/images/login/avatar.png"
                 alt="Image"
                 height="50"

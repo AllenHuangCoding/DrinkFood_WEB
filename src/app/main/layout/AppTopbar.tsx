@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import { AppTopbarRef } from "../../../types/types";
 import { LayoutContext } from "./context/layoutContext";
-import { Dropdown } from "primereact/dropdown";
+import Image from "next/image";
 
 const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
   const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } =
@@ -37,12 +37,11 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
   return (
     <div className="layout-topbar">
       <Link href="/" className="layout-topbar-logo">
-        <img
+        <Image
           src={`/layout/images/logo-${
             layoutConfig.colorScheme !== "light" ? "white" : "dark"
           }.svg`}
-          width="47.22px"
-          height={"35px"}
+          className="w-5 h-2rem"
           alt="logo"
         />
         <span>SAKAI</span>
