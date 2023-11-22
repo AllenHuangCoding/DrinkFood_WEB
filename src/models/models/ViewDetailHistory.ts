@@ -72,7 +72,7 @@ export interface ViewDetailHistory {
      * @type {number}
      * @memberof ViewDetailHistory
      */
-    Quantity?: number;
+    Quantity?: number | null;
     /**
      * 
      * @type {string}

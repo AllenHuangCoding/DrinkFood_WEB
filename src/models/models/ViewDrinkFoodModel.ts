@@ -60,7 +60,7 @@ export interface ViewDrinkFoodModel {
      * @type {number}
      * @memberof ViewDrinkFoodModel
      */
-    DrinkFoodPrice: number;
+    DrinkFoodPrice?: number;
     /**
      * 
      * @type {string}

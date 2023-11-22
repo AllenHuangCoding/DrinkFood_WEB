@@ -9,8 +9,25 @@ import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from "primereact/inputnumber";
-import { ViewAccount } from "../models/models/ViewAccount";
 import { RequestCreateAccountModel } from "../models/models/RequestCreateAccountModel";
+import {
+  useCreateAccount,
+  useProfileDialogOptions,
+  useUpdateProfile,
+} from "../services/admin/AccountService";
+import { RequestUpdateProfileModel } from "../models";
+
+export interface ProfileDialogFullModel {
+  AccountID: string | null;
+  Name: string;
+  Email: string;
+  Brief: string;
+  LunchDefaultPayment: string | null;
+  DrinkDefaultPayment: string | null;
+  LunchNotify: boolean;
+  DrinkNotify: boolean;
+  CloseNotify: number;
+}
 
 export default function ProfileDialog({
   visible,
@@ -19,22 +36,14 @@ export default function ProfileDialog({
   closeDialog,
 }: {
   visible: boolean;
-  userData: RequestCreateAccountModel | null;
+  userData: ProfileDialogFullModel | null;
   action: "View" | "Create" | "Update";
   closeDialog: () => void;
 }) {
-  const lunchDefaultPayments = [
-    { ID: 1, name: "儲值金" },
-    { ID: 2, name: "現金" },
-  ];
+  const { data } = useProfileDialogOptions();
 
-  const drinkDefaultPayments = [
-    { ID: 1, name: "現金" },
-    { ID: 2, name: "Line Pay Money" },
-    { ID: 3, name: "Line Bank" },
-  ];
-
-  const defaultValues: RequestCreateAccountModel = {
+  const defaultValues: ProfileDialogFullModel = {
+    AccountID: null,
     Name: "",
     Email: "",
     Brief: "",
@@ -54,20 +63,54 @@ export default function ProfileDialog({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (data: RequestCreateAccountModel) => {
-    console.log(data);
+  const onSubmit = (dialogData: ProfileDialogFullModel) => {
+    switch (action) {
+      case "View":
+        break;
+      case "Create":
+        const param: RequestCreateAccountModel = {
+          Name: dialogData.Name,
+          Email: dialogData.Email,
+          Brief: dialogData.Brief,
+          LunchDefaultPayment: dialogData.LunchDefaultPayment,
+          DrinkDefaultPayment: dialogData.DrinkDefaultPayment,
+          LunchNotify: dialogData.LunchNotify,
+          DrinkNotify: dialogData.DrinkNotify,
+          CloseNotify: dialogData.CloseNotify,
+        };
+        useCreateAccount(param);
+        break;
+      case "Update":
+        if (dialogData.AccountID != null) {
+          const param: RequestUpdateProfileModel = {
+            Brief: dialogData.Brief,
+            LunchDefaultPayment: dialogData.LunchDefaultPayment,
+            DrinkDefaultPayment: dialogData.DrinkDefaultPayment,
+            LunchNotify: dialogData.LunchNotify,
+            DrinkNotify: dialogData.DrinkNotify,
+            CloseNotify: dialogData.CloseNotify,
+          };
+          useUpdateProfile(dialogData.AccountID!, param);
+        } else {
+          alert("缺少變更帳號ID");
+        }
+        break;
+    }
     reset();
   };
 
   useEffect(() => {
-    console.log(userData);
     if (userData) {
       reset({
+        AccountID: userData.AccountID,
         Name: userData.Name,
         Brief: userData.Brief,
         Email: userData.Email,
         LunchDefaultPayment: userData.LunchDefaultPayment,
         DrinkDefaultPayment: userData.DrinkDefaultPayment,
+        LunchNotify: userData.LunchNotify,
+        DrinkNotify: userData.DrinkNotify,
+        CloseNotify: userData.CloseNotify,
       });
     } else {
       reset({
@@ -76,6 +119,9 @@ export default function ProfileDialog({
         Email: "",
         LunchDefaultPayment: null,
         DrinkDefaultPayment: null,
+        LunchNotify: false,
+        DrinkNotify: false,
+        CloseNotify: 10,
       });
     }
   }, [userData, reset]);
@@ -187,8 +233,8 @@ export default function ProfileDialog({
                 <Dropdown
                   id={field.name}
                   value={field.value}
-                  options={lunchDefaultPayments}
-                  optionLabel="name"
+                  options={data?.Data.LunchPayment}
+                  optionLabel="Text"
                   optionValue="ID"
                   placeholder="選擇午餐預設付款方式"
                   className={classNames(
@@ -217,8 +263,8 @@ export default function ProfileDialog({
                 <Dropdown
                   id={field.name}
                   value={field.value}
-                  options={drinkDefaultPayments}
-                  optionLabel="name"
+                  options={data?.Data.DrinkPayment}
+                  optionLabel="Text"
                   optionValue="ID"
                   placeholder="選擇飲料預設付款方式"
                   className={classNames(

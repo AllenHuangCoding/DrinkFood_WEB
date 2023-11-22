@@ -247,7 +247,7 @@ export default function CreateOrderDialog({
                       onChange={(e) => field.onChange(e.checked)}
                       checked={field.value}
                     />
-                    <label htmlFor="isPublic">公開訂單</label>
+                    <label htmlFor="IsPublic">公開訂單</label>
                   </div>
                 )}
               />

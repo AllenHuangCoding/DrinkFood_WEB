@@ -24,6 +24,7 @@ models/RequestUpdateProfileModel.ts
 models/ResponseLoginModel.ts
 models/ResponseModel.ts
 models/ResponseOrderDialogOptions.ts
+models/ResponseProfileDialogOptions.ts
 models/ResponseStoreListModel.ts
 models/ViewAccount.ts
 models/ViewDetailHistory.ts

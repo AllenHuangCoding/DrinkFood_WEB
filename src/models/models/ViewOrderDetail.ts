@@ -36,7 +36,7 @@ export interface ViewOrderDetail {
      * @type {string}
      * @memberof ViewOrderDetail
      */
-    DrinkFoodID?: string;
+    DrinkFoodID?: string | null;
     /**
      * 
      * @type {string}
@@ -60,7 +60,7 @@ export interface ViewOrderDetail {
      * @type {string}
      * @memberof ViewOrderDetail
      */
-    SugarID?: string;
+    SugarID?: string | null;
     /**
      * 
      * @type {string}
@@ -72,7 +72,7 @@ export interface ViewOrderDetail {
      * @type {string}
      * @memberof ViewOrderDetail
      */
-    IceID?: string;
+    IceID?: string | null;
     /**
      * 
      * @type {string}
@@ -84,7 +84,7 @@ export interface ViewOrderDetail {
      * @type {string}
      * @memberof ViewOrderDetail
      */
-    SizeID?: string;
+    SizeID?: string | null;
     /**
      * 
      * @type {string}
@@ -144,13 +144,13 @@ export interface ViewOrderDetail {
      * @type {number}
      * @memberof ViewOrderDetail
      */
-    Quantity?: number;
+    Quantity?: number | null;
     /**
      * 
      * @type {boolean}
      * @memberof ViewOrderDetail
      */
-    IsPickup?: boolean;
+    IsPickup?: boolean | null;
     /**
      * 
      * @type {string}

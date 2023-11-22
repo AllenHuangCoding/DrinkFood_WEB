@@ -54,32 +54,20 @@ export default function OrderListPage() {
             sortable
           />
           <Column
-            field="OfficeName"
-            header="地點"
-            style={{ width: "10%" }}
+            field="OfficeOwner"
+            header="地點 / 團長"
+            style={{ width: "15%" }}
             sortable
           />
           <Column
-            field="OwnerName"
-            header="團長"
-            style={{ width: "8%" }}
-            sortable
-          />
-          <Column
-            field="OrderStatusDesc"
-            header="訂單狀態"
-            style={{ width: "12%" }}
-            sortable
-          />
-          <Column
-            field="Remark"
-            header="備註"
-            style={{ width: "10%" }}
+            field="StatusDescPublicDesc"
+            header="訂單狀態 / 類型"
+            style={{ width: "15%" }}
             sortable
           />
           <Column
             header="功能"
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
             body={(x) => (
               <>
                 <Button
@@ -87,7 +75,13 @@ export default function OrderListPage() {
                   text
                   onClick={() => {
                     router.push(`../${x.OrderID}`);
-                    // router.push(`../export?search=123`);
+                  }}
+                />
+                <Button
+                  icon="pi pi-copy"
+                  text
+                  onClick={() => {
+                    alert(x.ShareUrl);
                   }}
                 />
               </>
