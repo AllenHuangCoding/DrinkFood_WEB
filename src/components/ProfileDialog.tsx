@@ -11,9 +11,9 @@ import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from "primereact/inputnumber";
 import { RequestCreateAccountModel } from "../models/models/RequestCreateAccountModel";
 import {
-  useCreateAccount,
+  CreateAccount,
   useProfileDialogOptions,
-  useUpdateProfile,
+  UpdateProfile,
 } from "../services/admin/AccountService";
 import { RequestUpdateProfileModel } from "../models";
 
@@ -78,7 +78,9 @@ export default function ProfileDialog({
           DrinkNotify: dialogData.DrinkNotify,
           CloseNotify: dialogData.CloseNotify,
         };
-        useCreateAccount(param);
+        CreateAccount(param);
+        alert("新增使用者資料成功");
+        closeDialog();
         break;
       case "Update":
         if (dialogData.AccountID != null) {
@@ -90,7 +92,9 @@ export default function ProfileDialog({
             DrinkNotify: dialogData.DrinkNotify,
             CloseNotify: dialogData.CloseNotify,
           };
-          useUpdateProfile(dialogData.AccountID!, param);
+          UpdateProfile(dialogData.AccountID!, param);
+          alert("修改使用者資料成功");
+          closeDialog();
         } else {
           alert("缺少變更帳號ID");
         }

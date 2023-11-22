@@ -32,13 +32,13 @@ const useProfileDialogOptions = () => {
   });
 };
 
-const useUpdateProfile = (ID: string, Param: RequestUpdateProfileModel) => {
+const UpdateProfile = (ID: string, Param: RequestUpdateProfileModel) => {
   return PUT<ResponseModel>(`/Account/UpdateProfile/${ID}`, Param).then(
     (respone) => respone.Data
   );
 };
 
-const useCreateAccount = (Param: RequestCreateAccountModel) => {
+const CreateAccount = (Param: RequestCreateAccountModel) => {
   return POST<ResponseModel>("/Account/CreateAccount", Param).then(
     (respone) => respone.Data
   );
@@ -48,6 +48,6 @@ export {
   useAccountList,
   Login,
   useProfileDialogOptions,
-  useCreateAccount,
-  useUpdateProfile,
+  CreateAccount,
+  UpdateProfile,
 };
