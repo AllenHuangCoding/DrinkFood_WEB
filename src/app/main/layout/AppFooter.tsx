@@ -9,7 +9,7 @@ const AppFooter = () => {
 
   return (
     <div className="layout-footer">
-      <Image
+      <img
         src={`/layout/images/logo-${
           layoutConfig.colorScheme === "light" ? "dark" : "white"
         }.svg`}
