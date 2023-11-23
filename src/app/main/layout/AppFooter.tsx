@@ -2,6 +2,7 @@
 
 import React, { useContext } from "react";
 import { LayoutContext } from "./context/layoutContext";
+import Image from "next/image";
 
 const AppFooter = () => {
   const { layoutConfig } = useContext(LayoutContext);
@@ -14,6 +15,7 @@ const AppFooter = () => {
         }.svg`}
         alt="Logo"
         height="20"
+        width="40"
         className="mr-2"
       />
       by

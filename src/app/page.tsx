@@ -1,13 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
-// import { LayoutContext } from '../../../../layout/context/layoutcontext';
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
+import Image from "next/image";
+import { Login } from "../services/admin/AccountService";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
@@ -44,6 +44,7 @@ const LoginPage = () => {
                 alt="Image"
                 height="50"
                 className="mb-3"
+                width="50"
               />
               <div className="text-900 text-3xl font-medium mb-3">Welcome</div>
               <span className="text-600 font-medium">趕快登入點餐</span>
@@ -100,7 +101,15 @@ const LoginPage = () => {
               <Button
                 label="登入"
                 className="w-full p-3 text-xl"
-                onClick={() => router.push("/main")}
+                onClick={() => {
+                  Login({
+                    Email: "allenhuang@chase.com.tw",
+                    Password: "allenhuang@chase.com.tw",
+                  }).then((data) => {
+                    localStorage.setItem("ID", data.AccountID);
+                    router.push("/main");
+                  });
+                }}
               ></Button>
             </div>
           </div>
