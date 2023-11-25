@@ -1,15 +1,39 @@
 "use client";
 
 import { useOrder } from "@/src/services/order/OrderService";
-import { classNames } from "primereact/utils";
-import { DataView } from "primereact/dataview";
 import { GroupOrderDetailModel, ViewOrderDetail } from "@/src/models";
+import { Button } from "primereact/button";
+import { classNames } from "primereact/utils";
 
-const OrderDetail = (params: { OrderID: string }) => {
-  const { data, isError, isLoading } = useOrder(params.OrderID);
+const OrderDetail = ({
+  OrderID,
+  addItem,
+}: {
+  OrderID: string;
+  addItem: boolean;
+}) => {
+  const { data, isError, isLoading } = useOrder(OrderID);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
+
+  if (data?.Data.Detail?.length == 0) {
+    return (
+      <>
+        <Button
+          className={classNames({
+            hidden: !addItem,
+          })}
+          label="新增項目"
+          severity="secondary"
+          onClick={() => {
+            alert("新增項目");
+          }}
+        />
+        <div className="w-full h-full bg-red-100">尚無明細</div>
+      </>
+    );
+  }
 
   return (
     <>

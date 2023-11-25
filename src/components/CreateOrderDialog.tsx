@@ -12,6 +12,10 @@ import {
 } from "../services/order/OrderService";
 import { RequestPostOrderModel } from "../models/models/RequestPostOrderModel";
 import { Toast } from "primereact/toast";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import de from "date-fns/locale/de";
 
 export default function CreateOrderDialog({
   visible,
@@ -25,7 +29,7 @@ export default function CreateOrderDialog({
     OfficeID: "",
     StoreID: "",
     TypeID: "",
-    ArrivalTime: undefined,
+    ArrivalTime: new Date(),
     OpenTime: undefined,
     CloseTime: undefined,
     IsPublic: true,
@@ -159,29 +163,26 @@ export default function CreateOrderDialog({
             </div>
 
             <div>
-              <Controller
-                name="ArrivalTime"
-                control={control}
-                rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Calendar
-                    id={field.name}
-                    value={field.value}
-                    placeholder="用餐時間"
-                    dateFormat="yy-mm-dd"
-                    hourFormat="24"
-                    showTime
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => field.onChange(e.value)}
-                  />
-                )}
-              />
-              <small className="p-error">{errors.ArrivalTime?.message}</small>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                adapterLocale={de}
+              >
+                <Controller
+                  name="ArrivalTime"
+                  control={control}
+                  rules={{ required: "必填欄位" }}
+                  render={({ field, fieldState }) => (
+                    <DateTimePicker
+                      value={field.value}
+                      label="用餐時間"
+                      format="yyyy/MM/dd HH:mm"
+                      className={"w-full"}
+                      onChange={(newValue) => field.onChange(newValue)}
+                    />
+                  )}
+                />
+                <small className="p-error">{errors.ArrivalTime?.message}</small>
+              </LocalizationProvider>
             </div>
 
             <div>

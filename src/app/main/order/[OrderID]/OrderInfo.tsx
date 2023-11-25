@@ -4,6 +4,7 @@ import { useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
 import Image from "next/image";
+import { Button } from "primereact/button";
 
 interface TitleContentCell {
   Title: string;
@@ -94,8 +95,34 @@ const OrderInfo = (params: { OrderID: string }) => {
           <div>{data?.Data.StoreAddress}</div>
         </div>
       </div>
+      <div className="flex flex-column gap-3">
+        <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
 
-      <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
+        <Button
+          label="更改抵達時間"
+          severity="warning"
+          className="w-full"
+          onClick={() => {
+            alert("更改抵達時間");
+          }}
+        />
+        <Button
+          label="更改結單時間"
+          severity="warning"
+          className="w-full"
+          onClick={() => {
+            alert("更改結單時間");
+          }}
+        />
+        <Button
+          label="關閉訂單"
+          severity="warning"
+          className="w-full"
+          onClick={() => {
+            alert("關閉訂單");
+          }}
+        />
+      </div>
     </>
   );
 };

@@ -22,8 +22,8 @@ export interface ProfileDialogFullModel {
   Name: string;
   Email: string;
   Brief: string;
-  LunchDefaultPayment: string | null;
-  DrinkDefaultPayment: string | null;
+  DefaultLunchPayment: string | null;
+  DefaultDrinkPayment: string | null;
   LunchNotify: boolean;
   DrinkNotify: boolean;
   CloseNotify: number;
@@ -47,8 +47,8 @@ export default function ProfileDialog({
     Name: "",
     Email: "",
     Brief: "",
-    LunchDefaultPayment: null,
-    DrinkDefaultPayment: null,
+    DefaultLunchPayment: null,
+    DefaultDrinkPayment: null,
     LunchNotify: false,
     DrinkNotify: false,
     CloseNotify: 10,
@@ -72,8 +72,8 @@ export default function ProfileDialog({
           Name: dialogData.Name,
           Email: dialogData.Email,
           Brief: dialogData.Brief,
-          LunchDefaultPayment: dialogData.LunchDefaultPayment,
-          DrinkDefaultPayment: dialogData.DrinkDefaultPayment,
+          LunchDefaultPayment: dialogData.DefaultLunchPayment,
+          DrinkDefaultPayment: dialogData.DefaultDrinkPayment,
           LunchNotify: dialogData.LunchNotify,
           DrinkNotify: dialogData.DrinkNotify,
           CloseNotify: dialogData.CloseNotify,
@@ -86,8 +86,8 @@ export default function ProfileDialog({
         if (dialogData.AccountID != null) {
           const param: RequestUpdateProfileModel = {
             Brief: dialogData.Brief,
-            LunchDefaultPayment: dialogData.LunchDefaultPayment,
-            DrinkDefaultPayment: dialogData.DrinkDefaultPayment,
+            LunchDefaultPayment: dialogData.DefaultLunchPayment,
+            DrinkDefaultPayment: dialogData.DefaultDrinkPayment,
             LunchNotify: dialogData.LunchNotify,
             DrinkNotify: dialogData.DrinkNotify,
             CloseNotify: dialogData.CloseNotify,
@@ -110,8 +110,8 @@ export default function ProfileDialog({
         Name: userData.Name,
         Brief: userData.Brief,
         Email: userData.Email,
-        LunchDefaultPayment: userData.LunchDefaultPayment,
-        DrinkDefaultPayment: userData.DrinkDefaultPayment,
+        DefaultLunchPayment: userData.DefaultLunchPayment,
+        DefaultDrinkPayment: userData.DefaultDrinkPayment,
         LunchNotify: userData.LunchNotify,
         DrinkNotify: userData.DrinkNotify,
         CloseNotify: userData.CloseNotify,
@@ -121,8 +121,8 @@ export default function ProfileDialog({
         Name: "",
         Brief: "",
         Email: "",
-        LunchDefaultPayment: null,
-        DrinkDefaultPayment: null,
+        DefaultLunchPayment: null,
+        DefaultDrinkPayment: null,
         LunchNotify: false,
         DrinkNotify: false,
         CloseNotify: 10,
@@ -230,7 +230,7 @@ export default function ProfileDialog({
 
           <div>
             <Controller
-              name="LunchDefaultPayment"
+              name="DefaultLunchPayment"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -254,13 +254,13 @@ export default function ProfileDialog({
               )}
             />
             <small className="p-error">
-              {errors.LunchDefaultPayment?.message}
+              {errors.DefaultLunchPayment?.message}
             </small>
           </div>
 
           <div>
             <Controller
-              name="DrinkDefaultPayment"
+              name="DefaultDrinkPayment"
               control={control}
               rules={{ required: "必填欄位" }}
               render={({ field, fieldState }) => (
@@ -284,7 +284,7 @@ export default function ProfileDialog({
               )}
             />
             <small className="p-error">
-              {errors.DrinkDefaultPayment?.message}
+              {errors.DefaultDrinkPayment?.message}
             </small>
           </div>
 
