@@ -2,7 +2,7 @@
 import { Column } from "primereact/column";
 import React from "react";
 import { formatCurrency } from "@/src/utils/IntExtension";
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderDetailHistory } from "@/src/services/order/OrderService";
 import TodayOrderItem from "./TodayOrderItem";
 

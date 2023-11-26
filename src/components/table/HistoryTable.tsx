@@ -1,6 +1,6 @@
 "use client";
 
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderDetailHistory } from "@/src/services/order/OrderService";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { Button } from "primereact/button";

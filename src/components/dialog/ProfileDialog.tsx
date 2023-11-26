@@ -4,18 +4,20 @@ import { useEffect } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Checkbox } from "primereact/checkbox";
-import { InputNumber } from "primereact/inputnumber";
-import { RequestCreateAccountModel } from "../models/models/RequestCreateAccountModel";
+import { RequestCreateAccountModel } from "@/src/models/models/RequestCreateAccountModel";
 import {
   CreateAccount,
   useProfileDialogOptions,
   UpdateProfile,
-} from "../services/admin/AccountService";
-import { RequestUpdateProfileModel } from "../models";
+} from "@/src/services/admin/AccountService";
+import { RequestUpdateProfileModel } from "@/src/models";
+import ControlTextInput from "@/src/components/form/ControlTextInput";
+import ControlDropDown from "@/src/components/form/ControlDropDown";
+import ControlNumberInput from "@/src/components/form/ControlNumberInput";
+import ControlCheckbox from "../form/ControlCheckbox";
 
 export interface ProfileDialogFullModel {
   AccountID: string | null;
@@ -157,25 +159,15 @@ export default function ProfileDialog({
           className="w-full flex flex-column gap-3"
         >
           <div>
-            <Controller
-              name="Name"
+            <ControlTextInput
+              name={"Name"}
               control={control}
-              rules={{ required: "必填欄位" }}
-              render={({ field, fieldState }) => (
-                <InputText
-                  {...field}
-                  id={field.name}
-                  placeholder="姓名"
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                />
-              )}
+              rules={{
+                required: "必填欄位1",
+              }}
+              placeholder="姓名"
+              errorKey={errors.Name}
             />
-            <small className="p-error">{errors.Name?.message}</small>
           </div>
 
           <div>
@@ -207,140 +199,63 @@ export default function ProfileDialog({
           </div>
 
           <div>
-            <Controller
+            <ControlTextInput
               name="Brief"
               control={control}
-              rules={{ required: "必填欄位" }}
-              render={({ field, fieldState }) => (
-                <InputText
-                  {...field}
-                  id={field.name}
-                  placeholder="暱稱"
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                />
-              )}
+              rules={{ required: "必填欄位2" }}
+              placeholder="暱稱"
+              errorKey={errors.Brief}
             />
-            <small className="p-error">{errors.Brief?.message}</small>
           </div>
 
           <div>
-            <Controller
+            <ControlDropDown
               name="DefaultLunchPayment"
               control={control}
               rules={{ required: "必填欄位" }}
-              render={({ field, fieldState }) => (
-                <Dropdown
-                  id={field.name}
-                  value={field.value}
-                  options={data?.Data.LunchPayment}
-                  optionLabel="Text"
-                  optionValue="ID"
-                  placeholder="選擇午餐預設付款方式"
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                  onChange={(e) => {
-                    field.onChange(e.value);
-                  }}
-                />
-              )}
+              options={data?.Data.LunchPayment!}
+              optionLabel="Text"
+              optionValue="ID"
+              placeholder="選擇午餐預設付款方式"
+              errorKey={errors.DefaultLunchPayment}
             />
-            <small className="p-error">
-              {errors.DefaultLunchPayment?.message}
-            </small>
           </div>
 
           <div>
-            <Controller
+            <ControlDropDown
               name="DefaultDrinkPayment"
               control={control}
               rules={{ required: "必填欄位" }}
-              render={({ field, fieldState }) => (
-                <Dropdown
-                  id={field.name}
-                  value={field.value}
-                  options={data?.Data.DrinkPayment}
-                  optionLabel="Text"
-                  optionValue="ID"
-                  placeholder="選擇飲料預設付款方式"
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                  onChange={(e) => {
-                    field.onChange(e.value);
-                  }}
-                />
-              )}
+              options={data?.Data.DrinkPayment!}
+              optionLabel="Text"
+              optionValue="ID"
+              placeholder="選擇飲料預設付款方式"
+              errorKey={errors.DefaultDrinkPayment}
             />
-            <small className="p-error">
-              {errors.DefaultDrinkPayment?.message}
-            </small>
           </div>
 
           <div>
-            <Controller
+            <ControlNumberInput
               name="CloseNotify"
               control={control}
               rules={{ required: "必填欄位 (數值格式0 ~ 15)" }}
-              render={({ field, fieldState }) => (
-                <InputNumber
-                  id={field.name}
-                  value={field.value}
-                  placeholder="結單前N分鐘提醒"
-                  min={0}
-                  max={15}
-                  className={classNames(
-                    {
-                      "p-invalid": fieldState.invalid,
-                    },
-                    "w-full"
-                  )}
-                  onChange={(e) => field.onChange(e.value)}
-                />
-              )}
+              min={0}
+              max={15}
+              placeholder="結單前N分鐘提醒"
+              errorKey={errors.CloseNotify}
             />
-            <small className="p-error">{errors.CloseNotify?.message}</small>
           </div>
 
           <div className="flex justify-content-between align-items-center">
-            <Controller
+            <ControlCheckbox
               name="LunchNotify"
               control={control}
-              render={({ field, fieldState }) => (
-                <div className="flex gap-2">
-                  <Checkbox
-                    inputId={field.name}
-                    onChange={(e) => field.onChange(e.checked)}
-                    checked={field.value}
-                  />
-                  <label htmlFor="LunchNotify">我是午餐團常客</label>
-                </div>
-              )}
+              labelName="我是午餐團常客"
             />
-            <Controller
+            <ControlCheckbox
               name="DrinkNotify"
               control={control}
-              render={({ field, fieldState }) => (
-                <div className="flex gap-2">
-                  <Checkbox
-                    inputId={field.name}
-                    onChange={(e) => field.onChange(e.checked)}
-                    checked={field.value}
-                  />
-                  <label htmlFor="DrinkNotify">我是飲料團常客</label>
-                </div>
-              )}
+              labelName="我是飲料團常客"
             />
           </div>
 

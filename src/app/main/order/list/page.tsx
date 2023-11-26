@@ -1,12 +1,12 @@
 "use client";
 
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderList } from "@/src/services/order/OrderService";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { useState } from "react";
-import CreateOrderDialog from "@/src/components/CreateOrderDialog";
+import CreateOrderDialog from "@/src/components/dialog/CreateOrderDialog";
 
 export default function OrderListPage() {
   const [visible, setVisible] = useState<boolean>(false);

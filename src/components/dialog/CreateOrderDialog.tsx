@@ -9,13 +9,14 @@ import { Calendar } from "primereact/calendar";
 import {
   CreateOrder,
   useCreateOrderDialogOptions,
-} from "../services/order/OrderService";
-import { RequestPostOrderModel } from "../models/models/RequestPostOrderModel";
+} from "@/src/services/order/OrderService";
+import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel";
 import { Toast } from "primereact/toast";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import de from "date-fns/locale/de";
+import ControlDateTimePicker from "../form/ControlDateTimePicker";
 
 export default function CreateOrderDialog({
   visible,
@@ -163,26 +164,12 @@ export default function CreateOrderDialog({
             </div>
 
             <div>
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-                adapterLocale={de}
-              >
-                <Controller
-                  name="ArrivalTime"
-                  control={control}
-                  rules={{ required: "必填欄位" }}
-                  render={({ field, fieldState }) => (
-                    <DateTimePicker
-                      value={field.value}
-                      label="用餐時間"
-                      format="yyyy/MM/dd HH:mm"
-                      className={"w-full"}
-                      onChange={(newValue) => field.onChange(newValue)}
-                    />
-                  )}
-                />
-                <small className="p-error">{errors.ArrivalTime?.message}</small>
-              </LocalizationProvider>
+              <ControlDateTimePicker
+                name="ArrivalTime"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                labelName="用餐時間"
+              />
             </div>
 
             <div>

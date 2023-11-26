@@ -2,7 +2,7 @@
 
 import { useStoreList } from "../../../../services/admin/StoreService";
 import { Column } from "primereact/column";
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
 
