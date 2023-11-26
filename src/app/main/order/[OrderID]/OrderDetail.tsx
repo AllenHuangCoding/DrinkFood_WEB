@@ -2,8 +2,7 @@
 
 import { useOrder } from "@/src/services/order/OrderService";
 import { GroupOrderDetailModel, ViewOrderDetail } from "@/src/models";
-import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
+import { AddItemButton } from "./AddItemDialog";
 
 const OrderDetail = ({
   OrderID,
@@ -20,17 +19,13 @@ const OrderDetail = ({
   if (data?.Data.Detail?.length == 0) {
     return (
       <>
-        <Button
-          className={classNames({
-            hidden: !addItem,
-          })}
-          label="新增項目"
-          severity="secondary"
-          onClick={() => {
+        <AddItemButton
+          addItem={addItem}
+          showDialog={() => {
             alert("新增項目");
           }}
         />
-        <div className="w-full h-full bg-red-100">尚無明細</div>
+        <div className="w-full h-full">尚無明細</div>
       </>
     );
   }

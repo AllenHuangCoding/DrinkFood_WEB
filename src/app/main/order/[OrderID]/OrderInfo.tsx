@@ -1,10 +1,19 @@
 "use client";
 
-import { useOrder } from "@/src/services/order/OrderService";
+import { CloseOrder, useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
 import Image from "next/image";
 import { Button } from "primereact/button";
+import {
+  UpdateArrivalButton,
+  UpdateArrivalDialog,
+} from "@/src/app/main/order/[OrderID]/UpdateArrivalDialog";
+import { useState } from "react";
+import {
+  UpdateCloseButton,
+  UpdateCloseDialog,
+} from "@/src/app/main/order/[OrderID]/UpdateCloseDialog";
 
 interface TitleContentCell {
   Title: string;
@@ -12,6 +21,9 @@ interface TitleContentCell {
 }
 
 const OrderInfo = (params: { OrderID: string }) => {
+  const [arrivalVisible, setArrivalVisible] = useState<boolean>(false);
+  const [closeVisible, setCloseVisible] = useState<boolean>(false);
+
   const { data, isError, isLoading } = useOrder(params.OrderID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -28,6 +40,10 @@ const OrderInfo = (params: { OrderID: string }) => {
       Content: data?.Data.OrderStatusDesc,
     },
     {
+      Title: "結單時間",
+      Content: data?.Data.CloseTime,
+    },
+    {
       Title: "用餐時間",
       Content: data?.Data.ArrivalTime,
     },
@@ -38,10 +54,6 @@ const OrderInfo = (params: { OrderID: string }) => {
     {
       Title: "地點",
       Content: data?.Data.OfficeName,
-    },
-    {
-      Title: "結單時間",
-      Content: data?.Data.CloseTime,
     },
     {
       Title: "建立時間",
@@ -98,28 +110,41 @@ const OrderInfo = (params: { OrderID: string }) => {
       <div className="flex flex-column gap-3">
         <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
 
-        <Button
-          label="更改抵達時間"
-          severity="warning"
-          className="w-full"
-          onClick={() => {
-            alert("更改抵達時間");
-          }}
-        />
-        <Button
-          label="更改結單時間"
-          severity="warning"
-          className="w-full"
-          onClick={() => {
-            alert("更改結單時間");
-          }}
-        />
+        <div>
+          <UpdateCloseButton
+            showDialog={() => {
+              setCloseVisible(true);
+            }}
+          />
+          <UpdateCloseDialog
+            visible={closeVisible}
+            closeDialog={() => {
+              setCloseVisible(false);
+            }}
+          />
+        </div>
+
+        <div>
+          <UpdateArrivalButton
+            showDialog={() => {
+              setArrivalVisible(true);
+            }}
+          />
+          <UpdateArrivalDialog
+            visible={arrivalVisible}
+            closeDialog={() => {
+              setArrivalVisible(false);
+            }}
+          />
+        </div>
+
         <Button
           label="關閉訂單"
-          severity="warning"
+          severity="danger"
           className="w-full"
           onClick={() => {
-            alert("關閉訂單");
+            CloseOrder(data?.Data.OrderID!);
+            // TODO: 訂單資料重整
           }}
         />
       </div>

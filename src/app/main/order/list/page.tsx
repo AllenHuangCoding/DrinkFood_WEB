@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { useState } from "react";
-import CreateOrderDialog from "@/src/components/dialog/CreateOrderDialog";
+import {
+  CreateOrderButton,
+  CreateOrderDialog,
+} from "@/src/components/dialog/CreateOrderDialog";
 
 export default function OrderListPage() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -14,11 +17,8 @@ export default function OrderListPage() {
   const router = useRouter();
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
-      <Button
-        label="新增"
-        icon="pi pi-plus"
-        severity="info"
-        onClick={() => {
+      <CreateOrderButton
+        showDialog={() => {
           setVisible(true);
         }}
       />

@@ -1,10 +1,8 @@
 import { useRef } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { Dropdown } from "primereact/dropdown";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { Checkbox } from "primereact/checkbox";
 import { Calendar } from "primereact/calendar";
 import {
   CreateOrder,
@@ -12,19 +10,30 @@ import {
 } from "@/src/services/order/OrderService";
 import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel";
 import { Toast } from "primereact/toast";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import de from "date-fns/locale/de";
-import ControlDateTimePicker from "../form/ControlDateTimePicker";
+import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
+import ControlDropDown from "@/src/components/form/ControlDropDown";
+import ControlCheckbox from "@/src/components/form/ControlCheckbox";
 
-export default function CreateOrderDialog({
+const CreateOrderButton = ({ showDialog }: { showDialog: () => void }) => {
+  return (
+    <Button
+      label="新增"
+      icon="pi pi-plus"
+      severity="info"
+      onClick={() => {
+        showDialog();
+      }}
+    />
+  );
+};
+
+const CreateOrderDialog = ({
   visible,
   closeDialog,
 }: {
   visible: boolean;
   closeDialog: () => void;
-}) {
+}) => {
   const defaultValues: RequestPostOrderModel = {
     CreateAccountID: "",
     OfficeID: "",
@@ -80,87 +89,42 @@ export default function CreateOrderDialog({
             className="w-full flex flex-column gap-3"
           >
             <div>
-              <Controller
+              <ControlDropDown
                 name="OfficeID"
                 control={control}
                 rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Dropdown
-                    id={field.name}
-                    value={field.value}
-                    options={data?.Data.Office}
-                    optionLabel="Text"
-                    optionValue="ID"
-                    placeholder="選擇辦公室"
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => {
-                      field.onChange(e.value);
-                    }}
-                  />
-                )}
+                options={data?.Data.Office}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇辦公室"
+                errorKey={errors.OfficeID}
               />
-              <small className="p-error">{errors.OfficeID?.message}</small>
             </div>
 
             <div>
-              <Controller
+              <ControlDropDown
                 name="TypeID"
                 control={control}
                 rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Dropdown
-                    id={field.name}
-                    value={field.value}
-                    options={data?.Data.Type}
-                    optionLabel="Text"
-                    optionValue="ID"
-                    placeholder="選擇類型"
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => {
-                      field.onChange(e.value);
-                    }}
-                  />
-                )}
+                options={data?.Data.Type}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇類型"
+                errorKey={errors.TypeID}
               />
-              <small className="p-error">{errors.TypeID?.message}</small>
             </div>
 
             <div>
-              <Controller
+              <ControlDropDown
                 name="StoreID"
                 control={control}
                 rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Dropdown
-                    id={field.name}
-                    value={field.value}
-                    options={data?.Data.Store}
-                    optionLabel="Text"
-                    optionValue="ID"
-                    placeholder="選擇店家"
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => {
-                      field.onChange(e.value);
-                    }}
-                  />
-                )}
+                options={data?.Data.Store!}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇店家"
+                errorKey={errors.StoreID}
               />
-              <small className="p-error">{errors.StoreID?.message}</small>
             </div>
 
             <div>
@@ -225,19 +189,10 @@ export default function CreateOrderDialog({
             </div>
 
             <div className="flex justify-content-between align-items-center">
-              <Controller
+              <ControlCheckbox
                 name="IsPublic"
                 control={control}
-                render={({ field, fieldState }) => (
-                  <div className="flex gap-2">
-                    <Checkbox
-                      inputId={field.name}
-                      onChange={(e) => field.onChange(e.checked)}
-                      checked={field.value}
-                    />
-                    <label htmlFor="IsPublic">公開訂單</label>
-                  </div>
-                )}
+                labelName="公開訂單"
               />
             </div>
 
@@ -252,4 +207,6 @@ export default function CreateOrderDialog({
       </Dialog>
     </>
   );
-}
+};
+
+export { CreateOrderButton, CreateOrderDialog };

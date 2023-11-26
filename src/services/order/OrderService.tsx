@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GET, POST } from "../httpClient";
+import { GET, POST, PUT } from "../httpClient";
 import Account from "@/src/app/main/admin/account/page";
 import { OrderListModel } from "@/src/models/models/OrderListModel";
 import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
@@ -40,10 +40,15 @@ const CreateOrder = (Param: RequestPostOrderModel) => {
   return POST<any>("/Order/PostOrder", Param);
 };
 
+const CloseOrder = (OrderID: string) => {
+  return PUT<any>(`/Order/CloseOrder/${OrderID}`, []);
+};
+
 export {
   useOrder,
   useOrderList,
   useOrderDetailHistory,
   useCreateOrderDialogOptions,
   CreateOrder,
+  CloseOrder,
 };

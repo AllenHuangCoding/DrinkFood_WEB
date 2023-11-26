@@ -26,6 +26,26 @@ const ControlDateTimePicker = <T extends FieldValues>({
               format="yyyy/MM/dd HH:mm"
               className={"w-full"}
               onChange={(newValue) => field.onChange(newValue)}
+              slotProps={{
+                field: { clearable: true },
+                textField: {
+                  helperText: errorKey?.message,
+                },
+              }}
+              sx={{
+                "&:hover .MuiInputLabel-root": {
+                  color: "blue",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "blue",
+                },
+                "&.Mui-focused .MuiInputLabel-root": {
+                  color: "blue",
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "blue",
+                },
+              }}
             />
           )}
         />
