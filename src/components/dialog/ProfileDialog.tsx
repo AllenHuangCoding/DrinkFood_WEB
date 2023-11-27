@@ -148,7 +148,9 @@ export default function ProfileDialog({
     <Dialog
       header={dialogHeader}
       visible={visible}
-      className="w-8 md:w-6 lg:w-5 xl:w-3"
+      className="w-10 md:w-6 lg:w-5 xl:w-4"
+      draggable={false}
+      position="top"
       onHide={() => {
         closeDialog();
       }}
@@ -163,10 +165,11 @@ export default function ProfileDialog({
               name={"Name"}
               control={control}
               rules={{
-                required: "必填欄位1",
+                required: "必填欄位",
               }}
               placeholder="姓名"
               errorKey={errors.Name}
+              disabled={action == "Update"}
             />
           </div>
 
@@ -186,6 +189,7 @@ export default function ProfileDialog({
                   {...field}
                   id={field.name}
                   placeholder="信箱"
+                  disabled={action == "Update"}
                   className={classNames(
                     {
                       "p-invalid": fieldState.invalid,
@@ -202,7 +206,7 @@ export default function ProfileDialog({
             <ControlTextInput
               name="Brief"
               control={control}
-              rules={{ required: "必填欄位2" }}
+              rules={{ required: "必填欄位" }}
               placeholder="暱稱"
               errorKey={errors.Brief}
             />

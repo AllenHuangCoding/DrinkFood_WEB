@@ -13,7 +13,7 @@ const ControlDateTimePicker = <T extends FieldValues>({
   labelName,
 }: ControlCheckboxProps<T>) => {
   return (
-    <>
+    <div className="flex flex-column w-full">
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
         <Controller
           name={name}
@@ -28,9 +28,6 @@ const ControlDateTimePicker = <T extends FieldValues>({
               onChange={(newValue) => field.onChange(newValue)}
               slotProps={{
                 field: { clearable: true },
-                textField: {
-                  helperText: errorKey?.message,
-                },
               }}
               sx={{
                 "&:hover .MuiInputLabel-root": {
@@ -51,7 +48,7 @@ const ControlDateTimePicker = <T extends FieldValues>({
         />
         <small className="p-error">{errorKey?.message}</small>
       </LocalizationProvider>
-    </>
+    </div>
   );
 };
 

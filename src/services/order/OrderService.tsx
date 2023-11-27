@@ -5,6 +5,7 @@ import { OrderListModel } from "@/src/models/models/OrderListModel";
 import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
 import { ViewOrderAndDetail } from "@/src/models/models/ViewOrderAndDetail";
 import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel";
+import { RequestPutOrderTimeModel } from "@/src/models";
 
 // 成員API
 const useOrderList = () => {
@@ -44,6 +45,10 @@ const CloseOrder = (OrderID: string) => {
   return PUT<any>(`/Order/CloseOrder/${OrderID}`, []);
 };
 
+const UpdateOrderTime = (OrderID: string, Param: RequestPutOrderTimeModel) => {
+  return PUT<any>(`/Order/PutOrderTime/${OrderID}`, Param);
+};
+
 export {
   useOrder,
   useOrderList,
@@ -51,4 +56,5 @@ export {
   useCreateOrderDialogOptions,
   CreateOrder,
   CloseOrder,
+  UpdateOrderTime,
 };

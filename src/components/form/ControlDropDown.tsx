@@ -12,9 +12,10 @@ const ControlDropDown = <T extends FieldValues>({
   options,
   optionLabel,
   optionValue,
+  filter = false,
 }: ControlDropDwonProps<T>) => {
   return (
-    <>
+    <div className="flex flex-column w-full">
       <Controller
         name={name}
         control={control}
@@ -27,12 +28,10 @@ const ControlDropDown = <T extends FieldValues>({
             optionLabel={optionLabel}
             optionValue={optionValue}
             placeholder={placeholder}
-            className={classNames(
-              {
-                "p-invalid": fieldState.invalid,
-              },
-              "w-full"
-            )}
+            filter={filter}
+            className={classNames({
+              "p-invalid": fieldState.invalid,
+            })}
             onChange={(e) => {
               field.onChange(e.value);
             }}
@@ -40,7 +39,7 @@ const ControlDropDown = <T extends FieldValues>({
         )}
       />
       <small className="p-error">{errorKey?.message}</small>
-    </>
+    </div>
   );
 };
 

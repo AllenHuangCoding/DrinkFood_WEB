@@ -15,6 +15,7 @@ export type ControlFormProps<T extends FieldValues> = {
     pattern?: ValidationValueMessage | undefined;
   };
   placeholder?: string | undefined;
+  disabled?: boolean;
 };
 
 export type ControlDropDwonProps<T extends FieldValues> = {
@@ -29,6 +30,7 @@ export type ControlDropDwonProps<T extends FieldValues> = {
   options: any[];
   optionLabel: string;
   optionValue: string;
+  filter?: boolean;
 };
 
 export type ControlNumberProps<T extends FieldValues> = {

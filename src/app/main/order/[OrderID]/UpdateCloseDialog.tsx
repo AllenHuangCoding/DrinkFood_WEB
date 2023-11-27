@@ -1,6 +1,7 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface UpdateCloseModel {
@@ -27,22 +28,28 @@ const UpdateCloseDialog = ({
 
   const onSubmit = (param: UpdateCloseModel) => {
     console.log(param);
+    // UpdateOrderTime();
     closeDialog();
-    reset();
   };
+
+  useEffect(() => {
+    reset();
+  }, [visible]);
 
   return (
     <Dialog
       header="更改結單時間"
       visible={visible}
-      className="w-8 md:w-6 lg:w-5 xl:w-3"
+      className="w-10 md:w-6 lg:w-4 xl:w-3"
+      position="top"
+      draggable={false}
       onHide={() => {
         closeDialog();
       }}
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-column gap-3"
+        className="w-full flex flex-column gap-3 mt-3"
       >
         <ControlDateTimePicker
           name="CloseTime"

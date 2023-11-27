@@ -9,9 +9,10 @@ const ControlTextInput = <T extends FieldValues>({
   placeholder,
   rules,
   errorKey,
+  disabled,
 }: ControlFormProps<T>) => {
   return (
-    <>
+    <div className="flex flex-column w-full">
       <Controller
         name={name}
         control={control}
@@ -21,17 +22,15 @@ const ControlTextInput = <T extends FieldValues>({
             {...field}
             id={field.name}
             placeholder={placeholder}
-            className={classNames(
-              {
-                "p-invalid": fieldState.invalid,
-              },
-              "w-full"
-            )}
+            disabled={disabled}
+            className={classNames({
+              "p-invalid": fieldState.invalid,
+            })}
           />
         )}
       />
       <small className="p-error">{errorKey?.message}</small>
-    </>
+    </div>
   );
 };
 

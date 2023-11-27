@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useForm, Controller } from "react-hook-form";
@@ -74,13 +74,19 @@ const CreateOrderDialog = ({
     });
   };
 
+  useEffect(() => {
+    reset();
+  }, [visible]);
+
   return (
     <>
       <Toast ref={toastBottomCenter} position="bottom-center" />
       <Dialog
         header="開團"
         visible={visible}
-        className="w-8 md:w-6 lg:w-5 xl:w-3"
+        className="w-11 md:w-10 lg:w-7 xl:w-6"
+        draggable={false}
+        position="top"
         onHide={() => closeDialog()}
       >
         <div className="flex justify-content-center">
@@ -101,7 +107,7 @@ const CreateOrderDialog = ({
               />
             </div>
 
-            <div>
+            <div className="flex flex-column gap-3 sm:flex-row">
               <ControlDropDown
                 name="TypeID"
                 control={control}
@@ -112,9 +118,6 @@ const CreateOrderDialog = ({
                 placeholder="選擇類型"
                 errorKey={errors.TypeID}
               />
-            </div>
-
-            <div>
               <ControlDropDown
                 name="StoreID"
                 control={control}
@@ -123,69 +126,38 @@ const CreateOrderDialog = ({
                 optionLabel="Text"
                 optionValue="ID"
                 placeholder="選擇店家"
+                filter={true}
                 errorKey={errors.StoreID}
               />
             </div>
 
-            <div>
+            <div className="flex flex-column gap-3 sm:flex-row">
               <ControlDateTimePicker
                 name="ArrivalTime"
                 control={control}
                 rules={{ required: "必填欄位" }}
                 labelName="用餐時間"
+                errorKey={errors.ArrivalTime}
               />
-            </div>
 
-            <div>
-              <Controller
+              <ControlDateTimePicker
                 name="OpenTime"
                 control={control}
                 rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Calendar
-                    id={field.name}
-                    value={field.value}
-                    placeholder="開放時間"
-                    dateFormat="yy-mm-dd"
-                    hourFormat="24"
-                    showTime
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => field.onChange(e.value)}
-                  />
-                )}
+                labelName="開放時間"
+                errorKey={errors.OpenTime}
               />
-              <small className="p-error">{errors.OpenTime?.message}</small>
             </div>
 
-            <div>
-              <Controller
+            <div className="w-full sm:w-6">
+              <ControlDateTimePicker
                 name="CloseTime"
                 control={control}
                 rules={{ required: "必填欄位" }}
-                render={({ field, fieldState }) => (
-                  <Calendar
-                    id={field.name}
-                    value={field.value}
-                    placeholder="結單時間"
-                    dateFormat="yy-mm-dd"
-                    hourFormat="24"
-                    showTime
-                    className={classNames(
-                      {
-                        "p-invalid": fieldState.invalid,
-                      },
-                      "w-full"
-                    )}
-                    onChange={(e) => field.onChange(e.value)}
-                  />
-                )}
+                labelName="結單時間"
+                errorKey={errors.CloseTime}
               />
-              <small className="p-error">{errors.CloseTime?.message}</small>
+              <div></div>
             </div>
 
             <div className="flex justify-content-between align-items-center">

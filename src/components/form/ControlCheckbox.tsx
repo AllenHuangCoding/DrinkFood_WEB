@@ -20,7 +20,7 @@ const ControlCheckbox = <T extends FieldValues>({
             <Checkbox
               inputId={field.name}
               onChange={(e) => field.onChange(e.checked)}
-              checked={field.value}
+              checked={true}
             />
             <label htmlFor={field.name}>{labelName}</label>
           </div>

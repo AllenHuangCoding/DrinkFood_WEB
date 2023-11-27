@@ -143,8 +143,10 @@ const OrderInfo = (params: { OrderID: string }) => {
           severity="danger"
           className="w-full"
           onClick={() => {
-            CloseOrder(data?.Data.OrderID!);
-            // TODO: 訂單資料重整
+            if (confirm("確認要關閉訂單?")) {
+              CloseOrder(data?.Data.OrderID!);
+              // TODO: 訂單資料重整
+            }
           }}
         />
       </div>
