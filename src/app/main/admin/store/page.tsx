@@ -2,15 +2,23 @@
 
 import { useStoreList } from "../../../../services/admin/StoreService";
 import { Column } from "primereact/column";
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
+import { CreateOrderDialog } from "@/src/components/dialog/CreateOrderDialog";
+import { useState } from "react";
 
 export default function StorePage() {
   const router = useRouter();
-
+  const [visible, setVisible] = useState<boolean>(false);
   return (
     <div className="card">
+      <CreateOrderDialog
+        visible={visible}
+        closeDialog={() => {
+          setVisible(false);
+        }}
+      />
       <BasicTable dataKey="StoreID" query={useStoreList()}>
         <Column
           field="BrandTypeDesc"
@@ -52,11 +60,7 @@ export default function StorePage() {
                 text
                 onClick={() => router.push(`./${x.StoreID}`)}
               />
-              <Button
-                icon="pi pi-plus"
-                text
-                onClick={() => router.push(`../order/add?StoreID=${x.StoreID}`)}
-              />
+              <Button icon="pi pi-plus" text onClick={() => setVisible(true)} />
             </>
           )}
         />

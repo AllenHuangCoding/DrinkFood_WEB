@@ -190,6 +190,24 @@ export interface ViewOrderAndDetail {
     BrandStoreName?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    OfficeOwner?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    IsPublicDesc?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    StatusDescPublicDesc?: string | null;
+    /**
+     * 
      * @type {Array<GroupOrderDetailModel>}
      * @memberof ViewOrderAndDetail
      */
@@ -242,6 +260,9 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
         'StorePhone': !exists(json, 'StorePhone') ? undefined : json['StorePhone'],
         'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
         'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
+        'OfficeOwner': !exists(json, 'OfficeOwner') ? undefined : json['OfficeOwner'],
+        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
+        'StatusDescPublicDesc': !exists(json, 'StatusDescPublicDesc') ? undefined : json['StatusDescPublicDesc'],
         'Detail': !exists(json, 'Detail') ? undefined : (json['Detail'] === null ? null : (json['Detail'] as Array<any>).map(GroupOrderDetailModelFromJSON)),
     };
 }
@@ -282,6 +303,9 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
         'StorePhone': value.StorePhone,
         'StoreAddress': value.StoreAddress,
         'BrandStoreName': value.BrandStoreName,
+        'OfficeOwner': value.OfficeOwner,
+        'IsPublicDesc': value.IsPublicDesc,
+        'StatusDescPublicDesc': value.StatusDescPublicDesc,
         'Detail': value.Detail === undefined ? undefined : (value.Detail === null ? null : (value.Detail as Array<any>).map(GroupOrderDetailModelToJSON)),
     };
 }

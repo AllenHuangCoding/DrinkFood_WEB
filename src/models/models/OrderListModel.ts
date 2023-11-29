@@ -181,6 +181,24 @@ export interface OrderListModel {
      * @memberof OrderListModel
      */
     BrandStoreName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderListModel
+     */
+    OfficeOwner?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderListModel
+     */
+    IsPublicDesc?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderListModel
+     */
+    StatusDescPublicDesc?: string | null;
 }
 
 /**
@@ -229,6 +247,9 @@ export function OrderListModelFromJSONTyped(json: any, ignoreDiscriminator: bool
         'StorePhone': !exists(json, 'StorePhone') ? undefined : json['StorePhone'],
         'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
         'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
+        'OfficeOwner': !exists(json, 'OfficeOwner') ? undefined : json['OfficeOwner'],
+        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
+        'StatusDescPublicDesc': !exists(json, 'StatusDescPublicDesc') ? undefined : json['StatusDescPublicDesc'],
     };
 }
 
@@ -268,6 +289,9 @@ export function OrderListModelToJSON(value?: OrderListModel | null): any {
         'StorePhone': value.StorePhone,
         'StoreAddress': value.StoreAddress,
         'BrandStoreName': value.BrandStoreName,
+        'OfficeOwner': value.OfficeOwner,
+        'IsPublicDesc': value.IsPublicDesc,
+        'StatusDescPublicDesc': value.StatusDescPublicDesc,
     };
 }
 

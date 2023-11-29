@@ -15,6 +15,7 @@ export * from './RequestUpdateProfileModel';
 export * from './ResponseLoginModel';
 export * from './ResponseModel';
 export * from './ResponseOrderDialogOptions';
+export * from './ResponseProfileDialogOptions';
 export * from './ResponseStoreListModel';
 export * from './ViewAccount';
 export * from './ViewDetailHistory';

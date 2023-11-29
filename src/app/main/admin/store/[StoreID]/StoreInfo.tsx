@@ -20,14 +20,13 @@ const StoreInfo = (params: { StoreID: string }) => {
           <div className="col-12 md:col-6">
             <div className="flex flex-row align-items-center gap-2">
               {data?.Data.BrandLogoUrl && (
-                <Image
+                <img
                   src={data?.Data.BrandLogoUrl}
-                  className={classNames(
-                    {
-                      "cursor-pointer": data?.Data.BrandOfficialUrl,
-                    },
-                    "h-6rem w-6rem"
-                  )}
+                  className={classNames({
+                    "cursor-pointer": data?.Data.BrandOfficialUrl,
+                  })}
+                  width={100}
+                  height={100}
                   alt="Logo圖片"
                   onClick={() => {
                     const url = data?.Data.BrandOfficialUrl;

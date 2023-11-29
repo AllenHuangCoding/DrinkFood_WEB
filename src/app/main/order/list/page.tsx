@@ -1,12 +1,15 @@
 "use client";
 
-import { BasicTable } from "@/src/components/BasicTable";
+import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderList } from "@/src/services/order/OrderService";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { useState } from "react";
-import CreateOrderDialog from "@/src/components/CreateOrderDialog";
+import {
+  CreateOrderButton,
+  CreateOrderDialog,
+} from "@/src/components/dialog/CreateOrderDialog";
 
 export default function OrderListPage() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -14,11 +17,8 @@ export default function OrderListPage() {
   const router = useRouter();
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
-      <Button
-        label="新增"
-        icon="pi pi-plus"
-        severity="info"
-        onClick={() => {
+      <CreateOrderButton
+        showDialog={() => {
           setVisible(true);
         }}
       />
@@ -54,32 +54,20 @@ export default function OrderListPage() {
             sortable
           />
           <Column
-            field="OfficeName"
-            header="地點"
-            style={{ width: "10%" }}
+            field="OfficeOwner"
+            header="地點 / 團長"
+            style={{ width: "15%" }}
             sortable
           />
           <Column
-            field="OwnerName"
-            header="團長"
-            style={{ width: "8%" }}
-            sortable
-          />
-          <Column
-            field="OrderStatusDesc"
-            header="訂單狀態"
-            style={{ width: "12%" }}
-            sortable
-          />
-          <Column
-            field="Remark"
-            header="備註"
-            style={{ width: "10%" }}
+            field="StatusDescPublicDesc"
+            header="訂單狀態 / 類型"
+            style={{ width: "15%" }}
             sortable
           />
           <Column
             header="功能"
-            style={{ width: "10%" }}
+            style={{ width: "15%" }}
             body={(x) => (
               <>
                 <Button
@@ -87,7 +75,13 @@ export default function OrderListPage() {
                   text
                   onClick={() => {
                     router.push(`../${x.OrderID}`);
-                    // router.push(`../export?search=123`);
+                  }}
+                />
+                <Button
+                  icon="pi pi-copy"
+                  text
+                  onClick={() => {
+                    alert(x.ShareUrl);
                   }}
                 />
               </>

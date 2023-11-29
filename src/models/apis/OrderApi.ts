@@ -69,6 +69,10 @@ export interface ApiOrderGetOrderOrderIDGetRequest {
     orderID: string;
 }
 
+export interface ApiOrderJoinOrderOrderIDPostRequest {
+    orderID: string;
+}
+
 export interface ApiOrderPostOrderDetailPostRequest {
     requestPostOrderDetailModel?: RequestPostOrderDetailModel;
 }
@@ -258,6 +262,34 @@ export class OrderApi extends runtime.BaseAPI {
      */
     async apiOrderGetOrderOrderIDGet(requestParameters: ApiOrderGetOrderOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ViewOrderAndDetail> {
         const response = await this.apiOrderGetOrderOrderIDGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiOrderJoinOrderOrderIDPostRaw(requestParameters: ApiOrderJoinOrderOrderIDPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+        if (requestParameters.orderID === null || requestParameters.orderID === undefined) {
+            throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderJoinOrderOrderIDPost.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/Order/JoinOrder/{OrderID}`.replace(`{${"OrderID"}}`, encodeURIComponent(String(requestParameters.orderID))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiOrderJoinOrderOrderIDPost(requestParameters: ApiOrderJoinOrderOrderIDPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+        const response = await this.apiOrderJoinOrderOrderIDPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

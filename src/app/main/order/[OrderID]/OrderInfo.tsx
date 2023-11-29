@@ -1,9 +1,19 @@
 "use client";
 
-import { useOrder } from "@/src/services/order/OrderService";
+import { CloseOrder, useOrder } from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
 import Image from "next/image";
+import { Button } from "primereact/button";
+import {
+  UpdateArrivalButton,
+  UpdateArrivalDialog,
+} from "@/src/app/main/order/[OrderID]/UpdateArrivalDialog";
+import { useState } from "react";
+import {
+  UpdateCloseButton,
+  UpdateCloseDialog,
+} from "@/src/app/main/order/[OrderID]/UpdateCloseDialog";
 
 interface TitleContentCell {
   Title: string;
@@ -11,6 +21,9 @@ interface TitleContentCell {
 }
 
 const OrderInfo = (params: { OrderID: string }) => {
+  const [arrivalVisible, setArrivalVisible] = useState<boolean>(false);
+  const [closeVisible, setCloseVisible] = useState<boolean>(false);
+
   const { data, isError, isLoading } = useOrder(params.OrderID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -27,6 +40,10 @@ const OrderInfo = (params: { OrderID: string }) => {
       Content: data?.Data.OrderStatusDesc,
     },
     {
+      Title: "結單時間",
+      Content: data?.Data.CloseTime,
+    },
+    {
       Title: "用餐時間",
       Content: data?.Data.ArrivalTime,
     },
@@ -37,10 +54,6 @@ const OrderInfo = (params: { OrderID: string }) => {
     {
       Title: "地點",
       Content: data?.Data.OfficeName,
-    },
-    {
-      Title: "結單時間",
-      Content: data?.Data.CloseTime,
     },
     {
       Title: "建立時間",
@@ -71,15 +84,14 @@ const OrderInfo = (params: { OrderID: string }) => {
     <>
       <div className="flex flex-row align-items-center gap-2 border-bottom-3 border-300">
         {data?.Data.BrandLogoUrl && (
-          <Image
+          <img
             src={data?.Data.BrandLogoUrl}
-            className={classNames(
-              {
-                "cursor-pointer": data?.Data.BrandOfficialUrl,
-              },
-              "h-6rem w-6rem"
-            )}
+            className={classNames({
+              "cursor-pointer": data?.Data.BrandOfficialUrl,
+            })}
             alt="Logo圖片"
+            width={100}
+            height={100}
             onClick={() => {
               const url = data?.Data.BrandOfficialUrl;
               if (url) {
@@ -95,8 +107,49 @@ const OrderInfo = (params: { OrderID: string }) => {
           <div>{data?.Data.StoreAddress}</div>
         </div>
       </div>
+      <div className="flex flex-column gap-3">
+        <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
 
-      <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
+        <div>
+          <UpdateCloseButton
+            showDialog={() => {
+              setCloseVisible(true);
+            }}
+          />
+          <UpdateCloseDialog
+            visible={closeVisible}
+            closeDialog={() => {
+              setCloseVisible(false);
+            }}
+          />
+        </div>
+
+        <div>
+          <UpdateArrivalButton
+            showDialog={() => {
+              setArrivalVisible(true);
+            }}
+          />
+          <UpdateArrivalDialog
+            visible={arrivalVisible}
+            closeDialog={() => {
+              setArrivalVisible(false);
+            }}
+          />
+        </div>
+
+        <Button
+          label="關閉訂單"
+          severity="danger"
+          className="w-full"
+          onClick={() => {
+            if (confirm("確認要關閉訂單?")) {
+              CloseOrder(data?.Data.OrderID!);
+              // TODO: 訂單資料重整
+            }
+          }}
+        />
+      </div>
     </>
   );
 };

@@ -11,7 +11,7 @@ const AccessDeniedPage = () => {
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
       <div className="flex flex-column align-items-center justify-content-center">
-        <Image
+        <img
           src="/demo/images/access/logo-orange.svg"
           alt="Sakai logo"
           className="mb-5 flex-shrink-0"
@@ -40,7 +40,7 @@ const AccessDeniedPage = () => {
             <div className="text-600 mb-5">
               You do not have the necessary permisions.
             </div>
-            <Image
+            <img
               src="/demo/images/access/asset-access.svg"
               alt="Error"
               className="mb-5"

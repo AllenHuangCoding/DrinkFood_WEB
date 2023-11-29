@@ -24,7 +24,7 @@ const MenuTemplate = (product: ViewDrinkFoodModel) => {
             </div>
             <div className="gap-2">
               <span className="text-xl font-semibold">
-                {formatCurrency(product.DrinkFoodPrice)}
+                {formatCurrency(product.DrinkFoodPrice ?? 0)}
               </span>
             </div>
           </div>

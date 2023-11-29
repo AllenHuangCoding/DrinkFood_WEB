@@ -20,6 +20,7 @@ import type {
   RequestUpdateProfileModel,
   ResponseLoginModel,
   ResponseModel,
+  ResponseProfileDialogOptions,
   ViewAccount,
 } from '../models/index';
 import {
@@ -33,6 +34,8 @@ import {
     ResponseLoginModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
+    ResponseProfileDialogOptionsFromJSON,
+    ResponseProfileDialogOptionsToJSON,
     ViewAccountFromJSON,
     ViewAccountToJSON,
 } from '../models/index';
@@ -103,6 +106,30 @@ export class AccountApi extends runtime.BaseAPI {
      */
     async apiAccountGetAccountListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ViewAccount>> {
         const response = await this.apiAccountGetAccountListGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiAccountGetProfileDialogOptionsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseProfileDialogOptions>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/Account/GetProfileDialogOptions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseProfileDialogOptionsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAccountGetProfileDialogOptionsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseProfileDialogOptions> {
+        const response = await this.apiAccountGetProfileDialogOptionsGetRaw(initOverrides);
         return await response.value();
     }
 

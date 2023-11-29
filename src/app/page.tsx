@@ -39,7 +39,7 @@ const LoginPage = () => {
             style={{ borderRadius: "53px" }}
           >
             <div className="text-center mb-5">
-              <Image
+              <img
                 src="/demo/images/login/avatar.png"
                 alt="Image"
                 height="50"

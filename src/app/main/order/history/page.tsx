@@ -1,6 +1,6 @@
 "use client";
 
-import HistoryTable from "@/src/components/HistoryTable";
+import HistoryTable from "@/src/components/table/HistoryTable";
 
 export default function OrderHistoryPage() {
   return (
