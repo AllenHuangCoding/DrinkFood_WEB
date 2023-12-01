@@ -36,6 +36,12 @@ export default function OrderListPage() {
       <div className="card">
         <BasicTable dataKey="OrderID" query={useOrderList()} header={header}>
           <Column
+            field="CloseTime"
+            header="結單時間"
+            style={{ width: "15%" }}
+            sortable
+          />
+          <Column
             field="ArrivalTime"
             header="用餐時間"
             style={{ width: "15%" }}
@@ -48,26 +54,25 @@ export default function OrderListPage() {
             sortable
           />
           <Column
-            field="CloseTime"
-            header="結單時間"
-            style={{ width: "15%" }}
-            sortable
-          />
-          <Column
             field="OfficeOwner"
             header="地點 / 團長"
             style={{ width: "15%" }}
             sortable
           />
           <Column
-            field="StatusDescPublicDesc"
-            header="訂單狀態 / 類型"
-            style={{ width: "15%" }}
+            field="OrderStatusDesc"
+            header="狀態"
+            style={{ width: "10%" }}
+            sortable
+          />
+          <Column
+            field="IsPublicDesc"
+            header="類型"
+            style={{ width: "10%" }}
             sortable
           />
           <Column
             header="功能"
-            style={{ width: "15%" }}
             body={(x) => (
               <>
                 <Button

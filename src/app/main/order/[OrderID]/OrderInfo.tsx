@@ -48,12 +48,12 @@ const OrderInfo = (params: { OrderID: string }) => {
       Content: data?.Data.ArrivalTime,
     },
     {
-      Title: "團長",
-      Content: data?.Data.OwnerName,
-    },
-    {
       Title: "地點",
       Content: data?.Data.OfficeName,
+    },
+    {
+      Title: "團長",
+      Content: data?.Data.OwnerName,
     },
     {
       Title: "建立時間",
