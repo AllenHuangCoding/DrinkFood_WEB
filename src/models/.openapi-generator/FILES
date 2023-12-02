@@ -17,7 +17,8 @@ models/RequestCreateAccountModel.ts
 models/RequestLoginModel.ts
 models/RequestPostOrderDetailModel.ts
 models/RequestPostOrderModel.ts
-models/RequestPutOrderTimeModel.ts
+models/RequestPutArrivalTimeModel.ts
+models/RequestPutCloseTimeModel.ts
 models/RequestPutPaymentDateTimeModel.ts
 models/RequestPutPaymentModel.ts
 models/RequestUpdateProfileModel.ts

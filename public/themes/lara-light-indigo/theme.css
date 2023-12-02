@@ -2060,8 +2060,8 @@
   border-radius: 2rem;
 }
 .p-button.p-button-icon-only {
-  width: 3rem;
-  padding: 0.75rem 0;
+  width: 2.5rem;
+  padding: 0.5rem 0rem;
 }
 .p-button.p-button-icon-only .p-button-icon-left,
 .p-button.p-button-icon-only .p-button-icon-right {

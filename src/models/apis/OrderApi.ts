@@ -18,7 +18,8 @@ import type {
   OrderListModel,
   RequestPostOrderDetailModel,
   RequestPostOrderModel,
-  RequestPutOrderTimeModel,
+  RequestPutArrivalTimeModel,
+  RequestPutCloseTimeModel,
   RequestPutPaymentDateTimeModel,
   RequestPutPaymentModel,
   ResponseModel,
@@ -33,8 +34,10 @@ import {
     RequestPostOrderDetailModelToJSON,
     RequestPostOrderModelFromJSON,
     RequestPostOrderModelToJSON,
-    RequestPutOrderTimeModelFromJSON,
-    RequestPutOrderTimeModelToJSON,
+    RequestPutArrivalTimeModelFromJSON,
+    RequestPutArrivalTimeModelToJSON,
+    RequestPutCloseTimeModelFromJSON,
+    RequestPutCloseTimeModelToJSON,
     RequestPutPaymentDateTimeModelFromJSON,
     RequestPutPaymentDateTimeModelToJSON,
     RequestPutPaymentModelFromJSON,
@@ -81,9 +84,14 @@ export interface ApiOrderPostOrderPostRequest {
     requestPostOrderModel?: RequestPostOrderModel;
 }
 
-export interface ApiOrderPutOrderTimeOrderIDPutRequest {
+export interface ApiOrderPutArrivalTimeOrderIDPutRequest {
     orderID: string;
-    requestPutOrderTimeModel?: RequestPutOrderTimeModel;
+    requestPutArrivalTimeModel?: RequestPutArrivalTimeModel;
+}
+
+export interface ApiOrderPutCloseTimeOrderIDPutRequest {
+    orderID: string;
+    requestPutCloseTimeModel?: RequestPutCloseTimeModel;
 }
 
 export interface ApiOrderPutPaymentDateTimeOrderDetailIDPutRequest {
@@ -349,9 +357,9 @@ export class OrderApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiOrderPutOrderTimeOrderIDPutRaw(requestParameters: ApiOrderPutOrderTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiOrderPutArrivalTimeOrderIDPutRaw(requestParameters: ApiOrderPutArrivalTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
         if (requestParameters.orderID === null || requestParameters.orderID === undefined) {
-            throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderPutOrderTimeOrderIDPut.');
+            throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderPutArrivalTimeOrderIDPut.');
         }
 
         const queryParameters: any = {};
@@ -361,11 +369,11 @@ export class OrderApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/Order/PutOrderTime/{OrderID}`.replace(`{${"OrderID"}}`, encodeURIComponent(String(requestParameters.orderID))),
+            path: `/api/Order/PutArrivalTime/{OrderID}`.replace(`{${"OrderID"}}`, encodeURIComponent(String(requestParameters.orderID))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: RequestPutOrderTimeModelToJSON(requestParameters.requestPutOrderTimeModel),
+            body: RequestPutArrivalTimeModelToJSON(requestParameters.requestPutArrivalTimeModel),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
@@ -373,8 +381,39 @@ export class OrderApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiOrderPutOrderTimeOrderIDPut(requestParameters: ApiOrderPutOrderTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
-        const response = await this.apiOrderPutOrderTimeOrderIDPutRaw(requestParameters, initOverrides);
+    async apiOrderPutArrivalTimeOrderIDPut(requestParameters: ApiOrderPutArrivalTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+        const response = await this.apiOrderPutArrivalTimeOrderIDPutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiOrderPutCloseTimeOrderIDPutRaw(requestParameters: ApiOrderPutCloseTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+        if (requestParameters.orderID === null || requestParameters.orderID === undefined) {
+            throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderPutCloseTimeOrderIDPut.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/Order/PutCloseTime/{OrderID}`.replace(`{${"OrderID"}}`, encodeURIComponent(String(requestParameters.orderID))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RequestPutCloseTimeModelToJSON(requestParameters.requestPutCloseTimeModel),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiOrderPutCloseTimeOrderIDPut(requestParameters: ApiOrderPutCloseTimeOrderIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+        const response = await this.apiOrderPutCloseTimeOrderIDPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
