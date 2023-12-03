@@ -19,7 +19,7 @@ const useAccountList = () => {
 };
 
 const Login = (Param: RequestLoginModel) => {
-  return POST<ResponseLoginModel>("/Account/Login", Param).then(
+  return POST<ResponseLoginModel>("/Login/Login", Param).then(
     (respone) => respone.Data
   );
 };

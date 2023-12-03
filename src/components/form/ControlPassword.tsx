@@ -1,17 +1,17 @@
-import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { Controller, FieldValues } from "react-hook-form";
-import { ControlFormProps } from "@/src/components/form/ControlFormType";
+import { ControlPasswordProps } from "@/src/components/form/ControlFormType";
+import { Password } from "primereact/password";
 
-const ControlTextInput = <T extends FieldValues>({
+const ControlPassword = <T extends FieldValues>({
   name,
   control,
   placeholder,
   rules,
   errorKey,
-  disabled,
   className,
-}: ControlFormProps<T>) => {
+  inputClassName,
+}: ControlPasswordProps<T>) => {
   return (
     <div className="flex flex-column w-full">
       <Controller
@@ -19,17 +19,19 @@ const ControlTextInput = <T extends FieldValues>({
         control={control}
         rules={{ required: rules?.required }}
         render={({ field, fieldState }) => (
-          <InputText
+          <Password
             {...field}
             id={field.name}
             placeholder={placeholder}
-            disabled={disabled}
             className={classNames(
               {
                 "p-invalid": fieldState.invalid,
               },
               className
             )}
+            inputClassName={inputClassName}
+            toggleMask
+            feedback={false}
           />
         )}
       />
@@ -38,4 +40,4 @@ const ControlTextInput = <T extends FieldValues>({
   );
 };
 
-export default ControlTextInput;
+export default ControlPassword;
