@@ -192,13 +192,37 @@ export interface OrderListModel {
      * @type {string}
      * @memberof OrderListModel
      */
-    IsPublicDesc?: string | null;
+    StatusDescPublicDesc?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrderListModel
      */
-    StatusDescPublicDesc?: string | null;
+    IsPublicDesc?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderListModel
+     */
+    CanAdd?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderListModel
+     */
+    CanClose?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderListModel
+     */
+    DelayArrival?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderListModel
+     */
+    DelayClose?: boolean;
 }
 
 /**
@@ -248,8 +272,12 @@ export function OrderListModelFromJSONTyped(json: any, ignoreDiscriminator: bool
         'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
         'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
         'OfficeOwner': !exists(json, 'OfficeOwner') ? undefined : json['OfficeOwner'],
-        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
         'StatusDescPublicDesc': !exists(json, 'StatusDescPublicDesc') ? undefined : json['StatusDescPublicDesc'],
+        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
+        'CanAdd': !exists(json, 'CanAdd') ? undefined : json['CanAdd'],
+        'CanClose': !exists(json, 'CanClose') ? undefined : json['CanClose'],
+        'DelayArrival': !exists(json, 'DelayArrival') ? undefined : json['DelayArrival'],
+        'DelayClose': !exists(json, 'DelayClose') ? undefined : json['DelayClose'],
     };
 }
 
@@ -290,8 +318,12 @@ export function OrderListModelToJSON(value?: OrderListModel | null): any {
         'StoreAddress': value.StoreAddress,
         'BrandStoreName': value.BrandStoreName,
         'OfficeOwner': value.OfficeOwner,
-        'IsPublicDesc': value.IsPublicDesc,
         'StatusDescPublicDesc': value.StatusDescPublicDesc,
+        'IsPublicDesc': value.IsPublicDesc,
+        'CanAdd': value.CanAdd,
+        'CanClose': value.CanClose,
+        'DelayArrival': value.DelayArrival,
+        'DelayClose': value.DelayClose,
     };
 }
 

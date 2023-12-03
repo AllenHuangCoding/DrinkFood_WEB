@@ -199,13 +199,37 @@ export interface ViewOrderAndDetail {
      * @type {string}
      * @memberof ViewOrderAndDetail
      */
-    IsPublicDesc?: string | null;
+    StatusDescPublicDesc?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ViewOrderAndDetail
      */
-    StatusDescPublicDesc?: string | null;
+    IsPublicDesc?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    CanAdd?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    CanClose?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    DelayArrival?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    DelayClose?: boolean;
     /**
      * 
      * @type {Array<GroupOrderDetailModel>}
@@ -261,8 +285,12 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
         'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
         'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
         'OfficeOwner': !exists(json, 'OfficeOwner') ? undefined : json['OfficeOwner'],
-        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
         'StatusDescPublicDesc': !exists(json, 'StatusDescPublicDesc') ? undefined : json['StatusDescPublicDesc'],
+        'IsPublicDesc': !exists(json, 'IsPublicDesc') ? undefined : json['IsPublicDesc'],
+        'CanAdd': !exists(json, 'CanAdd') ? undefined : json['CanAdd'],
+        'CanClose': !exists(json, 'CanClose') ? undefined : json['CanClose'],
+        'DelayArrival': !exists(json, 'DelayArrival') ? undefined : json['DelayArrival'],
+        'DelayClose': !exists(json, 'DelayClose') ? undefined : json['DelayClose'],
         'Detail': !exists(json, 'Detail') ? undefined : (json['Detail'] === null ? null : (json['Detail'] as Array<any>).map(GroupOrderDetailModelFromJSON)),
     };
 }
@@ -304,8 +332,12 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
         'StoreAddress': value.StoreAddress,
         'BrandStoreName': value.BrandStoreName,
         'OfficeOwner': value.OfficeOwner,
-        'IsPublicDesc': value.IsPublicDesc,
         'StatusDescPublicDesc': value.StatusDescPublicDesc,
+        'IsPublicDesc': value.IsPublicDesc,
+        'CanAdd': value.CanAdd,
+        'CanClose': value.CanClose,
+        'DelayArrival': value.DelayArrival,
+        'DelayClose': value.DelayClose,
         'Detail': value.Detail === undefined ? undefined : (value.Detail === null ? null : (value.Detail as Array<any>).map(GroupOrderDetailModelToJSON)),
     };
 }

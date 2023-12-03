@@ -1,25 +1,43 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { Checkbox } from "primereact/checkbox";
+import React from "react";
 import { Button } from "primereact/button";
-import { Password } from "primereact/password";
-import { InputText } from "primereact/inputtext";
-import { classNames } from "primereact/utils";
-import Image from "next/image";
 import { Login } from "../services/admin/AccountService";
+import { useForm } from "react-hook-form";
+import ControlTextInput from "../components/form/ControlTextInput";
+import ControlPassword from "../components/form/ControlPassword";
+import { RequestLoginModel } from "../models/models";
+import useLoginStore from "../store/LoginStore";
 
 const LoginPage = () => {
-  const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false);
-
   const router = useRouter();
-  const containerClassName = classNames(
-    "surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled"
-  );
 
+  const defaultValues: RequestLoginModel = {
+    Email: "",
+    Password: "",
+  };
+
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({ defaultValues });
+
+  const { setLoginData } = useLoginStore();
+
+  const onSubmit = (formData: RequestLoginModel) => {
+    Login(formData).then((data) => {
+      localStorage.setItem("AccountID", data.AccountID);
+      localStorage.setItem("Token", data.Token!);
+
+      setLoginData(data);
+      reset();
+      router.push("/main");
+    });
+  };
   return (
-    <div className={containerClassName}>
+    <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
         {/* <img
           src={`/layout/images/logo-light.svg`}
@@ -50,39 +68,48 @@ const LoginPage = () => {
               <span className="text-600 font-medium">趕快登入點餐</span>
             </div>
 
-            <div>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full flex flex-column gap-3"
+            >
               <label
-                htmlFor="email1"
+                htmlFor="email"
                 className="block text-900 text-xl font-medium mb-2"
               >
                 信箱
               </label>
-              <InputText
-                id="email1"
-                type="text"
+
+              <ControlTextInput
+                name={"Email"}
+                control={control}
+                rules={{
+                  required: "必填欄位",
+                }}
                 placeholder="@chase.com.tw"
-                className="w-full md:w-30rem mb-5"
-                style={{ padding: "1rem" }}
+                errorKey={errors.Email}
+                className="w-full md:w-30rem p-3"
               />
 
               <label
-                htmlFor="password1"
+                htmlFor="password"
                 className="block text-900 font-medium text-xl mb-2"
               >
                 密碼
               </label>
-              <Password
-                inputId="password1"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              <ControlPassword
+                name={"Password"}
+                control={control}
+                rules={{
+                  required: "必填欄位",
+                }}
                 placeholder="你的密碼"
-                toggleMask
-                className="w-full mb-5"
+                errorKey={errors.Password}
+                className="w-full"
                 inputClassName="w-full p-3 md:w-30rem"
-              ></Password>
+              />
 
               <div className="flex align-items-center justify-content-between mb-5 gap-5">
-                <div className="flex align-items-center">
+                {/* <div className="flex align-items-center">
                   <Checkbox
                     inputId="rememberme1"
                     checked={checked}
@@ -96,22 +123,15 @@ const LoginPage = () => {
                   style={{ color: "var(--primary-color)" }}
                 >
                   忘記密碼?
-                </a>
+                </a> */}
               </div>
+
               <Button
+                type="submit"
                 label="登入"
                 className="w-full p-3 text-xl"
-                onClick={() => {
-                  Login({
-                    Email: "allenhuang@chase.com.tw",
-                    Password: "allenhuang@chase.com.tw",
-                  }).then((data) => {
-                    localStorage.setItem("ID", data.AccountID);
-                    router.push("/main");
-                  });
-                }}
-              ></Button>
-            </div>
+              />
+            </form>
           </div>
         </div>
       </div>

@@ -48,12 +48,12 @@ const OrderInfo = (params: { OrderID: string }) => {
       Content: data?.Data.ArrivalTime,
     },
     {
-      Title: "團長",
-      Content: data?.Data.OwnerName,
-    },
-    {
       Title: "地點",
       Content: data?.Data.OfficeName,
+    },
+    {
+      Title: "團長",
+      Content: data?.Data.OwnerName,
     },
     {
       Title: "建立時間",
@@ -110,13 +110,14 @@ const OrderInfo = (params: { OrderID: string }) => {
       <div className="flex flex-column gap-3">
         <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
 
-        <div>
+        <div className={classNames({ hidden: !data?.Data.DelayClose })}>
           <UpdateCloseButton
             showDialog={() => {
               setCloseVisible(true);
             }}
           />
           <UpdateCloseDialog
+            orderID={data?.Data.OrderID!}
             visible={closeVisible}
             closeDialog={() => {
               setCloseVisible(false);
@@ -124,13 +125,14 @@ const OrderInfo = (params: { OrderID: string }) => {
           />
         </div>
 
-        <div>
+        <div className={classNames({ hidden: !data?.Data.DelayArrival })}>
           <UpdateArrivalButton
             showDialog={() => {
               setArrivalVisible(true);
             }}
           />
           <UpdateArrivalDialog
+            orderID={data?.Data.OrderID!}
             visible={arrivalVisible}
             closeDialog={() => {
               setArrivalVisible(false);
@@ -141,7 +143,7 @@ const OrderInfo = (params: { OrderID: string }) => {
         <Button
           label="關閉訂單"
           severity="danger"
-          className="w-full"
+          className={classNames({ hidden: !data?.Data.CanClose }, "w-full")}
           onClick={() => {
             if (confirm("確認要關閉訂單?")) {
               CloseOrder(data?.Data.OrderID!);

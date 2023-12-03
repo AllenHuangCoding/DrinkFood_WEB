@@ -1,4 +1,5 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
+import { UpdateArrivalTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useEffect } from "react";
@@ -9,9 +10,11 @@ interface UpdateArrivalModel {
 }
 
 const UpdateArrivalDialog = ({
+  orderID,
   visible,
   closeDialog,
 }: {
+  orderID: string;
   visible: boolean;
   closeDialog: () => void;
 }) => {
@@ -27,8 +30,7 @@ const UpdateArrivalDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateArrivalModel) => {
-    console.log(param);
-    // UpdateOrderTime();
+    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime });
     closeDialog();
   };
 

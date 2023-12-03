@@ -3,6 +3,7 @@ import {
   FieldError,
   FieldPath,
   FieldValues,
+  ValidationRule,
   ValidationValueMessage,
 } from "react-hook-form";
 
@@ -12,10 +13,11 @@ export type ControlFormProps<T extends FieldValues> = {
   errorKey: FieldError | undefined;
   rules?: {
     required?: string | undefined;
-    pattern?: ValidationValueMessage | undefined;
+    pattern?: ValidationRule<RegExp> | undefined;
   };
   placeholder?: string | undefined;
   disabled?: boolean;
+  className?: string;
 };
 
 export type ControlDropDwonProps<T extends FieldValues> = {
@@ -55,4 +57,17 @@ export type ControlCheckboxProps<T extends FieldValues> = {
     pattern?: ValidationValueMessage | undefined;
   };
   labelName: string;
+};
+
+export type ControlPasswordProps<T extends FieldValues> = {
+  name: FieldPath<T>;
+  control: Control<T>;
+  errorKey: FieldError | undefined;
+  rules?: {
+    required?: string | undefined;
+    pattern?: ValidationValueMessage | undefined;
+  };
+  placeholder?: string | undefined;
+  className?: string;
+  inputClassName?: string;
 };

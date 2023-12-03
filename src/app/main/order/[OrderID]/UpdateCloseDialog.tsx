@@ -1,4 +1,5 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
+import { UpdateCloseTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useEffect } from "react";
@@ -9,9 +10,11 @@ interface UpdateCloseModel {
 }
 
 const UpdateCloseDialog = ({
+  orderID,
   visible,
   closeDialog,
 }: {
+  orderID: string;
   visible: boolean;
   closeDialog: () => void;
 }) => {
@@ -27,8 +30,7 @@ const UpdateCloseDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateCloseModel) => {
-    console.log(param);
-    // UpdateOrderTime();
+    UpdateCloseTime(orderID, { CloseTime: param.CloseTime });
     closeDialog();
   };
 
