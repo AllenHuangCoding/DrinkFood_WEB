@@ -1,10 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { Checkbox } from "primereact/checkbox";
+import React from "react";
 import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
-import Image from "next/image";
 import { Login } from "../services/admin/AccountService";
 import { useForm } from "react-hook-form";
 import ControlTextInput from "../components/form/ControlTextInput";
@@ -12,12 +9,7 @@ import ControlPassword from "../components/form/ControlPassword";
 import { RequestLoginModel } from "../models/models";
 
 const LoginPage = () => {
-  const [checked, setChecked] = useState(false);
-
   const router = useRouter();
-  const containerClassName = classNames(
-    "surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled"
-  );
 
   const defaultValues: RequestLoginModel = {
     Email: "",
@@ -33,13 +25,14 @@ const LoginPage = () => {
 
   const onSubmit = (formData: RequestLoginModel) => {
     Login(formData).then((data) => {
-      localStorage.setItem("ID", data.AccountID);
+      localStorage.setItem("AccountID", data.AccountID);
+      localStorage.setItem("Token", data.Token!);
       reset();
       router.push("/main");
     });
   };
   return (
-    <div className={containerClassName}>
+    <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
         {/* <img
           src={`/layout/images/logo-light.svg`}

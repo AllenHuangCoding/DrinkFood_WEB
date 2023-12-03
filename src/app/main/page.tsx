@@ -161,7 +161,9 @@ export default function Dashboard() {
             {
               <BasicTable
                 dataKey="OrderDetailID"
-                query={useOrderDetailHistory(localStorage.getItem("ID")!)}
+                query={useOrderDetailHistory(
+                  localStorage.getItem("AccountID")!
+                )}
               >
                 <Column
                   field="ArrivalTime"

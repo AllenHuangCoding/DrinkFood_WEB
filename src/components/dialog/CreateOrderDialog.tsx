@@ -53,7 +53,7 @@ const CreateOrderDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: RequestPostOrderModel) => {
-    param.CreateAccountID = localStorage.getItem("ID")!;
+    param.CreateAccountID = localStorage.getItem("AccountID")!;
     CreateOrder(param).then(() => {
       showMessage("新增訂單成功", toastBottomCenter, "success");
       closeDialog();
