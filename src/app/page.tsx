@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import ControlTextInput from "../components/form/ControlTextInput";
 import ControlPassword from "../components/form/ControlPassword";
 import { RequestLoginModel } from "../models/models";
+import useLoginStore from "../store/LoginStore";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -23,10 +24,14 @@ const LoginPage = () => {
     reset,
   } = useForm({ defaultValues });
 
+  const { setLoginData } = useLoginStore();
+
   const onSubmit = (formData: RequestLoginModel) => {
     Login(formData).then((data) => {
       localStorage.setItem("AccountID", data.AccountID);
       localStorage.setItem("Token", data.Token!);
+
+      setLoginData(data);
       reset();
       router.push("/main");
     });
