@@ -28,9 +28,6 @@ const LoginPage = () => {
 
   const onSubmit = (formData: RequestLoginModel) => {
     Login(formData).then((data) => {
-      localStorage.setItem("AccountID", data.AccountID);
-      localStorage.setItem("Token", data.Token!);
-
       setLoginData(data);
       reset();
       router.push("/main");

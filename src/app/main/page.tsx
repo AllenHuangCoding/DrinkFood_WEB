@@ -5,7 +5,6 @@ import { formatCurrency } from "@/src/utils/IntExtension";
 import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderDetailHistory } from "@/src/services/order/OrderService";
 import TodayOrderItem from "./TodayOrderItem";
-import useLoginStore from "@/src/store/LoginStore";
 
 export default function Dashboard() {
   const todayOrder = [
@@ -34,8 +33,6 @@ export default function Dashboard() {
       Price: "60",
     },
   ];
-
-  const { loginData } = useLoginStore();
 
   return (
     <>
@@ -164,7 +161,9 @@ export default function Dashboard() {
             {
               <BasicTable
                 dataKey="OrderDetailID"
-                query={useOrderDetailHistory(loginData?.AccountID!)}
+                query={useOrderDetailHistory(
+                  localStorage.getItem("AccountID")!
+                )}
               >
                 <Column
                   field="ArrivalTime"
