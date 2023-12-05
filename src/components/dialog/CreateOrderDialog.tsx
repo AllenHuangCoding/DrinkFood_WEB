@@ -13,6 +13,7 @@ import { Toast } from "primereact/toast";
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import ControlCheckbox from "@/src/components/form/ControlCheckbox";
+import useLoginStore from "@/src/store/LoginStore";
 
 const CreateOrderButton = ({ showDialog }: { showDialog: () => void }) => {
   return (
@@ -52,8 +53,10 @@ const CreateOrderDialog = ({
     reset,
   } = useForm({ defaultValues });
 
+  const { loginData } = useLoginStore();
+
   const onSubmit = (param: RequestPostOrderModel) => {
-    param.CreateAccountID = localStorage.getItem("AccountID")!;
+    param.CreateAccountID = loginData?.AccountID!;
     CreateOrder(param).then(() => {
       showMessage("新增訂單成功", toastBottomCenter, "success");
       closeDialog();

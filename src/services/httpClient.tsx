@@ -7,13 +7,7 @@ import axiosApiClient from "../services/axiosClient";
 // };
 
 async function GET<T>(url: string): Promise<BaseResponse<T>> {
-  return await axiosApiClient
-    .get(url, {
-      headers: {
-        Authorization: "",
-      },
-    })
-    .then((response) => response.data);
+  return await axiosApiClient.get(url).then((response) => response.data);
 }
 
 async function POST<T>(url: string, param: any): Promise<BaseResponse<T>> {

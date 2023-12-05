@@ -1,5 +1,10 @@
 import axios from "axios";
 
+const GetToken = () => {
+  const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
+  return logindata.state.loginData.Token;
+};
+
 const axiosApiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASEURL,
 });
@@ -8,6 +13,7 @@ const axiosApiClient = axios.create({
 axiosApiClient.interceptors.request.use(
   (config) => {
     // 在請求執行之前的邏輯，在此處增加標頭與權限的判斷
+    config.headers.Authorization = GetToken();
     return config;
   },
   (error) => {
