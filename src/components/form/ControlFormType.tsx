@@ -33,6 +33,7 @@ export type ControlDropDwonProps<T extends FieldValues> = {
   optionLabel: string;
   optionValue: string;
   filter?: boolean;
+  disabled?: boolean;
 };
 
 export type ControlNumberProps<T extends FieldValues> = {

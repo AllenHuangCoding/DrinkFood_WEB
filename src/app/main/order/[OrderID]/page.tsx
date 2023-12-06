@@ -26,7 +26,7 @@ export default function OrderDetailPage({
             <div>
               <div className="mt-3 ml-0 sm:mt-0 sm:ml-3">
                 <div className="flex flex-column gap-3">
-                  <OrderDetail OrderID={params.OrderID} addItem={true} />
+                  <OrderDetail OrderID={params.OrderID} />
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const GetToken = () => {
   const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
-  return logindata.state.loginData.Token;
+  return logindata?.state?.loginData?.Token ?? "";
 };
 
 const axiosApiClient = axios.create({

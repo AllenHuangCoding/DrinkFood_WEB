@@ -11,12 +11,16 @@ import { useState } from "react";
 export default function StorePage() {
   const router = useRouter();
   const [visible, setVisible] = useState<boolean>(false);
+  const [selectStore, setSelectedStore] = useState<string>("");
+
   return (
     <div className="card">
       <CreateOrderDialog
         visible={visible}
+        storeID={selectStore}
         closeDialog={() => {
           setVisible(false);
+          setSelectedStore("");
         }}
       />
       <BasicTable dataKey="StoreID" query={useStoreList()}>
@@ -60,7 +64,14 @@ export default function StorePage() {
                 text
                 onClick={() => router.push(`./${x.StoreID}`)}
               />
-              <Button icon="pi pi-plus" text onClick={() => setVisible(true)} />
+              <Button
+                icon="pi pi-plus"
+                text
+                onClick={() => {
+                  setVisible(true);
+                  setSelectedStore(x.StoreID);
+                }}
+              />
             </>
           )}
         />

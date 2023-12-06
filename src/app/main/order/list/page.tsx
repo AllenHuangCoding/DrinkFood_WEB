@@ -13,6 +13,7 @@ import {
 
 export default function OrderListPage() {
   const [visible, setVisible] = useState<boolean>(false);
+  const [selectStore, setSelectedStore] = useState<string>("");
 
   const router = useRouter();
   const header = (
@@ -20,6 +21,7 @@ export default function OrderListPage() {
       <CreateOrderButton
         showDialog={() => {
           setVisible(true);
+          setSelectedStore("");
         }}
       />
     </div>
@@ -86,7 +88,9 @@ export default function OrderListPage() {
                   icon="pi pi-copy"
                   text
                   onClick={() => {
-                    alert(x.ShareUrl);
+                    const url = `${process.env.NEXT_PUBLIC_WEB_BASEURL}/main/order/${x.OrderID}/`;
+                    navigator.clipboard.writeText(url);
+                    alert("已複製分享網址");
                   }}
                 />
               </>

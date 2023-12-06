@@ -13,6 +13,7 @@ const ControlDropDown = <T extends FieldValues>({
   optionLabel,
   optionValue,
   filter = false,
+  disabled = false,
 }: ControlDropDwonProps<T>) => {
   return (
     <div className="flex flex-column w-full">
@@ -29,6 +30,7 @@ const ControlDropDown = <T extends FieldValues>({
             optionValue={optionValue}
             placeholder={placeholder}
             filter={filter}
+            disabled={disabled}
             className={classNames({
               "p-invalid": fieldState.invalid,
             })}

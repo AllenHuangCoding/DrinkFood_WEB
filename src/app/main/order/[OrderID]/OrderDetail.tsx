@@ -4,28 +4,20 @@ import { useOrder } from "@/src/services/order/OrderService";
 import { GroupOrderDetailModel, ViewOrderDetail } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 
-const OrderDetail = ({
-  OrderID,
-  addItem,
-}: {
-  OrderID: string;
-  addItem: boolean;
-}) => {
+const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   const { data, isError, isLoading } = useOrder(OrderID);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
-  if (data?.Data.Detail?.length == 0) {
+  if (data?.Data.CanAdd) {
     return (
       <>
         <AddItemButton
-          addItem={addItem}
           showDialog={() => {
             alert("新增項目");
           }}
         />
-        <div className="w-full h-full">尚無明細</div>
       </>
     );
   }
@@ -36,13 +28,13 @@ const OrderDetail = ({
         return (
           <>
             <div className="p-3 bg-gray-100" key={x.Name}>
-              <div>{`${x.Name} / N元 / N份`}</div>
+              <div>{`${x.Name} / ${x.TotalPrice}元 / ${x.TotalQuantity}份`}</div>
               {x.OrderDetailList?.map((y: ViewOrderDetail) => {
                 return (
                   <>
-                    <div
-                      key={y.OrderDetailID}
-                    >{`${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice} / N份 / 這裡是訂單備註`}</div>
+                    <div>{`${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice}元 / ${y.Quantity}份 / 備註:${y.DetailRemark}`}</div>
+                    <div>付款資訊: {`${y.PaymentDesc}`}</div>
+                    <div>取餐狀態: {`${y.IsPickup}`}</div>
                   </>
                 );
               })}

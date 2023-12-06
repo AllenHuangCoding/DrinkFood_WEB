@@ -30,9 +30,11 @@ const CreateOrderButton = ({ showDialog }: { showDialog: () => void }) => {
 
 const CreateOrderDialog = ({
   visible,
+  storeID,
   closeDialog,
 }: {
   visible: boolean;
+  storeID?: string;
   closeDialog: () => void;
 }) => {
   const defaultValues: RequestPostOrderModel = {
@@ -40,7 +42,7 @@ const CreateOrderDialog = ({
     OfficeID: "",
     StoreID: "",
     TypeID: "",
-    ArrivalTime: new Date(),
+    ArrivalTime: undefined,
     OpenTime: undefined,
     CloseTime: undefined,
     IsPublic: true,
@@ -80,6 +82,10 @@ const CreateOrderDialog = ({
   useEffect(() => {
     reset();
   }, [visible]);
+
+  useEffect(() => {
+    reset({ StoreID: storeID, ArrivalTime: new Date() });
+  }, [storeID]);
 
   return (
     <>
@@ -130,6 +136,7 @@ const CreateOrderDialog = ({
                 optionValue="ID"
                 placeholder="選擇店家"
                 filter={true}
+                disabled={storeID != "" && storeID != undefined}
                 errorKey={errors.StoreID}
               />
             </div>
