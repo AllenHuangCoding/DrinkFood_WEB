@@ -1,9 +1,5 @@
 import axios from "axios";
-
-const GetToken = () => {
-  const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
-  return logindata?.state?.loginData?.Token ?? "";
-};
+import { GetToken } from "../store/localStorage";
 
 const axiosApiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASEURL,

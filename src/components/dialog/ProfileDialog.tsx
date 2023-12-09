@@ -6,7 +6,6 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { Checkbox } from "primereact/checkbox";
 import { RequestCreateAccountModel } from "@/src/models/models/RequestCreateAccountModel";
 import {
   CreateAccount,
@@ -18,6 +17,8 @@ import ControlTextInput from "@/src/components/form/ControlTextInput";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import ControlNumberInput from "@/src/components/form/ControlNumberInput";
 import ControlCheckbox from "../form/ControlCheckbox";
+import axiosApiClient from "@/src/services/axiosClient";
+import { GetAccountID } from "@/src/store/localStorage";
 
 export interface ProfileDialogFullModel {
   AccountID: string | null;
@@ -106,14 +107,12 @@ export default function ProfileDialog({
   };
 
   const openLine = () => {
-    let url =
-      "https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&";
-    let client_id = "&client_id=5xHhGC7WQPUsMC4SkG2YAw";
-    let redirect = `${process.env.NEXT_PUBLIC_WEB_BASEURL}/auth/notify`;
-    // console.log(redirect);
-    let redirect_uri = "&redirect_uri=" + encodeURIComponent(redirect);
-    let account_url = "&state=" + "123456";
-    // console.log(url + client_id + redirect_uri + account_url);
+    const url =
+      "https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify";
+    const client_id = "&client_id=5xHhGC7WQPUsMC4SkG2YAw";
+    const redirect = `${process.env.NEXT_PUBLIC_WEB_BASEURL}/auth/notify`;
+    const redirect_uri = "&redirect_uri=" + encodeURIComponent(redirect);
+    const account_url = "&state=" + GetAccountID();
     window.open(url + client_id + redirect_uri + account_url);
   };
 
