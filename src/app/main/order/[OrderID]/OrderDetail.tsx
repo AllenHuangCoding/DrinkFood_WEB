@@ -11,7 +11,7 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
-  if (data?.Data.CanAdd) {
+  if (data?.Data.ShowAdd) {
     return (
       <>
         <AddItemButton

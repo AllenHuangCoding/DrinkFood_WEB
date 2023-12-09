@@ -31,6 +31,42 @@ export interface ViewOrderAndDetail {
      * @type {string}
      * @memberof ViewOrderAndDetail
      */
+    BrandOfficialUrl?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    BrandLogoUrl?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    BrandStoreName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    StorePhone?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    StoreAddress?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
+    OrderID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
     OwnerName?: string | null;
     /**
      * 
@@ -73,25 +109,43 @@ export interface ViewOrderAndDetail {
      * @type {boolean}
      * @memberof ViewOrderAndDetail
      */
-    CanAdd?: boolean;
+    ShowAdd?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ViewOrderAndDetail
      */
-    CanClose?: boolean;
+    ShowClose?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ViewOrderAndDetail
      */
-    DelayArrival?: boolean;
+    ShowDelayArrival?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ViewOrderAndDetail
      */
-    DelayClose?: boolean;
+    ShowDelayClose?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    ShowDelayNotify?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    ShowDelayArrivalNotify?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewOrderAndDetail
+     */
+    ShowFinish?: boolean;
     /**
      * 
      * @type {Array<GroupOrderDetailModel>}
@@ -119,6 +173,12 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
+        'BrandOfficialUrl': !exists(json, 'BrandOfficialUrl') ? undefined : json['BrandOfficialUrl'],
+        'BrandLogoUrl': !exists(json, 'BrandLogoUrl') ? undefined : json['BrandLogoUrl'],
+        'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
+        'StorePhone': !exists(json, 'StorePhone') ? undefined : json['StorePhone'],
+        'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
+        'OrderID': !exists(json, 'OrderID') ? undefined : json['OrderID'],
         'OwnerName': !exists(json, 'OwnerName') ? undefined : json['OwnerName'],
         'OrderNo': !exists(json, 'OrderNo') ? undefined : json['OrderNo'],
         'OrderStatusDesc': !exists(json, 'OrderStatusDesc') ? undefined : json['OrderStatusDesc'],
@@ -126,10 +186,13 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
         'ArrivalTime': !exists(json, 'ArrivalTime') ? undefined : json['ArrivalTime'],
         'CloseTime': !exists(json, 'CloseTime') ? undefined : json['CloseTime'],
         'CreateTime': !exists(json, 'CreateTime') ? undefined : json['CreateTime'],
-        'CanAdd': !exists(json, 'CanAdd') ? undefined : json['CanAdd'],
-        'CanClose': !exists(json, 'CanClose') ? undefined : json['CanClose'],
-        'DelayArrival': !exists(json, 'DelayArrival') ? undefined : json['DelayArrival'],
-        'DelayClose': !exists(json, 'DelayClose') ? undefined : json['DelayClose'],
+        'ShowAdd': !exists(json, 'ShowAdd') ? undefined : json['ShowAdd'],
+        'ShowClose': !exists(json, 'ShowClose') ? undefined : json['ShowClose'],
+        'ShowDelayArrival': !exists(json, 'ShowDelayArrival') ? undefined : json['ShowDelayArrival'],
+        'ShowDelayClose': !exists(json, 'ShowDelayClose') ? undefined : json['ShowDelayClose'],
+        'ShowDelayNotify': !exists(json, 'ShowDelayNotify') ? undefined : json['ShowDelayNotify'],
+        'ShowDelayArrivalNotify': !exists(json, 'ShowDelayArrivalNotify') ? undefined : json['ShowDelayArrivalNotify'],
+        'ShowFinish': !exists(json, 'ShowFinish') ? undefined : json['ShowFinish'],
         'Detail': !exists(json, 'Detail') ? undefined : (json['Detail'] === null ? null : (json['Detail'] as Array<any>).map(GroupOrderDetailModelFromJSON)),
     };
 }
@@ -143,6 +206,12 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
     }
     return {
         
+        'BrandOfficialUrl': value.BrandOfficialUrl,
+        'BrandLogoUrl': value.BrandLogoUrl,
+        'BrandStoreName': value.BrandStoreName,
+        'StorePhone': value.StorePhone,
+        'StoreAddress': value.StoreAddress,
+        'OrderID': value.OrderID,
         'OwnerName': value.OwnerName,
         'OrderNo': value.OrderNo,
         'OrderStatusDesc': value.OrderStatusDesc,
@@ -150,10 +219,13 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
         'ArrivalTime': value.ArrivalTime,
         'CloseTime': value.CloseTime,
         'CreateTime': value.CreateTime,
-        'CanAdd': value.CanAdd,
-        'CanClose': value.CanClose,
-        'DelayArrival': value.DelayArrival,
-        'DelayClose': value.DelayClose,
+        'ShowAdd': value.ShowAdd,
+        'ShowClose': value.ShowClose,
+        'ShowDelayArrival': value.ShowDelayArrival,
+        'ShowDelayClose': value.ShowDelayClose,
+        'ShowDelayNotify': value.ShowDelayNotify,
+        'ShowDelayArrivalNotify': value.ShowDelayArrivalNotify,
+        'ShowFinish': value.ShowFinish,
         'Detail': value.Detail === undefined ? undefined : (value.Detail === null ? null : (value.Detail as Array<any>).map(GroupOrderDetailModelToJSON)),
     };
 }

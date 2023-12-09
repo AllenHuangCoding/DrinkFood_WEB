@@ -118,7 +118,7 @@ const OrderInfo = (params: { OrderID: string }) => {
       <div className="flex flex-column gap-3">
         <DataView value={orderInfo} itemTemplate={orderInfoTemplate} />
 
-        <div className={classNames({ hidden: !data?.Data.DelayClose })}>
+        <div className={classNames({ hidden: !data?.Data.ShowDelayClose })}>
           <UpdateCloseButton
             showDialog={() => {
               setCloseVisible(true);
@@ -133,7 +133,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           />
         </div>
 
-        <div className={classNames({ hidden: !data?.Data.DelayArrival })}>
+        <div className={classNames({ hidden: !data?.Data.ShowDelayArrival })}>
           <UpdateArrivalButton
             showDialog={() => {
               setArrivalVisible(true);
@@ -151,7 +151,10 @@ const OrderInfo = (params: { OrderID: string }) => {
         <Button
           label="遲到通知"
           severity="info"
-          className={classNames("w-full")}
+          className={classNames(
+            { hidden: !data?.Data.ShowDelayNotify },
+            "w-full"
+          )}
           onClick={() => {
             if (confirm("確認要發送遲到通知?")) {
             }
@@ -161,7 +164,10 @@ const OrderInfo = (params: { OrderID: string }) => {
         <Button
           label="遲到抵達"
           severity="info"
-          className={classNames("w-full")}
+          className={classNames(
+            { hidden: !data?.Data.ShowDelayArrivalNotify },
+            "w-full"
+          )}
           onClick={() => {
             if (confirm("確認要發送取餐通知?")) {
             }
@@ -171,7 +177,7 @@ const OrderInfo = (params: { OrderID: string }) => {
         <Button
           label="完成訂單"
           severity="info"
-          className={classNames("w-full")}
+          className={classNames({ hidden: !data?.Data.ShowFinish }, "w-full")}
           onClick={() => {
             if (confirm("確認要完成訂單?")) {
             }
@@ -181,7 +187,7 @@ const OrderInfo = (params: { OrderID: string }) => {
         <Button
           label="關閉訂單"
           severity="danger"
-          className={classNames({ hidden: !data?.Data.CanClose }, "w-full")}
+          className={classNames({ hidden: !data?.Data.ShowClose }, "w-full")}
           onClick={() => {
             if (confirm("確認要關閉訂單?")) {
               CloseOrder(data?.Data.OrderID!);

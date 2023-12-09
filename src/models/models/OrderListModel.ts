@@ -235,6 +235,12 @@ export interface OrderListModel {
      * @memberof OrderListModel
      */
     ShowDelayArrivalNotify?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderListModel
+     */
+    ShowFinish?: boolean;
 }
 
 /**
@@ -292,6 +298,7 @@ export function OrderListModelFromJSONTyped(json: any, ignoreDiscriminator: bool
         'ShowDelayClose': !exists(json, 'ShowDelayClose') ? undefined : json['ShowDelayClose'],
         'ShowDelayNotify': !exists(json, 'ShowDelayNotify') ? undefined : json['ShowDelayNotify'],
         'ShowDelayArrivalNotify': !exists(json, 'ShowDelayArrivalNotify') ? undefined : json['ShowDelayArrivalNotify'],
+        'ShowFinish': !exists(json, 'ShowFinish') ? undefined : json['ShowFinish'],
     };
 }
 
@@ -340,6 +347,7 @@ export function OrderListModelToJSON(value?: OrderListModel | null): any {
         'ShowDelayClose': value.ShowDelayClose,
         'ShowDelayNotify': value.ShowDelayNotify,
         'ShowDelayArrivalNotify': value.ShowDelayArrivalNotify,
+        'ShowFinish': value.ShowFinish,
     };
 }
 
