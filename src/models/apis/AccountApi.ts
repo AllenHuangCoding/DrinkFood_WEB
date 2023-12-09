@@ -137,6 +137,34 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiAccountGetProfileGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ViewAccount>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/api/Account/GetProfile`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ViewAccountFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAccountGetProfileGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ViewAccount> {
+        const response = await this.apiAccountGetProfileGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiAccountUpdateProfileAccountIDPutRaw(requestParameters: ApiAccountUpdateProfileAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
         if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
             throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiAccountUpdateProfileAccountIDPut.');

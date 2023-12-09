@@ -105,6 +105,18 @@ export default function ProfileDialog({
     reset();
   };
 
+  const openLine = () => {
+    let url =
+      "https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&";
+    let client_id = "&client_id=5xHhGC7WQPUsMC4SkG2YAw";
+    let redirect = `${process.env.NEXT_PUBLIC_WEB_BASEURL}/auth/notify`;
+    // console.log(redirect);
+    let redirect_uri = "&redirect_uri=" + encodeURIComponent(redirect);
+    let account_url = "&state=" + "123456";
+    // console.log(url + client_id + redirect_uri + account_url);
+    window.open(url + client_id + redirect_uri + account_url);
+  };
+
   useEffect(() => {
     if (userData) {
       reset({
@@ -169,7 +181,7 @@ export default function ProfileDialog({
               }}
               placeholder="姓名"
               errorKey={errors.Name}
-              disabled={action == "Update"}
+              disabled={action == "Update" || action == "View"}
             />
           </div>
 
@@ -189,7 +201,7 @@ export default function ProfileDialog({
                   {...field}
                   id={field.name}
                   placeholder="信箱"
-                  disabled={action == "Update"}
+                  disabled={action == "Update" || action == "View"}
                   className={classNames(
                     {
                       "p-invalid": fieldState.invalid,
@@ -235,6 +247,17 @@ export default function ProfileDialog({
               optionValue="ID"
               placeholder="選擇飲料預設付款方式"
               errorKey={errors.DefaultDrinkPayment}
+            />
+          </div>
+
+          <div>
+            <Button
+              label="綁定Line"
+              icon="pi pi-search"
+              text
+              onClick={() => {
+                openLine();
+              }}
             />
           </div>
 

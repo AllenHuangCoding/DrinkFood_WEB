@@ -12,6 +12,10 @@ import React, {
 import { AppTopbarRef } from "../../../types/types";
 import { LayoutContext } from "./context/layoutContext";
 import Image from "next/image";
+import ProfileDialog, {
+  ProfileDialogFullModel,
+} from "@/src/components/dialog/ProfileDialog";
+import { useProfile } from "@/src/services/admin/AccountService";
 
 const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
   const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } =
@@ -33,6 +37,12 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     { name: "台北仁愛辦公室", code: "taipei_renai" },
     { name: "高雄總部", code: "cleanaway" },
   ];
+
+  const [visible, setVisible] = useState<boolean>(false);
+  const [userData, setUserData] = useState<ProfileDialogFullModel | null>(null);
+  const [action, setAction] = useState<"View" | "Create" | "Update">("View");
+
+  // const { data } = useProfile();
 
   return (
     <div className="layout-topbar">
@@ -80,10 +90,26 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           placeholder="選擇辦公室"
           className="w-full md:w-14rem"
         /> */}
-        <button type="button" className="p-link layout-topbar-button">
+        <button
+          type="button"
+          className="p-link layout-topbar-button"
+          onClick={() => {
+            // setUserData(data?.Data);
+            // setAction("View");
+            // setVisible(true);
+          }}
+        >
           <i className="pi pi-user"></i>
           <span>個人資料</span>
         </button>
+        <ProfileDialog
+          visible={visible}
+          action={action}
+          userData={userData}
+          closeDialog={() => {
+            setVisible(false);
+          }}
+        />
       </div>
     </div>
   );

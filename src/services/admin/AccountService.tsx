@@ -18,6 +18,13 @@ const useAccountList = () => {
   });
 };
 
+const useProfile = () => {
+  return useQuery({
+    queryKey: ["GetProfile"],
+    queryFn: async () => GET<any>("/Account/GetProfile"),
+  });
+};
+
 const Login = (Param: RequestLoginModel) => {
   return POST<ResponseLoginModel>("/Login/Login", Param).then(
     (respone) => respone.Data
@@ -50,4 +57,5 @@ export {
   useProfileDialogOptions,
   CreateAccount,
   UpdateProfile,
+  useProfile,
 };

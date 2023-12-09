@@ -42,6 +42,12 @@ export interface OrderListModel {
      * @type {string}
      * @memberof OrderListModel
      */
+    OwnerBrief?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderListModel
+     */
     OrderNo?: string | null;
     /**
      * 
@@ -265,6 +271,7 @@ export function OrderListModelFromJSONTyped(json: any, ignoreDiscriminator: bool
         'OrderID': !exists(json, 'OrderID') ? undefined : json['OrderID'],
         'OwnerID': !exists(json, 'OwnerID') ? undefined : json['OwnerID'],
         'OwnerName': !exists(json, 'OwnerName') ? undefined : json['OwnerName'],
+        'OwnerBrief': !exists(json, 'OwnerBrief') ? undefined : json['OwnerBrief'],
         'OrderNo': !exists(json, 'OrderNo') ? undefined : json['OrderNo'],
         'Type': !exists(json, 'Type') ? undefined : json['Type'],
         'TypeDesc': !exists(json, 'TypeDesc') ? undefined : json['TypeDesc'],
@@ -314,6 +321,7 @@ export function OrderListModelToJSON(value?: OrderListModel | null): any {
         'OrderID': value.OrderID,
         'OwnerID': value.OwnerID,
         'OwnerName': value.OwnerName,
+        'OwnerBrief': value.OwnerBrief,
         'OrderNo': value.OrderNo,
         'Type': value.Type,
         'TypeDesc': value.TypeDesc,
