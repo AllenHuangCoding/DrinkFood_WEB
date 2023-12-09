@@ -56,6 +56,14 @@ const OrderInfo = (params: { OrderID: string }) => {
       Content: data?.Data.OwnerName,
     },
     {
+      Title: "應付金額",
+      Content: "N 元",
+    },
+    {
+      Title: "總份數",
+      Content: "N 份",
+    },
+    {
       Title: "建立時間",
       Content: data?.Data.CreateTime,
     }
@@ -139,6 +147,36 @@ const OrderInfo = (params: { OrderID: string }) => {
             }}
           />
         </div>
+
+        <Button
+          label="遲到通知"
+          severity="info"
+          className={classNames("w-full")}
+          onClick={() => {
+            if (confirm("確認要發送遲到通知?")) {
+            }
+          }}
+        />
+
+        <Button
+          label="遲到抵達"
+          severity="info"
+          className={classNames("w-full")}
+          onClick={() => {
+            if (confirm("確認要發送取餐通知?")) {
+            }
+          }}
+        />
+
+        <Button
+          label="完成訂單"
+          severity="info"
+          className={classNames("w-full")}
+          onClick={() => {
+            if (confirm("確認要完成訂單?")) {
+            }
+          }}
+        />
 
         <Button
           label="關閉訂單"

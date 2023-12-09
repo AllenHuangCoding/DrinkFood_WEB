@@ -3,6 +3,7 @@
 export * from './GroupDrinkFoodModel';
 export * from './GroupOrderDetailModel';
 export * from './OptionsModel';
+export * from './OrderDetailListModel';
 export * from './OrderListModel';
 export * from './RequestCreateAccountModel';
 export * from './RequestLoginModel';
@@ -23,4 +24,3 @@ export * from './ViewDetailHistory';
 export * from './ViewDrinkFoodModel';
 export * from './ViewMenu';
 export * from './ViewOrderAndDetail';
-export * from './ViewOrderDetail';

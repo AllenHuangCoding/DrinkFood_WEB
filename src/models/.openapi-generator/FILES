@@ -3,6 +3,7 @@ apis/BrandApi.ts
 apis/DrinkFoodApi.ts
 apis/ExportApi.ts
 apis/ImportApi.ts
+apis/LoginApi.ts
 apis/MenuApi.ts
 apis/OfficeApi.ts
 apis/OrderApi.ts
@@ -12,6 +13,7 @@ index.ts
 models/GroupDrinkFoodModel.ts
 models/GroupOrderDetailModel.ts
 models/OptionsModel.ts
+models/OrderDetailListModel.ts
 models/OrderListModel.ts
 models/RequestCreateAccountModel.ts
 models/RequestLoginModel.ts
@@ -32,6 +34,5 @@ models/ViewDetailHistory.ts
 models/ViewDrinkFoodModel.ts
 models/ViewMenu.ts
 models/ViewOrderAndDetail.ts
-models/ViewOrderDetail.ts
 models/index.ts
 runtime.ts
