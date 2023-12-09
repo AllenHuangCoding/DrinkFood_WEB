@@ -148,6 +148,18 @@ export interface ViewOrderAndDetail {
     ShowFinish?: boolean;
     /**
      * 
+     * @type {number}
+     * @memberof ViewOrderAndDetail
+     */
+    OrderPrice?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ViewOrderAndDetail
+     */
+    OrderQuantity?: number;
+    /**
+     * 
      * @type {Array<GroupOrderDetailModel>}
      * @memberof ViewOrderAndDetail
      */
@@ -193,6 +205,8 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
         'ShowDelayNotify': !exists(json, 'ShowDelayNotify') ? undefined : json['ShowDelayNotify'],
         'ShowDelayArrivalNotify': !exists(json, 'ShowDelayArrivalNotify') ? undefined : json['ShowDelayArrivalNotify'],
         'ShowFinish': !exists(json, 'ShowFinish') ? undefined : json['ShowFinish'],
+        'OrderPrice': !exists(json, 'OrderPrice') ? undefined : json['OrderPrice'],
+        'OrderQuantity': !exists(json, 'OrderQuantity') ? undefined : json['OrderQuantity'],
         'Detail': !exists(json, 'Detail') ? undefined : (json['Detail'] === null ? null : (json['Detail'] as Array<any>).map(GroupOrderDetailModelFromJSON)),
     };
 }
@@ -226,6 +240,8 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
         'ShowDelayNotify': value.ShowDelayNotify,
         'ShowDelayArrivalNotify': value.ShowDelayArrivalNotify,
         'ShowFinish': value.ShowFinish,
+        'OrderPrice': value.OrderPrice,
+        'OrderQuantity': value.OrderQuantity,
         'Detail': value.Detail === undefined ? undefined : (value.Detail === null ? null : (value.Detail as Array<any>).map(GroupOrderDetailModelToJSON)),
     };
 }

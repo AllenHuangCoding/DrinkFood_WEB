@@ -14,6 +14,7 @@ import {
   UpdateCloseButton,
   UpdateCloseDialog,
 } from "@/src/app/main/order/[OrderID]/UpdateCloseDialog";
+import { formatCurrency } from "@/src/utils/IntExtension";
 
 interface TitleContentCell {
   Title: string;
@@ -53,15 +54,17 @@ const OrderInfo = (params: { OrderID: string }) => {
     },
     {
       Title: "團長",
-      Content: data?.Data.OwnerName,
+      Content: data?.Data.OwnerName
+        ? data?.Data.OwnerName
+        : data?.Data.OwnerName,
     },
     {
       Title: "應付金額",
-      Content: "N 元",
+      Content: formatCurrency(data?.Data.OrderPrice!),
     },
     {
       Title: "總份數",
-      Content: "N 份",
+      Content: `${data?.Data.OrderQuantity} 份`,
     },
     {
       Title: "建立時間",
