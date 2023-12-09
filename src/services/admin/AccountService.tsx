@@ -3,6 +3,7 @@ import { GET, POST, PUT } from "../httpClient";
 import { ViewAccount } from "@/src/models/models/ViewAccount";
 import { RequestLoginModel } from "@/src/models/models/RequestLoginModel";
 import {
+  RequestBindLineModel,
   RequestCreateAccountModel,
   RequestUpdateProfileModel,
   ResponseLoginModel,
@@ -51,6 +52,12 @@ const CreateAccount = (Param: RequestCreateAccountModel) => {
   );
 };
 
+const BindLine = (ID: string, Param: RequestBindLineModel) => {
+  return PUT<ResponseModel>(`/Account/BindLine/${ID}`, Param).then(
+    (respone) => respone.Data
+  );
+};
+
 export {
   useAccountList,
   Login,
@@ -58,4 +65,5 @@ export {
   CreateAccount,
   UpdateProfile,
   useProfile,
+  BindLine,
 };

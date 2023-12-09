@@ -15,6 +15,7 @@ models/GroupOrderDetailModel.ts
 models/OptionsModel.ts
 models/OrderDetailListModel.ts
 models/OrderListModel.ts
+models/RequestBindLineModel.ts
 models/RequestCreateAccountModel.ts
 models/RequestLoginModel.ts
 models/RequestPostOrderDetailModel.ts

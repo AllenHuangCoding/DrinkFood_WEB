@@ -1,3 +1,5 @@
+"use client";
+
 const GetAccountID = () => {
   const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
   return logindata?.state?.loginData?.AccountID ?? "";
