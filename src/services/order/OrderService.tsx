@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GET, POST, PUT } from "../httpClient";
+import { DELETE, GET, POST, PUT } from "../httpClient";
 import { OrderListModel } from "@/src/models/models/OrderListModel";
 import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
 import { ViewOrderAndDetail } from "@/src/models/models/ViewOrderAndDetail";
@@ -74,6 +74,10 @@ const JoinOrder = (OrderID: string) => {
   return POST<any>(`/Order/JoinOrder/${OrderID}`, null);
 };
 
+const DeleteOrderDetail = (OrderDetailID: string) => {
+  return DELETE<any>(`/Order/DeleteOrderDetail/${OrderDetailID}`, null);
+};
+
 export {
   useOrder,
   useOrderList,
@@ -87,4 +91,5 @@ export {
   DelayNotify,
   DelayArrivalNotify,
   JoinOrder,
+  DeleteOrderDetail,
 };

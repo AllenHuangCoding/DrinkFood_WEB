@@ -165,7 +165,7 @@ const OrderInfo = (params: { OrderID: string }) => {
             "w-full"
           )}
           onClick={() => {
-            if (confirm("確認要發送遲到通知?")) {
+            if (confirm("確認要發送遲到通知?\r\n(只會通知已點餐的使用者)")) {
               DelayNotify(data?.Data.OrderID!);
             }
           }}
@@ -179,7 +179,7 @@ const OrderInfo = (params: { OrderID: string }) => {
             "w-full"
           )}
           onClick={() => {
-            if (confirm("確認要發送取餐通知?")) {
+            if (confirm("確認要發送取餐通知?\r\n(只會通知已點餐的使用者)")) {
               DelayArrivalNotify(data?.Data.OrderID!);
             }
           }}

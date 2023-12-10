@@ -14,4 +14,10 @@ async function PUT<T>(url: string, param: any): Promise<BaseResponse<T>> {
   return await axiosApiClient.put(url, param).then((response) => response.data);
 }
 
-export { GET, POST, PUT };
+async function DELETE<T>(url: string, param: any): Promise<BaseResponse<T>> {
+  return await axiosApiClient
+    .delete(url, param)
+    .then((response) => response.data);
+}
+
+export { GET, POST, PUT, DELETE };

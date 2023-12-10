@@ -11,13 +11,6 @@ const ErrorPage = () => {
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
       <div className="flex flex-column align-items-center justify-content-center">
-        <img
-          src="/demo/images/error/logo-error.svg"
-          alt="Sakai logo"
-          className="mb-5 flex-shrink-0"
-          width="100"
-          height="100"
-        />
         <div
           style={{
             borderRadius: "56px",

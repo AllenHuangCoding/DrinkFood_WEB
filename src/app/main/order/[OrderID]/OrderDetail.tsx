@@ -1,6 +1,6 @@
 "use client";
 
-import { useOrder } from "@/src/services/order/OrderService";
+import { DeleteOrderDetail, useOrder } from "@/src/services/order/OrderService";
 import { GroupOrderDetailModel, OrderDetailListModel } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 import { Button } from "primereact/button";
@@ -33,8 +33,15 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
               <div className="flex flex-column gap-2">
                 {x.OrderDetailList?.map((y: OrderDetailListModel) => {
                   return (
-                    <div className="p-3 bg-gray-100 flex flex-column gap-2">
-                      <div>{`${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice}元 / ${y.Quantity}份 / 備註:${y.DetailRemark}`}</div>
+                    <div
+                      key={y.OrderDetailID}
+                      className="p-3 bg-gray-100 flex flex-column gap-2"
+                    >
+                      <div>
+                        {y.DrinkFoodName != null
+                          ? `${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice}元 / ${y.Quantity}份 / 備註:${y.DetailRemark}`
+                          : "尚未點餐"}
+                      </div>
                       <div className="flex flex-row gap-2">
                         <div>{`付款資訊：${y.PaymentDesc}`}</div>
                         {/* <Button icon="pi pi-dollar" text onClick={() => {}} /> */}
@@ -47,10 +54,23 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
                         />
                         */}
                       </div>
-                      <div className="flex flex-row gap-2">
+                      {/* <div className="flex flex-row gap-2">
                         <div>{`取餐狀態：${y.PickUpDesc}`}</div>
-                        {/* <Button icon="pi pi-bookmark" text onClick={() => {}} /> */}
-                      </div>
+                        <Button icon="pi pi-bookmark" text onClick={() => {}} />
+                      </div> */}
+                      <Button
+                        label="刪除"
+                        severity="danger"
+                        className={classNames({ hidden: !y.ShowDelete })}
+                        text
+                        outlined
+                        raised
+                        onClick={() => {
+                          if (confirm("確認刪除此品項?")) {
+                            DeleteOrderDetail(y.OrderDetailID!);
+                          }
+                        }}
+                      />
                     </div>
                   );
                 })}

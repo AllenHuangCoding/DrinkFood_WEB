@@ -141,7 +141,7 @@ export default function ProfileDialog({
         CloseNotify: 10,
       });
     }
-  }, [userData, reset]);
+  }, [userData]);
 
   switch (action) {
     case "View":
@@ -163,6 +163,7 @@ export default function ProfileDialog({
       draggable={false}
       position="top"
       onHide={() => {
+        reset();
         closeDialog();
       }}
     >
@@ -249,18 +250,19 @@ export default function ProfileDialog({
             />
           </div>
 
-          <div>
+          <div className={classNames({ hidden: !(action == "View") })}>
             <Button
               label="綁定Line"
               icon="pi pi-search"
-              text
+              severity="success"
+              raised
               onClick={() => {
                 openLine();
               }}
             />
           </div>
 
-          <div>
+          {/* <div>
             <ControlNumberInput
               name="CloseNotify"
               control={control}
@@ -270,7 +272,7 @@ export default function ProfileDialog({
               placeholder="結單前N分鐘提醒"
               errorKey={errors.CloseNotify}
             />
-          </div>
+          </div> */}
 
           <div className="flex justify-content-between align-items-center">
             <ControlCheckbox
