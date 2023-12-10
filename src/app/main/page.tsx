@@ -11,17 +11,19 @@ export default function Dashboard() {
   const todayOrder = [
     {
       OrderDetailID: "1",
-      StoreName: "池上木片便當",
+      BrandName: "池上木片便當",
       DrinkFoodName: "招牌飯 (特餐)",
       OrderDetailRemark: "餐點備註",
-      Price: 140,
+      DrinkFoodPrice: 140,
+      Quantity: 1,
     },
     {
       OrderDetailID: "2",
-      StoreName: "五桐號",
+      BrandName: "五桐號",
       DrinkFoodName: "清香烏龍奶霜(L) 微糖/微冰",
       OrderDetailRemark: "餐點備註",
-      Price: 55,
+      DrinkFoodPrice: 55,
+      Quantity: 1,
     },
   ];
 

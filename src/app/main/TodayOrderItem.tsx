@@ -3,7 +3,7 @@ import { formatCurrency } from "@/src/utils/IntExtension";
 export default function TodayOrderItem({ item }: any) {
   return (
     <>
-      <span className="block text-600 font-medium mb-1">{item.StoreName}</span>
+      <span className="block text-600 font-medium mb-1">{item.BrandName}</span>
       <ul key={item.OrderDetailID} className="p-0 mx-0 mt-0 mb-4 list-none">
         <li className="flex align-items-center py-2 border-bottom-1 surface-border">
           <span
@@ -13,10 +13,10 @@ export default function TodayOrderItem({ item }: any) {
             data-pr-at="right+5 top"
             data-pr-my="left center-2"
           >
-            {item.DrinkFoodName}
+            {item.DrinkFoodName} * {item.Quantity}
             <span className="text-blue-500">
               {" "}
-              {formatCurrency(item.Price)}元
+              {formatCurrency(item.DrinkFoodPrice)}元
             </span>
           </span>
         </li>

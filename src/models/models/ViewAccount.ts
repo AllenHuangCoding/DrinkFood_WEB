@@ -24,7 +24,7 @@ export interface ViewAccount {
      * @type {string}
      * @memberof ViewAccount
      */
-    AccountID?: string;
+    AccountID: string;
     /**
      * 
      * @type {string}
@@ -49,6 +49,12 @@ export interface ViewAccount {
      * @memberof ViewAccount
      */
     LineID?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ViewAccount
+     */
+    LineNotify?: boolean;
     /**
      * 
      * @type {boolean}
@@ -104,6 +110,7 @@ export interface ViewAccount {
  */
 export function instanceOfViewAccount(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "AccountID" in value;
 
     return isInstance;
 }
@@ -118,11 +125,12 @@ export function ViewAccountFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'AccountID': !exists(json, 'AccountID') ? undefined : json['AccountID'],
+        'AccountID': json['AccountID'],
         'Name': !exists(json, 'Name') ? undefined : json['Name'],
         'Brief': !exists(json, 'Brief') ? undefined : json['Brief'],
         'Email': !exists(json, 'Email') ? undefined : json['Email'],
         'LineID': !exists(json, 'LineID') ? undefined : json['LineID'],
+        'LineNotify': !exists(json, 'LineNotify') ? undefined : json['LineNotify'],
         'LunchNotify': !exists(json, 'LunchNotify') ? undefined : json['LunchNotify'],
         'DrinkNotify': !exists(json, 'DrinkNotify') ? undefined : json['DrinkNotify'],
         'CloseNotify': !exists(json, 'CloseNotify') ? undefined : json['CloseNotify'],
@@ -148,6 +156,7 @@ export function ViewAccountToJSON(value?: ViewAccount | null): any {
         'Brief': value.Brief,
         'Email': value.Email,
         'LineID': value.LineID,
+        'LineNotify': value.LineNotify,
         'LunchNotify': value.LunchNotify,
         'DrinkNotify': value.DrinkNotify,
         'CloseNotify': value.CloseNotify,
