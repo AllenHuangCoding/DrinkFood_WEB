@@ -45,7 +45,7 @@ const CreateOrderDialog = ({
     ArrivalTime: undefined,
     OpenTime: undefined,
     CloseTime: undefined,
-    IsPublic: true,
+    IsPublic: false,
   };
 
   const {

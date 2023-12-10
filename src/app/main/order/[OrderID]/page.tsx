@@ -1,5 +1,6 @@
 "use client";
 
+import { JoinOrder } from "@/src/services/order/OrderService";
 import OrderDetail from "./OrderDetail";
 import OrderInfo from "./OrderInfo";
 
@@ -10,6 +11,8 @@ export default function OrderDetailPage({
   params: { OrderID: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  JoinOrder(params.OrderID);
+
   return (
     <>
       <div className="bg-white p-3">

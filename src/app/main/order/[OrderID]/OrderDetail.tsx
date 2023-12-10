@@ -4,6 +4,7 @@ import { useOrder } from "@/src/services/order/OrderService";
 import { GroupOrderDetailModel, OrderDetailListModel } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 import { Button } from "primereact/button";
+import { classNames } from "primereact/utils";
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   const { data, isError, isLoading } = useOrder(OrderID);
@@ -11,20 +12,15 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
-  if (data?.Data.ShowAdd) {
-    return (
-      <>
+  return (
+    <>
+      <div className={classNames({ hidden: !data?.Data.ShowAdd })}>
         <AddItemButton
           showDialog={() => {
             alert("新增項目");
           }}
         />
-      </>
-    );
-  }
-
-  return (
-    <>
+      </div>
       {data?.Data.Detail?.map((x: GroupOrderDetailModel) => {
         return (
           <>

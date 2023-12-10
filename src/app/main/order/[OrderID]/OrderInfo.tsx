@@ -1,6 +1,12 @@
 "use client";
 
-import { CloseOrder, useOrder } from "@/src/services/order/OrderService";
+import {
+  CloseOrder,
+  DelayArrivalNotify,
+  DelayNotify,
+  FinishOrder,
+  useOrder,
+} from "@/src/services/order/OrderService";
 import { classNames } from "primereact/utils";
 import { DataView } from "primereact/dataview";
 import Image from "next/image";
@@ -160,6 +166,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           )}
           onClick={() => {
             if (confirm("確認要發送遲到通知?")) {
+              DelayNotify(data?.Data.OrderID!);
             }
           }}
         />
@@ -173,6 +180,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           )}
           onClick={() => {
             if (confirm("確認要發送取餐通知?")) {
+              DelayArrivalNotify(data?.Data.OrderID!);
             }
           }}
         />
@@ -183,6 +191,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           className={classNames({ hidden: !data?.Data.ShowFinish }, "w-full")}
           onClick={() => {
             if (confirm("確認要完成訂單?")) {
+              FinishOrder(data?.Data.OrderID!);
             }
           }}
         />
