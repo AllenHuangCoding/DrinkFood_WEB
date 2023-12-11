@@ -24,7 +24,7 @@ export interface OrderDetailListModel {
      * @type {string}
      * @memberof OrderDetailListModel
      */
-    OrderDetailID?: string;
+    OrderDetailID: string;
     /**
      * 
      * @type {string}
@@ -48,7 +48,7 @@ export interface OrderDetailListModel {
      * @type {number}
      * @memberof OrderDetailListModel
      */
-    DrinkFoodPrice?: number;
+    DrinkFoodPrice?: number | null;
     /**
      * 
      * @type {string}
@@ -135,12 +135,6 @@ export interface OrderDetailListModel {
     PaymentDatetime?: Date | null;
     /**
      * 
-     * @type {boolean}
-     * @memberof OrderDetailListModel
-     */
-    PaymentArrived?: boolean | null;
-    /**
-     * 
      * @type {number}
      * @memberof OrderDetailListModel
      */
@@ -168,6 +162,12 @@ export interface OrderDetailListModel {
      * @type {Date}
      * @memberof OrderDetailListModel
      */
+    ArrivalTime?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof OrderDetailListModel
+     */
     CloseTime?: Date;
     /**
      * 
@@ -175,6 +175,12 @@ export interface OrderDetailListModel {
      * @memberof OrderDetailListModel
      */
     OwnerID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderDetailListModel
+     */
+    BrandName?: string | null;
     /**
      * 
      * @type {boolean}
@@ -194,6 +200,7 @@ export interface OrderDetailListModel {
  */
 export function instanceOfOrderDetailListModel(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "OrderDetailID" in value;
 
     return isInstance;
 }
@@ -208,7 +215,7 @@ export function OrderDetailListModelFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'OrderDetailID': !exists(json, 'OrderDetailID') ? undefined : json['OrderDetailID'],
+        'OrderDetailID': json['OrderDetailID'],
         'OrderID': !exists(json, 'OrderID') ? undefined : json['OrderID'],
         'DrinkFoodID': !exists(json, 'DrinkFoodID') ? undefined : json['DrinkFoodID'],
         'DrinkFoodName': !exists(json, 'DrinkFoodName') ? undefined : json['DrinkFoodName'],
@@ -227,13 +234,14 @@ export function OrderDetailListModelFromJSONTyped(json: any, ignoreDiscriminator
         'PaymentID': !exists(json, 'PaymentID') ? undefined : json['PaymentID'],
         'PaymentDesc': !exists(json, 'PaymentDesc') ? undefined : json['PaymentDesc'],
         'PaymentDatetime': !exists(json, 'PaymentDatetime') ? undefined : (json['PaymentDatetime'] === null ? null : new Date(json['PaymentDatetime'])),
-        'PaymentArrived': !exists(json, 'PaymentArrived') ? undefined : json['PaymentArrived'],
         'Quantity': !exists(json, 'Quantity') ? undefined : json['Quantity'],
         'IsPickup': !exists(json, 'IsPickup') ? undefined : json['IsPickup'],
         'DetailRemark': !exists(json, 'DetailRemark') ? undefined : json['DetailRemark'],
         'OrderStatus': !exists(json, 'OrderStatus') ? undefined : json['OrderStatus'],
+        'ArrivalTime': !exists(json, 'ArrivalTime') ? undefined : (new Date(json['ArrivalTime'])),
         'CloseTime': !exists(json, 'CloseTime') ? undefined : (new Date(json['CloseTime'])),
         'OwnerID': !exists(json, 'OwnerID') ? undefined : json['OwnerID'],
+        'BrandName': !exists(json, 'BrandName') ? undefined : json['BrandName'],
         'ShowDelete': !exists(json, 'ShowDelete') ? undefined : json['ShowDelete'],
         'PickUpDesc': !exists(json, 'PickUpDesc') ? undefined : json['PickUpDesc'],
     };
@@ -267,13 +275,14 @@ export function OrderDetailListModelToJSON(value?: OrderDetailListModel | null):
         'PaymentID': value.PaymentID,
         'PaymentDesc': value.PaymentDesc,
         'PaymentDatetime': value.PaymentDatetime === undefined ? undefined : (value.PaymentDatetime === null ? null : value.PaymentDatetime.toISOString()),
-        'PaymentArrived': value.PaymentArrived,
         'Quantity': value.Quantity,
         'IsPickup': value.IsPickup,
         'DetailRemark': value.DetailRemark,
         'OrderStatus': value.OrderStatus,
+        'ArrivalTime': value.ArrivalTime === undefined ? undefined : (value.ArrivalTime.toISOString()),
         'CloseTime': value.CloseTime === undefined ? undefined : (value.CloseTime.toISOString()),
         'OwnerID': value.OwnerID,
+        'BrandName': value.BrandName,
         'ShowDelete': value.ShowDelete,
         'PickUpDesc': value.PickUpDesc,
     };

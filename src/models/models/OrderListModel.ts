@@ -24,7 +24,7 @@ export interface OrderListModel {
      * @type {string}
      * @memberof OrderListModel
      */
-    OrderID?: string;
+    OrderID: string;
     /**
      * 
      * @type {string}
@@ -254,6 +254,7 @@ export interface OrderListModel {
  */
 export function instanceOfOrderListModel(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "OrderID" in value;
 
     return isInstance;
 }
@@ -268,7 +269,7 @@ export function OrderListModelFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'OrderID': !exists(json, 'OrderID') ? undefined : json['OrderID'],
+        'OrderID': json['OrderID'],
         'OwnerID': !exists(json, 'OwnerID') ? undefined : json['OwnerID'],
         'OwnerName': !exists(json, 'OwnerName') ? undefined : json['OwnerName'],
         'OwnerBrief': !exists(json, 'OwnerBrief') ? undefined : json['OwnerBrief'],

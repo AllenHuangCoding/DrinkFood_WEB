@@ -18,8 +18,10 @@ import type {
   RequestBindLineModel,
   RequestCreateAccountModel,
   RequestUpdateProfileModel,
+  ResponseInfoCardModel,
   ResponseModel,
   ResponseProfileDialogOptions,
+  ResponseTodayOrderModel,
   ViewAccount,
 } from '../models/index';
 import {
@@ -29,10 +31,14 @@ import {
     RequestCreateAccountModelToJSON,
     RequestUpdateProfileModelFromJSON,
     RequestUpdateProfileModelToJSON,
+    ResponseInfoCardModelFromJSON,
+    ResponseInfoCardModelToJSON,
     ResponseModelFromJSON,
     ResponseModelToJSON,
     ResponseProfileDialogOptionsFromJSON,
     ResponseProfileDialogOptionsToJSON,
+    ResponseTodayOrderModelFromJSON,
+    ResponseTodayOrderModelToJSON,
     ViewAccountFromJSON,
     ViewAccountToJSON,
 } from '../models/index';
@@ -156,6 +162,34 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiAccountGetInfoCardGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseInfoCardModel>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/api/Account/GetInfoCard`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseInfoCardModelFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAccountGetInfoCardGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseInfoCardModel> {
+        const response = await this.apiAccountGetInfoCardGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiAccountGetProfileDialogOptionsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseProfileDialogOptions>> {
         const queryParameters: any = {};
 
@@ -207,6 +241,34 @@ export class AccountApi extends runtime.BaseAPI {
      */
     async apiAccountGetProfileGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ViewAccount> {
         const response = await this.apiAccountGetProfileGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiAccountGetTodayOrderGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ResponseTodayOrderModel>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/api/Account/GetTodayOrder`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ResponseTodayOrderModelFromJSON));
+    }
+
+    /**
+     */
+    async apiAccountGetTodayOrderGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ResponseTodayOrderModel>> {
+        const response = await this.apiAccountGetTodayOrderGetRaw(initOverrides);
         return await response.value();
     }
 

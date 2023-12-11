@@ -60,7 +60,7 @@ const StoreInfo = (params: { StoreID: string }) => {
                 </span>
               </div>
               <div>店家備註：{data?.Data.StoreRemark}</div>
-              <div className="flex">
+              {/* <div className="flex">
                 <div>訂購統計：</div>
                 <div className="flex flex-wrap gap-2">
                   <div className="flex align-items-center">
@@ -88,7 +88,7 @@ const StoreInfo = (params: { StoreID: string }) => {
                     </label>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

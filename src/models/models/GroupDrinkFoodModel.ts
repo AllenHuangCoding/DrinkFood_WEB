@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { ViewDrinkFoodModel } from './ViewDrinkFoodModel';
+import type { ViewDrinkFood } from './ViewDrinkFood';
 import {
-    ViewDrinkFoodModelFromJSON,
-    ViewDrinkFoodModelFromJSONTyped,
-    ViewDrinkFoodModelToJSON,
-} from './ViewDrinkFoodModel';
+    ViewDrinkFoodFromJSON,
+    ViewDrinkFoodFromJSONTyped,
+    ViewDrinkFoodToJSON,
+} from './ViewDrinkFood';
 
 /**
  * 
@@ -40,10 +40,10 @@ export interface GroupDrinkFoodModel {
     DrinkFoodTypeDesc?: string | null;
     /**
      * 
-     * @type {Array<ViewDrinkFoodModel>}
+     * @type {Array<ViewDrinkFood>}
      * @memberof GroupDrinkFoodModel
      */
-    DrinkFoodList?: Array<ViewDrinkFoodModel> | null;
+    DrinkFoodList?: Array<ViewDrinkFood> | null;
 }
 
 /**
@@ -67,7 +67,7 @@ export function GroupDrinkFoodModelFromJSONTyped(json: any, ignoreDiscriminator:
         
         'DrinkFoodTypeID': !exists(json, 'DrinkFoodTypeID') ? undefined : json['DrinkFoodTypeID'],
         'DrinkFoodTypeDesc': !exists(json, 'DrinkFoodTypeDesc') ? undefined : json['DrinkFoodTypeDesc'],
-        'DrinkFoodList': !exists(json, 'DrinkFoodList') ? undefined : (json['DrinkFoodList'] === null ? null : (json['DrinkFoodList'] as Array<any>).map(ViewDrinkFoodModelFromJSON)),
+        'DrinkFoodList': !exists(json, 'DrinkFoodList') ? undefined : (json['DrinkFoodList'] === null ? null : (json['DrinkFoodList'] as Array<any>).map(ViewDrinkFoodFromJSON)),
     };
 }
 
@@ -82,7 +82,7 @@ export function GroupDrinkFoodModelToJSON(value?: GroupDrinkFoodModel | null): a
         
         'DrinkFoodTypeID': value.DrinkFoodTypeID,
         'DrinkFoodTypeDesc': value.DrinkFoodTypeDesc,
-        'DrinkFoodList': value.DrinkFoodList === undefined ? undefined : (value.DrinkFoodList === null ? null : (value.DrinkFoodList as Array<any>).map(ViewDrinkFoodModelToJSON)),
+        'DrinkFoodList': value.DrinkFoodList === undefined ? undefined : (value.DrinkFoodList === null ? null : (value.DrinkFoodList as Array<any>).map(ViewDrinkFoodToJSON)),
     };
 }
 

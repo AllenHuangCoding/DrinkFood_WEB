@@ -43,11 +43,11 @@ const AppMenu = () => {
           icon: "pi pi-fw pi-list",
           to: "/main/order/history",
         },
-        {
-          label: "扣款統計",
-          icon: "pi pi-fw pi-file-export",
-          to: "/main/order/export",
-        },
+        // {
+        //   label: "扣款統計",
+        //   icon: "pi pi-fw pi-file-export",
+        //   to: "/main/order/export",
+        // },
       ],
     },
     {
@@ -57,21 +57,6 @@ const AppMenu = () => {
           label: "登出",
           icon: "pi pi-fw pi-sign-in",
           to: "/",
-        },
-        {
-          label: "Error",
-          icon: "pi pi-fw pi-times-circle",
-          to: "/auth/error",
-        },
-        {
-          label: "Access Denied",
-          icon: "pi pi-fw pi-lock",
-          to: "/auth/access",
-        },
-        {
-          label: "Not Found",
-          icon: "pi pi-fw pi-exclamation-circle",
-          to: "/pages/notfound",
         },
       ],
     },

@@ -24,7 +24,7 @@ export interface ResponseLoginModel {
      * @type {string}
      * @memberof ResponseLoginModel
      */
-    AccountID: string;
+    AccountID?: string;
     /**
      * 
      * @type {string}

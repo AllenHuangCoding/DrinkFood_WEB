@@ -2,6 +2,7 @@
 
 import { BasicTable } from "@/src/components/table/BasicTable";
 import { useOrderDetailHistory } from "@/src/services/order/OrderService";
+import { GetAccountID, GetToken } from "@/src/store/localStorage";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
@@ -14,7 +15,10 @@ const HistoryTable = (AccountID: string) => {
         icon="pi pi-upload"
         severity="info"
         onClick={() => {
-          alert("功能尚未開放");
+          const accountID = GetAccountID();
+          const token = GetToken();
+          const url = `${process.env.NEXT_PUBLIC_API_BASEURL}/Export/ExportOrderDetailHistory/${accountID}?Token=${token}`;
+          window.open(url);
         }}
       />
     </div>

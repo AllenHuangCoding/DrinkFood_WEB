@@ -12,6 +12,7 @@ apis/index.ts
 index.ts
 models/GroupDrinkFoodModel.ts
 models/GroupOrderDetailModel.ts
+models/InfoCardDataModel.ts
 models/OptionsModel.ts
 models/OrderDetailListModel.ts
 models/OrderListModel.ts
@@ -25,14 +26,16 @@ models/RequestPutCloseTimeModel.ts
 models/RequestPutPaymentDateTimeModel.ts
 models/RequestPutPaymentModel.ts
 models/RequestUpdateProfileModel.ts
+models/ResponseInfoCardModel.ts
 models/ResponseLoginModel.ts
 models/ResponseModel.ts
 models/ResponseOrderDialogOptions.ts
 models/ResponseProfileDialogOptions.ts
 models/ResponseStoreListModel.ts
+models/ResponseTodayOrderModel.ts
 models/ViewAccount.ts
 models/ViewDetailHistory.ts
-models/ViewDrinkFoodModel.ts
+models/ViewDrinkFood.ts
 models/ViewMenu.ts
 models/ViewOrderAndDetail.ts
 models/index.ts

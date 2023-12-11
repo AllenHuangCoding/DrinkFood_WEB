@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GET, POST, PUT } from "../httpClient";
+import { DELETE, GET, POST, PUT } from "../httpClient";
 import { OrderListModel } from "@/src/models/models/OrderListModel";
 import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
 import { ViewOrderAndDetail } from "@/src/models/models/ViewOrderAndDetail";
@@ -47,6 +47,10 @@ const CloseOrder = (OrderID: string) => {
   return PUT<any>(`/Order/CloseOrder/${OrderID}`, []);
 };
 
+const FinishOrder = (OrderID: string) => {
+  return PUT<any>(`/Order/FinishOrder/${OrderID}`, []);
+};
+
 const UpdateArrivalTime = (
   OrderID: string,
   Param: RequestPutArrivalTimeModel
@@ -58,6 +62,22 @@ const UpdateCloseTime = (OrderID: string, Param: RequestPutCloseTimeModel) => {
   return PUT<any>(`/Order/PutCloseTime/${OrderID}`, Param);
 };
 
+const DelayNotify = (OrderID: string) => {
+  return PUT<any>(`/Order/DelayNotify/${OrderID}`, null);
+};
+
+const DelayArrivalNotify = (OrderID: string) => {
+  return PUT<any>(`/Order/DelayArrivalNotify/${OrderID}`, null);
+};
+
+const JoinOrder = (OrderID: string) => {
+  return POST<any>(`/Order/JoinOrder/${OrderID}`, null);
+};
+
+const DeleteOrderDetail = (OrderDetailID: string) => {
+  return DELETE<any>(`/Order/DeleteOrderDetail/${OrderDetailID}`, null);
+};
+
 export {
   useOrder,
   useOrderList,
@@ -65,6 +85,11 @@ export {
   useCreateOrderDialogOptions,
   CreateOrder,
   CloseOrder,
+  FinishOrder,
   UpdateArrivalTime,
   UpdateCloseTime,
+  DelayNotify,
+  DelayArrivalNotify,
+  JoinOrder,
+  DeleteOrderDetail,
 };

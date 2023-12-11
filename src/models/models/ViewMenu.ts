@@ -24,7 +24,7 @@ export interface ViewMenu {
      * @type {string}
      * @memberof ViewMenu
      */
-    MenuID?: string;
+    MenuID: string;
     /**
      * 
      * @type {string}
@@ -62,6 +62,7 @@ export interface ViewMenu {
  */
 export function instanceOfViewMenu(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "MenuID" in value;
 
     return isInstance;
 }
@@ -76,7 +77,7 @@ export function ViewMenuFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     }
     return {
         
-        'MenuID': !exists(json, 'MenuID') ? undefined : json['MenuID'],
+        'MenuID': json['MenuID'],
         'MenuAreaID': !exists(json, 'MenuAreaID') ? undefined : json['MenuAreaID'],
         'MenuAreaDesc': !exists(json, 'MenuAreaDesc') ? undefined : json['MenuAreaDesc'],
         'BrandID': !exists(json, 'BrandID') ? undefined : json['BrandID'],

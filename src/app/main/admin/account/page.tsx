@@ -79,13 +79,13 @@ export default function AccountPage() {
             style={{ width: "15%" }}
             sortable
           />
-          <Column
+          {/* <Column
             field="CloseNotify"
             header="結單提醒"
             style={{ width: "10%" }}
             body={(x) => <> {`前${x.CloseNotify}分鐘`}</>}
             sortable
-          />
+          /> */}
           <Column
             header="功能"
             style={{ width: "15%" }}
