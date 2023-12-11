@@ -8,15 +8,14 @@ import {
 const useInfoCard = () => {
   return useQuery({
     queryKey: ["GetInfoCard"],
-    queryFn: async () => GET<ResponseInfoCardModel>("/Account/GetInfoCard"),
+    queryFn: async () => GET<ResponseInfoCardModel>("/Home/GetInfoCard"),
   });
 };
 
 const useTodayOrder = () => {
   return useQuery({
     queryKey: ["GetTodayOrder"],
-    queryFn: async () =>
-      GET<ResponseTodayOrderModel[]>("/Account/GetTodayOrder"),
+    queryFn: async () => GET<ResponseTodayOrderModel[]>("/Home/GetTodayOrder"),
   });
 };
 export { useInfoCard, useTodayOrder };
