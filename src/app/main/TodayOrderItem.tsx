@@ -1,6 +1,11 @@
+import { ResponseTodayOrderModel } from "@/src/models";
 import { formatCurrency } from "@/src/utils/IntExtension";
 
-export default function TodayOrderItem({ item }: any) {
+export default function TodayOrderItem({
+  item,
+}: {
+  item: ResponseTodayOrderModel;
+}) {
   return (
     <>
       <span className="block text-600 font-medium mb-1">{item.BrandName}</span>
@@ -16,7 +21,7 @@ export default function TodayOrderItem({ item }: any) {
             {item.DrinkFoodName} * {item.Quantity}
             <span className="text-blue-500">
               {" "}
-              {formatCurrency(item.DrinkFoodPrice)}元
+              {formatCurrency(item.DrinkFoodPrice!)}元
             </span>
           </span>
         </li>

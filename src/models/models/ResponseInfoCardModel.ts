@@ -46,10 +46,10 @@ export interface ResponseInfoCardModel {
     Teatime?: Array<InfoCardDataModel> | null;
     /**
      * 
-     * @type {InfoCardDataModel}
+     * @type {Array<InfoCardDataModel>}
      * @memberof ResponseInfoCardModel
      */
-    Other?: InfoCardDataModel;
+    Other?: Array<InfoCardDataModel> | null;
 }
 
 /**
@@ -74,7 +74,7 @@ export function ResponseInfoCardModelFromJSONTyped(json: any, ignoreDiscriminato
         'Lunch': !exists(json, 'Lunch') ? undefined : (json['Lunch'] === null ? null : (json['Lunch'] as Array<any>).map(InfoCardDataModelFromJSON)),
         'Drink': !exists(json, 'Drink') ? undefined : (json['Drink'] === null ? null : (json['Drink'] as Array<any>).map(InfoCardDataModelFromJSON)),
         'Teatime': !exists(json, 'Teatime') ? undefined : (json['Teatime'] === null ? null : (json['Teatime'] as Array<any>).map(InfoCardDataModelFromJSON)),
-        'Other': !exists(json, 'Other') ? undefined : InfoCardDataModelFromJSON(json['Other']),
+        'Other': !exists(json, 'Other') ? undefined : (json['Other'] === null ? null : (json['Other'] as Array<any>).map(InfoCardDataModelFromJSON)),
     };
 }
 
@@ -90,7 +90,7 @@ export function ResponseInfoCardModelToJSON(value?: ResponseInfoCardModel | null
         'Lunch': value.Lunch === undefined ? undefined : (value.Lunch === null ? null : (value.Lunch as Array<any>).map(InfoCardDataModelToJSON)),
         'Drink': value.Drink === undefined ? undefined : (value.Drink === null ? null : (value.Drink as Array<any>).map(InfoCardDataModelToJSON)),
         'Teatime': value.Teatime === undefined ? undefined : (value.Teatime === null ? null : (value.Teatime as Array<any>).map(InfoCardDataModelToJSON)),
-        'Other': InfoCardDataModelToJSON(value.Other),
+        'Other': value.Other === undefined ? undefined : (value.Other === null ? null : (value.Other as Array<any>).map(InfoCardDataModelToJSON)),
     };
 }
 

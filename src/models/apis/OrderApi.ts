@@ -120,6 +120,10 @@ export interface ApiOrderPutPickupOrderDetailIDPutRequest {
     orderDetailID: string;
 }
 
+export interface ApiOrderTestOrderLineOrderIDGetRequest {
+    orderID: string;
+}
+
 /**
  * 
  */
@@ -672,6 +676,38 @@ export class OrderApi extends runtime.BaseAPI {
      */
     async apiOrderPutPickupOrderDetailIDPut(requestParameters: ApiOrderPutPickupOrderDetailIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
         const response = await this.apiOrderPutPickupOrderDetailIDPutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiOrderTestOrderLineOrderIDGetRaw(requestParameters: ApiOrderTestOrderLineOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+        if (requestParameters.orderID === null || requestParameters.orderID === undefined) {
+            throw new runtime.RequiredError('orderID','Required parameter requestParameters.orderID was null or undefined when calling apiOrderTestOrderLineOrderIDGet.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/api/Order/TestOrderLine/{OrderID}`.replace(`{${"OrderID"}}`, encodeURIComponent(String(requestParameters.orderID))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiOrderTestOrderLineOrderIDGet(requestParameters: ApiOrderTestOrderLineOrderIDGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+        const response = await this.apiOrderTestOrderLineOrderIDGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
