@@ -19,6 +19,7 @@ import {
   AppTopbarRef,
 } from "../../../types/types";
 import { usePathname, useSearchParams } from "next/navigation";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 const MainLayout = ({ children }: ChildContainerProps) => {
   const { layoutConfig, layoutState, setLayoutState } =
@@ -153,6 +154,7 @@ const MainLayout = ({ children }: ChildContainerProps) => {
           <AppSidebar />
         </div>
         <div className="layout-main-container">
+          <ConfirmDialog />
           <div className="layout-main">{children}</div>
           {/* <AppFooter /> */}
         </div>

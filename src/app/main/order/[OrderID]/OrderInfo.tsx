@@ -21,6 +21,7 @@ import {
   UpdateCloseDialog,
 } from "@/src/app/main/order/[OrderID]/UpdateCloseDialog";
 import { formatCurrency } from "@/src/utils/IntExtension";
+import { confirmDialog } from "primereact/confirmdialog";
 
 interface TitleContentCell {
   Title: string;
@@ -165,9 +166,15 @@ const OrderInfo = (params: { OrderID: string }) => {
             "w-full"
           )}
           onClick={() => {
-            if (confirm("確認要發送遲到通知?\r\n(只會通知已點餐的使用者)")) {
-              DelayNotify(data?.Data.OrderID!);
-            }
+            confirmDialog({
+              header: "遲到通知",
+              message: "確認要發送遲到通知?\r\n(只會通知已點餐的使用者)",
+              icon: "pi pi-exclamation-triangle",
+              accept() {
+                DelayNotify(data?.Data.OrderID!);
+              },
+              reject() {},
+            });
           }}
         />
 
@@ -179,9 +186,15 @@ const OrderInfo = (params: { OrderID: string }) => {
             "w-full"
           )}
           onClick={() => {
-            if (confirm("確認要發送取餐通知?\r\n(只會通知已點餐的使用者)")) {
-              DelayArrivalNotify(data?.Data.OrderID!);
-            }
+            confirmDialog({
+              header: "遲到抵達",
+              message: "確認要發送取餐通知?\r\n(只會通知已點餐的使用者)",
+              icon: "pi pi-exclamation-triangle",
+              accept() {
+                DelayArrivalNotify(data?.Data.OrderID!);
+              },
+              reject() {},
+            });
           }}
         />
 
@@ -190,9 +203,15 @@ const OrderInfo = (params: { OrderID: string }) => {
           severity="info"
           className={classNames({ hidden: !data?.Data.ShowFinish }, "w-full")}
           onClick={() => {
-            if (confirm("確認要完成訂單?")) {
-              FinishOrder(data?.Data.OrderID!);
-            }
+            confirmDialog({
+              header: "完成訂單",
+              message: "完成訂單後將無法再進行後續流程操作",
+              icon: "pi pi-exclamation-triangle",
+              accept() {
+                FinishOrder(data?.Data.OrderID!);
+              },
+              reject() {},
+            });
           }}
         />
 
@@ -201,10 +220,16 @@ const OrderInfo = (params: { OrderID: string }) => {
           severity="danger"
           className={classNames({ hidden: !data?.Data.ShowClose }, "w-full")}
           onClick={() => {
-            if (confirm("確認要關閉訂單?")) {
-              CloseOrder(data?.Data.OrderID!);
-              // TODO: 訂單資料重整
-            }
+            confirmDialog({
+              header: "關閉訂單",
+              message: "關閉訂單後將無法再進行後續流程操作",
+              icon: "pi pi-info-circle",
+              acceptClassName: "p-button-danger",
+              accept() {
+                CloseOrder(data?.Data.OrderID!);
+              },
+              reject() {},
+            });
           }}
         />
       </div>

@@ -5,6 +5,7 @@ import { GroupOrderDetailModel, OrderDetailListModel } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
+import { confirmDialog } from "primereact/confirmdialog";
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   const { data, isError, isLoading } = useOrder(OrderID);
@@ -66,9 +67,18 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
                         outlined
                         raised
                         onClick={() => {
-                          if (confirm("確認刪除此品項?")) {
-                            DeleteOrderDetail(y.OrderDetailID!);
-                          }
+                          confirmDialog({
+                            header: "刪除品項",
+                            message: `確認要刪除 [${
+                              y.DrinkFoodName ?? "尚未點餐"
+                            }] ?`,
+                            icon: "pi pi-info-circle",
+                            acceptClassName: "p-button-danger",
+                            accept() {
+                              DeleteOrderDetail(y.OrderDetailID!);
+                            },
+                            reject() {},
+                          });
                         }}
                       />
                     </div>
