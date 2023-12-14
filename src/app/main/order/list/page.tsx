@@ -16,6 +16,9 @@ export default function OrderListPage() {
   const [selectStore, setSelectedStore] = useState<string>("");
 
   const router = useRouter();
+
+  const { refetch } = useOrderList();
+
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
       <CreateOrderButton
@@ -33,6 +36,9 @@ export default function OrderListPage() {
         visible={visible}
         closeDialog={() => {
           setVisible(false);
+        }}
+        submitCallback={() => {
+          refetch();
         }}
       />
       <div className="card">

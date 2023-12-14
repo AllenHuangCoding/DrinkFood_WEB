@@ -32,7 +32,7 @@ const OrderInfo = (params: { OrderID: string }) => {
   const [arrivalVisible, setArrivalVisible] = useState<boolean>(false);
   const [closeVisible, setCloseVisible] = useState<boolean>(false);
 
-  const { data, isError, isLoading } = useOrder(params.OrderID);
+  const { data, isError, isLoading, refetch } = useOrder(params.OrderID);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
@@ -140,6 +140,9 @@ const OrderInfo = (params: { OrderID: string }) => {
             closeDialog={() => {
               setCloseVisible(false);
             }}
+            submitCallback={() => {
+              refetch();
+            }}
           />
         </div>
 
@@ -154,6 +157,9 @@ const OrderInfo = (params: { OrderID: string }) => {
             visible={arrivalVisible}
             closeDialog={() => {
               setArrivalVisible(false);
+            }}
+            submitCallback={() => {
+              refetch();
             }}
           />
         </div>
@@ -208,7 +214,9 @@ const OrderInfo = (params: { OrderID: string }) => {
               message: "完成訂單後將無法再進行後續流程操作",
               icon: "pi pi-exclamation-triangle",
               accept() {
-                FinishOrder(data?.Data.OrderID!);
+                FinishOrder(data?.Data.OrderID!).then(() => {
+                  refetch();
+                });
               },
               reject() {},
             });
@@ -226,7 +234,9 @@ const OrderInfo = (params: { OrderID: string }) => {
               icon: "pi pi-info-circle",
               acceptClassName: "p-button-danger",
               accept() {
-                CloseOrder(data?.Data.OrderID!);
+                CloseOrder(data?.Data.OrderID!).then(() => {
+                  refetch();
+                });
               },
               reject() {},
             });

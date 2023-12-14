@@ -8,7 +8,7 @@ import { classNames } from "primereact/utils";
 import { confirmDialog } from "primereact/confirmdialog";
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
-  const { data, isError, isLoading } = useOrder(OrderID);
+  const { data, isError, isLoading, refetch } = useOrder(OrderID);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
@@ -75,7 +75,9 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
                             icon: "pi pi-info-circle",
                             acceptClassName: "p-button-danger",
                             accept() {
-                              DeleteOrderDetail(y.OrderDetailID!);
+                              DeleteOrderDetail(y.OrderDetailID!).then(() => {
+                                refetch();
+                              });
                             },
                             reject() {},
                           });

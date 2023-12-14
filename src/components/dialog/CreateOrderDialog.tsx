@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { useForm, Controller } from "react-hook-form";
-import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
+import { useForm } from "react-hook-form";
 import {
   CreateOrder,
   useCreateOrderDialogOptions,
@@ -32,10 +30,12 @@ const CreateOrderDialog = ({
   visible,
   storeID,
   closeDialog,
+  submitCallback,
 }: {
   visible: boolean;
   storeID?: string;
   closeDialog: () => void;
+  submitCallback?: () => void;
 }) => {
   const defaultValues: RequestPostOrderModel = {
     CreateAccountID: "",
@@ -59,11 +59,17 @@ const CreateOrderDialog = ({
 
   const onSubmit = (param: RequestPostOrderModel) => {
     param.CreateAccountID = loginData?.AccountID!;
-    CreateOrder(param).then(() => {
-      showMessage("新增訂單成功", toastBottomCenter, "success");
-      closeDialog();
-      reset();
-    });
+    CreateOrder(param)
+      .then(() => {
+        showMessage("新增訂單成功", toastBottomCenter, "success");
+        closeDialog();
+        reset();
+      })
+      .then(() => {
+        if (submitCallback != null) {
+          submitCallback();
+        }
+      });
   };
 
   const { data } = useCreateOrderDialogOptions();
@@ -143,23 +149,12 @@ const CreateOrderDialog = ({
 
             <div className="flex flex-column gap-3 sm:flex-row">
               <ControlDateTimePicker
-                name="ArrivalTime"
-                control={control}
-                rules={{ required: "必填欄位" }}
-                labelName="用餐時間"
-                errorKey={errors.ArrivalTime}
-              />
-
-              <ControlDateTimePicker
                 name="OpenTime"
                 control={control}
                 rules={{ required: "必填欄位" }}
                 labelName="開放時間"
                 errorKey={errors.OpenTime}
               />
-            </div>
-
-            <div className="w-full sm:w-6">
               <ControlDateTimePicker
                 name="CloseTime"
                 control={control}
@@ -167,7 +162,16 @@ const CreateOrderDialog = ({
                 labelName="結單時間"
                 errorKey={errors.CloseTime}
               />
-              <div></div>
+            </div>
+
+            <div className="w-full sm:w-6">
+              <ControlDateTimePicker
+                name="ArrivalTime"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                labelName="用餐時間"
+                errorKey={errors.ArrivalTime}
+              />
             </div>
 
             <div className="flex justify-content-between align-items-center">

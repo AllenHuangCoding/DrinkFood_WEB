@@ -11,7 +11,10 @@ export default function AccountHistoryPage({
 }) {
   return (
     <>
-      <div className="card">{HistoryTable(params.AccountID)}</div>
+      <div className="card">
+        <div>某某某的歷史紀錄</div>
+        {HistoryTable(params.AccountID)}
+      </div>
     </>
   );
 }

@@ -13,10 +13,12 @@ const UpdateArrivalDialog = ({
   orderID,
   visible,
   closeDialog,
+  submitCallback,
 }: {
   orderID: string;
   visible: boolean;
   closeDialog: () => void;
+  submitCallback?: () => void;
 }) => {
   const defaultValues: UpdateArrivalModel = {
     ArrivalTime: new Date(),
@@ -30,7 +32,11 @@ const UpdateArrivalDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateArrivalModel) => {
-    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime });
+    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime }).then(() => {
+      if (submitCallback != null) {
+        submitCallback();
+      }
+    });
     closeDialog();
   };
 

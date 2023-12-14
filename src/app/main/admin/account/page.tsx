@@ -15,6 +15,8 @@ export default function AccountPage() {
   const [userData, setUserData] = useState<ProfileDialogFullModel | null>(null);
   const [action, setAction] = useState<"View" | "Create" | "Update">("View");
 
+  const { refetch } = useAccountList();
+
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
       <Button
@@ -40,6 +42,9 @@ export default function AccountPage() {
         userData={userData}
         closeDialog={() => {
           setVisible(false);
+        }}
+        submitCallback={() => {
+          refetch();
         }}
       />
 
