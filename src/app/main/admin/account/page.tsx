@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import ProfileDialog, {
   ProfileDialogFullModel,
 } from "@/src/components/dialog/ProfileDialog";
+import { showSuccess } from "@/src/components/form/CustomToast";
 
 export default function AccountPage() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -27,6 +28,7 @@ export default function AccountPage() {
           setUserData(null);
           setAction("Create");
           setVisible(true);
+          // showSuccess("成功");
         }}
       />
     </div>

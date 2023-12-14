@@ -20,6 +20,7 @@ import {
 } from "../../../types/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import { ToastView } from "@/src/components/form/CustomToast";
 
 const MainLayout = ({ children }: ChildContainerProps) => {
   const { layoutConfig, layoutState, setLayoutState } =
@@ -155,6 +156,7 @@ const MainLayout = ({ children }: ChildContainerProps) => {
         </div>
         <div className="layout-main-container">
           <ConfirmDialog />
+          <ToastView />
           <div className="layout-main">{children}</div>
           {/* <AppFooter /> */}
         </div>
