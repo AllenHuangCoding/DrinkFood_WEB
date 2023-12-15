@@ -37,11 +37,13 @@ export default function ProfileDialog({
   userData,
   action,
   closeDialog,
+  submitCallback,
 }: {
   visible: boolean;
   userData: ProfileDialogFullModel | null;
   action: "View" | "Create" | "Update";
   closeDialog: () => void;
+  submitCallback?: () => void;
 }) {
   const { data } = useProfileDialogOptions();
 
@@ -81,9 +83,16 @@ export default function ProfileDialog({
           DrinkNotify: dialogData.DrinkNotify,
           CloseNotify: dialogData.CloseNotify,
         };
-        CreateAccount(param);
-        alert("新增使用者資料成功");
-        closeDialog();
+        CreateAccount(param)
+          .then(() => {
+            alert("新增使用者資料成功");
+            closeDialog();
+          })
+          .then(() => {
+            if (submitCallback != null) {
+              submitCallback();
+            }
+          });
         break;
       case "Update":
         if (dialogData.AccountID != null) {
@@ -95,9 +104,10 @@ export default function ProfileDialog({
             DrinkNotify: dialogData.DrinkNotify,
             CloseNotify: dialogData.CloseNotify,
           };
-          UpdateProfile(dialogData.AccountID!, param);
-          alert("修改使用者資料成功");
-          closeDialog();
+          UpdateProfile(dialogData.AccountID!, param).then(() => {
+            alert("修改使用者資料成功");
+            closeDialog();
+          });
         } else {
           alert("缺少變更帳號ID");
         }

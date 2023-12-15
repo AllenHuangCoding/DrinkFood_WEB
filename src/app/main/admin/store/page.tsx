@@ -44,7 +44,7 @@ export default function StorePage() {
         />
         <Column
           field="StoreAddress"
-          header="地址 (加Google Map)"
+          header="地址"
           style={{ width: "25%" }}
           sortable
         />

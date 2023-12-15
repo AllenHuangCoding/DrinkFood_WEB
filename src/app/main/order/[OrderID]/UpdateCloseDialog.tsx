@@ -13,10 +13,12 @@ const UpdateCloseDialog = ({
   orderID,
   visible,
   closeDialog,
+  submitCallback,
 }: {
   orderID: string;
   visible: boolean;
   closeDialog: () => void;
+  submitCallback?: () => void;
 }) => {
   const defaultValues: UpdateCloseModel = {
     CloseTime: new Date(),
@@ -30,7 +32,11 @@ const UpdateCloseDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateCloseModel) => {
-    UpdateCloseTime(orderID, { CloseTime: param.CloseTime });
+    UpdateCloseTime(orderID, { CloseTime: param.CloseTime }).then(() => {
+      if (submitCallback != null) {
+        submitCallback();
+      }
+    });
     closeDialog();
   };
 

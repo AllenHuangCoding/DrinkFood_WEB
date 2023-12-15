@@ -1,27 +1,27 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
-import { UpdateArrivalTime } from "@/src/services/order/OrderService";
+import ControlDropDown from "@/src/components/form/ControlDropDown";
+import { useProfileDialogOptions } from "@/src/services/admin/AccountService";
+import { UpdateCloseTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-interface UpdateArrivalModel {
-  ArrivalTime: Date;
+interface UpdatePaymentModel {
+  Payment: string;
 }
 
-const UpdateArrivalDialog = ({
-  orderID,
+const UpdateLunchPaymentDialog = ({
+  detailID,
   visible,
   closeDialog,
-  submitCallback,
 }: {
-  orderID: string;
+  detailID: string;
   visible: boolean;
   closeDialog: () => void;
-  submitCallback?: () => void;
 }) => {
-  const defaultValues: UpdateArrivalModel = {
-    ArrivalTime: new Date(),
+  const defaultValues: UpdatePaymentModel = {
+    Payment: "",
   };
 
   const {
@@ -31,12 +31,8 @@ const UpdateArrivalDialog = ({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (param: UpdateArrivalModel) => {
-    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime }).then(() => {
-      if (submitCallback != null) {
-        submitCallback();
-      }
-    });
+  const onSubmit = (param: UpdatePaymentModel) => {
+    alert(param.Payment);
     closeDialog();
   };
 
@@ -44,9 +40,11 @@ const UpdateArrivalDialog = ({
     reset();
   }, [visible]);
 
+  const { data } = useProfileDialogOptions();
+
   return (
     <Dialog
-      header="更改用餐時間"
+      header="更改付款方式"
       visible={visible}
       className="w-10 md:w-6 lg:w-4 xl:w-3"
       position="top"
@@ -59,11 +57,15 @@ const UpdateArrivalDialog = ({
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-column gap-3 mt-3"
       >
-        <ControlDateTimePicker
-          name="ArrivalTime"
+        <ControlDropDown
+          name="Payment"
           control={control}
           rules={{ required: "必填欄位" }}
-          labelName="用餐時間"
+          options={data?.Data.LunchPayment!}
+          optionLabel="Text"
+          optionValue="ID"
+          placeholder="選擇付款方式"
+          errorKey={errors.Payment}
         />
 
         <Button
@@ -77,10 +79,10 @@ const UpdateArrivalDialog = ({
   );
 };
 
-const UpdateArrivalButton = ({ showDialog }: { showDialog: () => void }) => {
+const UpdatePaymentButton = ({ showDialog }: { showDialog: () => void }) => {
   return (
     <Button
-      label="更改用餐時間"
+      label="更改結單時間"
       severity="secondary"
       className="w-full"
       onClick={() => {
@@ -90,4 +92,4 @@ const UpdateArrivalButton = ({ showDialog }: { showDialog: () => void }) => {
   );
 };
 
-export { UpdateArrivalDialog, UpdateArrivalButton };
+export { UpdateLunchPaymentDialog, UpdatePaymentButton };

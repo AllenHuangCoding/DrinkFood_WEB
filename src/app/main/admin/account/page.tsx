@@ -9,11 +9,14 @@ import { useRouter } from "next/navigation";
 import ProfileDialog, {
   ProfileDialogFullModel,
 } from "@/src/components/dialog/ProfileDialog";
+import { showSuccess } from "@/src/components/form/CustomToast";
 
 export default function AccountPage() {
   const [visible, setVisible] = useState<boolean>(false);
   const [userData, setUserData] = useState<ProfileDialogFullModel | null>(null);
   const [action, setAction] = useState<"View" | "Create" | "Update">("View");
+
+  const { refetch } = useAccountList();
 
   const header = (
     <div className="flex align-items-center justify-content-end gap-2">
@@ -25,6 +28,7 @@ export default function AccountPage() {
           setUserData(null);
           setAction("Create");
           setVisible(true);
+          // showSuccess("成功");
         }}
       />
     </div>
@@ -40,6 +44,9 @@ export default function AccountPage() {
         userData={userData}
         closeDialog={() => {
           setVisible(false);
+        }}
+        submitCallback={() => {
+          refetch();
         }}
       />
 
