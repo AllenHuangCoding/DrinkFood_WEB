@@ -11,10 +11,6 @@ apis/OrderApi.ts
 apis/StoreApi.ts
 apis/index.ts
 index.ts
-models/Asn1GeneralizedTime.ts
-models/BigInteger.ts
-models/DerInteger.ts
-models/DerObjectIdentifier.ts
 models/GroupDrinkFoodModel.ts
 models/GroupOrderDetailModel.ts
 models/InfoCardDataModel.ts
@@ -31,8 +27,6 @@ models/RequestPutCloseTimeModel.ts
 models/RequestPutPaymentDateTimeModel.ts
 models/RequestPutPaymentModel.ts
 models/RequestUpdateProfileModel.ts
-models/ResponderID.ts
-models/ResponseData.ts
 models/ResponseInfoCardModel.ts
 models/ResponseLoginModel.ts
 models/ResponseModel.ts
@@ -45,6 +39,5 @@ models/ViewDetailHistory.ts
 models/ViewDrinkFood.ts
 models/ViewMenu.ts
 models/ViewOrderAndDetail.ts
-models/X509Extensions.ts
 models/index.ts
 runtime.ts

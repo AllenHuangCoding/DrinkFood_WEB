@@ -23,16 +23,16 @@ const AppMenu = () => {
           icon: "pi pi-fw pi-user",
           to: "/main/admin/account",
         },
-        {
-          label: "店家",
-          icon: "pi pi-fw pi-building",
-          to: "/main/admin/store",
-        },
       ],
     },
     {
       label: "訂餐功能",
       items: [
+        {
+          label: "店家",
+          icon: "pi pi-fw pi-building",
+          to: "/main/order/store",
+        },
         {
           label: "開團紀錄",
           icon: "pi pi-fw pi-shopping-cart",

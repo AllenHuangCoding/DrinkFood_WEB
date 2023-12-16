@@ -49,6 +49,12 @@ export interface ViewOrderAndDetail {
      * @type {string}
      * @memberof ViewOrderAndDetail
      */
+    StoreID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewOrderAndDetail
+     */
     StorePhone?: string | null;
     /**
      * 
@@ -188,6 +194,7 @@ export function ViewOrderAndDetailFromJSONTyped(json: any, ignoreDiscriminator: 
         'BrandOfficialUrl': !exists(json, 'BrandOfficialUrl') ? undefined : json['BrandOfficialUrl'],
         'BrandLogoUrl': !exists(json, 'BrandLogoUrl') ? undefined : json['BrandLogoUrl'],
         'BrandStoreName': !exists(json, 'BrandStoreName') ? undefined : json['BrandStoreName'],
+        'StoreID': !exists(json, 'StoreID') ? undefined : json['StoreID'],
         'StorePhone': !exists(json, 'StorePhone') ? undefined : json['StorePhone'],
         'StoreAddress': !exists(json, 'StoreAddress') ? undefined : json['StoreAddress'],
         'OrderID': !exists(json, 'OrderID') ? undefined : json['OrderID'],
@@ -223,6 +230,7 @@ export function ViewOrderAndDetailToJSON(value?: ViewOrderAndDetail | null): any
         'BrandOfficialUrl': value.BrandOfficialUrl,
         'BrandLogoUrl': value.BrandLogoUrl,
         'BrandStoreName': value.BrandStoreName,
+        'StoreID': value.StoreID,
         'StorePhone': value.StorePhone,
         'StoreAddress': value.StoreAddress,
         'OrderID': value.OrderID,

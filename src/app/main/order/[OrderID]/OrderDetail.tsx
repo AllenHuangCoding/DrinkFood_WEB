@@ -13,8 +13,10 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { useState } from "react";
 import { UpdateLunchPaymentDialog } from "./UpdatePaymentDialog";
 import { showSuccess } from "@/src/components/form/CustomToast";
+import { useRouter } from "next/navigation";
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
+  const router = useRouter();
   const [paymentVisible, setPaymentVisible] = useState<boolean>(false);
   const [selectedDetailID, setSelectedDetailID] = useState<string>("");
 
@@ -22,7 +24,6 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
-
   return (
     <>
       <UpdateLunchPaymentDialog
@@ -38,7 +39,7 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
       <div className={classNames({ hidden: !data?.Data.ShowAdd })}>
         <AddItemButton
           showDialog={() => {
-            alert("新增項目");
+            router.push(`../store/${data?.Data.StoreID}/${data?.Data.OrderID}`);
           }}
         />
       </div>
