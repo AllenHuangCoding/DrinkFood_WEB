@@ -9,10 +9,10 @@ import { GroupOrderDetailModel, OrderDetailListModel } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 import { classNames } from "primereact/utils";
 import { confirmDialog } from "primereact/confirmdialog";
-import { useState } from "react";
 import { UpdateLunchPaymentDialog } from "./UpdatePaymentDialog";
 import { showSuccess } from "@/src/components/form/CustomToast";
 import { useRouter } from "next/navigation";
+import useDetailStore from "@/src/store/DetailStore";
 
 const GroupTemplate = ({ group }: { group: GroupOrderDetailModel }) => {
   return (
@@ -32,6 +32,9 @@ const GroupTemplate = ({ group }: { group: GroupOrderDetailModel }) => {
 };
 
 const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
+  const { setSelectedDetailID, setPaymentVisible, OrderRefetch } =
+    useDetailStore();
+
   return (
     <div className="p-3 bg-gray-100 flex flex-row justify-content-between align-items-center">
       <div className="flex flex-column gap-2">
@@ -45,8 +48,8 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
           <i
             className="pi pi-pencil cursor-pointer"
             onClick={() => {
-              // setSelectedDetailID(y.OrderDetailID);
-              // setPaymentVisible(true);
+              setSelectedDetailID(detail.OrderDetailID);
+              setPaymentVisible(true);
             }}
           />
           <div>/</div>
@@ -60,7 +63,7 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
                     PaymentDateTime: null,
                   }).then((response) => {
                     showSuccess(response.Message);
-                    // refetch();
+                    OrderRefetch();
                   });
                 }}
               />
@@ -72,7 +75,7 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
                     PaymentDateTime: new Date(),
                   }).then((response) => {
                     showSuccess(response.Message);
-                    // refetch();
+                    OrderRefetch();
                   });
                 }}
               />
@@ -92,7 +95,7 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
               accept() {
                 DeleteOrderDetail(detail.OrderDetailID!).then((response) => {
                   showSuccess(response.Message);
-                  // refetch();
+                  OrderRefetch();
                 });
               },
               reject() {},
@@ -106,10 +109,20 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   const router = useRouter();
-  const [paymentVisible, setPaymentVisible] = useState<boolean>(false);
-  const [selectedDetailID, setSelectedDetailID] = useState<string>("");
 
   const { data, isError, isLoading, refetch } = useOrder(OrderID);
+
+  const {
+    selectedDetailID,
+    paymentVisible,
+    setPaymentVisible,
+    setOrderRefetch,
+  } = useDetailStore();
+
+  // 無限迴圈
+  // setOrderRefetch(() => {
+  //   refetch();
+  // });
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;

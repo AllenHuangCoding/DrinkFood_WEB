@@ -1,9 +1,11 @@
 "use client";
 
+import { DrinkFoodDialog } from "@/src/components/dialog/DrinkFoodDialog";
 import { GroupDrinkFoodModel, ViewDrinkFood } from "@/src/models";
 import { useDrinkFoodList } from "@/src/services/admin/StoreService";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { TabPanel, TabView } from "primereact/tabview";
+import { useState } from "react";
 
 const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
   return (
@@ -29,7 +31,7 @@ const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
             </div>
           </div>
           <div className="gap-2">
-            <span className="text-sm font-semibold text-gray-500">
+            <span className="text-sm font-semibold text-gray-500 white-space-nowrap overflow-hidden text-overflow-ellipsis">
               {product.DrinkFoodRemark}
             </span>
           </div>
@@ -40,6 +42,8 @@ const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
 };
 
 function MenuTabView(params: { StoreID: string }) {
+  const [visible, setVisible] = useState<boolean>(false);
+
   const { data, isLoading, isError } = useDrinkFoodList(params.StoreID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -47,7 +51,19 @@ function MenuTabView(params: { StoreID: string }) {
 
   return (
     <>
-      <TabView>
+      <DrinkFoodDialog
+        action="Create"
+        visible={visible}
+        closeDialog={() => {
+          setVisible(false);
+        }}
+        submitCallback={() => {}}
+      />
+      <TabView
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
         {data?.Data.map((x: GroupDrinkFoodModel) => {
           return (
             <TabPanel key={x.DrinkFoodTypeID} header={x.DrinkFoodTypeDesc}>
