@@ -58,6 +58,12 @@ const BindLine = (ID: string, Param: RequestBindLineModel) => {
   );
 };
 
+const UnbindLine = (ID: string) => {
+  return PUT<ResponseModel>(`/Account/UnbindLine/${ID}`, null).then(
+    (respone) => respone
+  );
+};
+
 export {
   useAccountList,
   Login,
@@ -66,4 +72,5 @@ export {
   UpdateProfile,
   useProfile,
   BindLine,
+  UnbindLine,
 };

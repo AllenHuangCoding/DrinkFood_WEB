@@ -31,18 +31,13 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     topbarmenubutton: topbarmenubuttonRef.current,
   }));
 
-  const [selectedOffice, setSelectedOffice] = useState(null);
-  const offices = [
-    { name: "台北建國辦公室", code: "taipei_jianguo" },
-    { name: "台北仁愛辦公室", code: "taipei_renai" },
-    { name: "高雄總部", code: "cleanaway" },
-  ];
-
   const [visible, setVisible] = useState<boolean>(false);
   const [userData, setUserData] = useState<ProfileDialogFullModel | null>(null);
-  const [action, setAction] = useState<"View" | "Create" | "Update">("View");
+  const [action, setAction] = useState<"Profile" | "Create" | "Update">(
+    "Profile"
+  );
 
-  // const { data } = useProfile();
+  const { data, refetch } = useProfile();
 
   return (
     <div className="layout-topbar">
@@ -82,21 +77,14 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           "layout-topbar-menu-mobile-active": layoutState.profileSidebarVisible,
         })}
       >
-        {/* <Dropdown
-          value={selectedOffice}
-          onChange={(e) => setSelectedOffice(e.value)}
-          options={offices}
-          optionLabel="name"
-          placeholder="選擇辦公室"
-          className="w-full md:w-14rem"
-        /> */}
         <button
           type="button"
           className="p-link layout-topbar-button"
           onClick={() => {
-            // setUserData(data?.Data);
-            // setAction("View");
-            // setVisible(true);
+            refetch();
+            setUserData(data?.Data);
+            setAction("Profile");
+            setVisible(true);
           }}
         >
           <i className="pi pi-user"></i>
@@ -107,7 +95,11 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
           action={action}
           userData={userData}
           closeDialog={() => {
+            setUserData(null);
             setVisible(false);
+          }}
+          submitCallback={() => {
+            refetch();
           }}
         />
       </div>

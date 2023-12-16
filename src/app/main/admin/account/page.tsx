@@ -14,7 +14,9 @@ import { showSuccess } from "@/src/components/form/CustomToast";
 export default function AccountPage() {
   const [visible, setVisible] = useState<boolean>(false);
   const [userData, setUserData] = useState<ProfileDialogFullModel | null>(null);
-  const [action, setAction] = useState<"View" | "Create" | "Update">("View");
+  const [action, setAction] = useState<"Create" | "Update" | "Profile">(
+    "Profile"
+  );
 
   const { refetch } = useAccountList();
 
@@ -42,6 +44,7 @@ export default function AccountPage() {
         action={action}
         userData={userData}
         closeDialog={() => {
+          setUserData(null);
           setVisible(false);
         }}
         submitCallback={() => {

@@ -22,6 +22,7 @@ const ControlTextInput = <T extends FieldValues>({
           <InputText
             {...field}
             id={field.name}
+            value={field.value ?? ""}
             placeholder={placeholder}
             disabled={disabled}
             className={classNames(

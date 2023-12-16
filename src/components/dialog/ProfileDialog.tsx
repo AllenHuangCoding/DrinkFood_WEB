@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -11,26 +10,28 @@ import {
   CreateAccount,
   useProfileDialogOptions,
   UpdateProfile,
+  UnbindLine,
 } from "@/src/services/admin/AccountService";
 import { RequestUpdateProfileModel } from "@/src/models";
 import ControlTextInput from "@/src/components/form/ControlTextInput";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import ControlNumberInput from "@/src/components/form/ControlNumberInput";
 import ControlCheckbox from "../form/ControlCheckbox";
-import axiosApiClient from "@/src/services/axiosClient";
 import { GetAccountID } from "@/src/store/localStorage";
 import { showSuccess, showWarn } from "@/src/components/form/CustomToast";
+import { confirmDialog } from "primereact/confirmdialog";
 
 export interface ProfileDialogFullModel {
   AccountID: string | null;
   Name: string;
   Email: string;
-  Brief: string;
+  Brief: string | null;
   DefaultLunchPayment: string | null;
   DefaultDrinkPayment: string | null;
   LunchNotify: boolean;
   DrinkNotify: boolean;
   CloseNotify: number;
+  LineID: string | null;
 }
 
 export default function ProfileDialog({
@@ -42,7 +43,7 @@ export default function ProfileDialog({
 }: {
   visible: boolean;
   userData: ProfileDialogFullModel | null;
-  action: "View" | "Create" | "Update";
+  action: "Create" | "Update" | "Profile";
   closeDialog: () => void;
   submitCallback?: () => void;
 }) {
@@ -52,12 +53,13 @@ export default function ProfileDialog({
     AccountID: null,
     Name: "",
     Email: "",
-    Brief: "",
+    Brief: null,
     DefaultLunchPayment: null,
     DefaultDrinkPayment: null,
     LunchNotify: false,
     DrinkNotify: false,
     CloseNotify: 10,
+    LineID: null,
   };
 
   var dialogHeader: string = "";
@@ -71,13 +73,11 @@ export default function ProfileDialog({
 
   const onSubmit = (dialogData: ProfileDialogFullModel) => {
     switch (action) {
-      case "View":
-        break;
       case "Create":
         const param: RequestCreateAccountModel = {
           Name: dialogData.Name,
           Email: dialogData.Email,
-          Brief: dialogData.Brief,
+          Brief: dialogData.Brief ?? undefined,
           LunchDefaultPayment: dialogData.DefaultLunchPayment,
           DrinkDefaultPayment: dialogData.DefaultDrinkPayment,
           LunchNotify: dialogData.LunchNotify,
@@ -96,6 +96,7 @@ export default function ProfileDialog({
           });
         break;
       case "Update":
+      case "Profile":
         if (dialogData.AccountID != null) {
           const param: RequestUpdateProfileModel = {
             Brief: dialogData.Brief,
@@ -138,30 +139,32 @@ export default function ProfileDialog({
       reset({
         AccountID: userData.AccountID,
         Name: userData.Name,
-        Brief: userData.Brief,
         Email: userData.Email,
+        Brief: userData.Brief,
         DefaultLunchPayment: userData.DefaultLunchPayment,
         DefaultDrinkPayment: userData.DefaultDrinkPayment,
         LunchNotify: userData.LunchNotify,
         DrinkNotify: userData.DrinkNotify,
         CloseNotify: userData.CloseNotify,
+        LineID: userData.LineID,
       });
     } else {
       reset({
         Name: "",
-        Brief: "",
         Email: "",
+        Brief: null,
         DefaultLunchPayment: null,
         DefaultDrinkPayment: null,
         LunchNotify: false,
         DrinkNotify: false,
         CloseNotify: 10,
+        LineID: null,
       });
     }
   }, [userData]);
 
   switch (action) {
-    case "View":
+    case "Profile":
       dialogHeader = "基本資料";
       break;
     case "Create":
@@ -184,7 +187,7 @@ export default function ProfileDialog({
         closeDialog();
       }}
     >
-      <div className="flex justify-content-center">
+      <div className="flex flex-column justify-content-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-column gap-3"
@@ -198,7 +201,7 @@ export default function ProfileDialog({
               }}
               placeholder="姓名"
               errorKey={errors.Name}
-              disabled={action == "Update" || action == "View"}
+              disabled={action == "Update" || action == "Profile"}
             />
           </div>
 
@@ -218,7 +221,7 @@ export default function ProfileDialog({
                   {...field}
                   id={field.name}
                   placeholder="信箱"
-                  disabled={action == "Update" || action == "View"}
+                  disabled={action == "Update" || action == "Profile"}
                   className={classNames(
                     {
                       "p-invalid": fieldState.invalid,
@@ -235,7 +238,6 @@ export default function ProfileDialog({
             <ControlTextInput
               name="Brief"
               control={control}
-              rules={{ required: "必填欄位" }}
               placeholder="暱稱"
               errorKey={errors.Brief}
             />
@@ -264,18 +266,6 @@ export default function ProfileDialog({
               optionValue="ID"
               placeholder="選擇飲料預設付款方式"
               errorKey={errors.DefaultDrinkPayment}
-            />
-          </div>
-
-          <div className={classNames({ hidden: !(action == "View") })}>
-            <Button
-              label="綁定Line"
-              icon="pi pi-search"
-              severity="success"
-              raised
-              onClick={() => {
-                openLine();
-              }}
             />
           </div>
 
@@ -311,6 +301,45 @@ export default function ProfileDialog({
             className="w-full"
           />
         </form>
+
+        <Button
+          label="綁定Line"
+          icon="pi pi-comment"
+          severity="success"
+          className={classNames(
+            { hidden: !(action == "Profile" && userData?.LineID == null) },
+            "w-full mt-3"
+          )}
+          raised
+          onClick={() => {
+            openLine();
+          }}
+        />
+        <Button
+          label="解除綁定"
+          icon="pi pi-times"
+          severity="success"
+          className={classNames(
+            { hidden: !(action == "Profile" && userData?.LineID != null) },
+            "w-full mt-3"
+          )}
+          raised
+          onClick={() => {
+            confirmDialog({
+              header: "解除綁定",
+              message: `解除後將無法繼續收到通知與提醒`,
+              icon: "pi pi-info-circle",
+              accept() {
+                UnbindLine(userData?.AccountID!).then(() => {
+                  if (submitCallback != null) {
+                    submitCallback();
+                  }
+                });
+              },
+              reject() {},
+            });
+          }}
+        />
       </div>
     </Dialog>
   );

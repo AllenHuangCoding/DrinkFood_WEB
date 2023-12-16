@@ -19,9 +19,10 @@ export default function StorePage() {
         visible={visible}
         storeID={selectStore}
         closeDialog={() => {
-          setVisible(false);
           setSelectedStore("");
+          setVisible(false);
         }}
+        submitCallback={() => {}}
       />
       <BasicTable dataKey="StoreID" query={useStoreList()}>
         <Column
