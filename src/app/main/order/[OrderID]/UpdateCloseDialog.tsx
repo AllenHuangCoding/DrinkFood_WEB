@@ -1,4 +1,5 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
+import { showSuccess } from "@/src/components/form/CustomToast";
 import { UpdateCloseTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -32,12 +33,16 @@ const UpdateCloseDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateCloseModel) => {
-    UpdateCloseTime(orderID, { CloseTime: param.CloseTime }).then(() => {
-      if (submitCallback != null) {
-        submitCallback();
-      }
-    });
-    closeDialog();
+    UpdateCloseTime(orderID, { CloseTime: param.CloseTime })
+      .then((response) => {
+        showSuccess(response.Message);
+        closeDialog();
+      })
+      .then(() => {
+        if (submitCallback != null) {
+          submitCallback();
+        }
+      });
   };
 
   useEffect(() => {

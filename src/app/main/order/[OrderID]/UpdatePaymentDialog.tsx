@@ -1,5 +1,6 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
+import { showSuccess } from "@/src/components/form/CustomToast";
 import { useProfileDialogOptions } from "@/src/services/admin/AccountService";
 import { UpdateCloseTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
@@ -32,7 +33,7 @@ const UpdateLunchPaymentDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdatePaymentModel) => {
-    alert(param.Payment);
+    showSuccess(param.Payment);
     closeDialog();
   };
 

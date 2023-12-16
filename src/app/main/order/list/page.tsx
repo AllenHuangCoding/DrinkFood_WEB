@@ -10,6 +10,7 @@ import {
   CreateOrderButton,
   CreateOrderDialog,
 } from "@/src/components/dialog/CreateOrderDialog";
+import { showInfo } from "@/src/components/form/CustomToast";
 
 export default function OrderListPage() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -96,7 +97,7 @@ export default function OrderListPage() {
                   onClick={() => {
                     const url = `${process.env.NEXT_PUBLIC_WEB_BASEURL}/main/order/${x.OrderID}/`;
                     navigator.clipboard.writeText(url);
-                    alert("已複製分享網址");
+                    showInfo("已複製分享網址");
                   }}
                 />
               </>

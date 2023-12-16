@@ -1,4 +1,5 @@
 import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
+import { showSuccess } from "@/src/components/form/CustomToast";
 import { UpdateArrivalTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -32,12 +33,16 @@ const UpdateArrivalDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdateArrivalModel) => {
-    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime }).then(() => {
-      if (submitCallback != null) {
-        submitCallback();
-      }
-    });
-    closeDialog();
+    UpdateArrivalTime(orderID, { ArrivalTime: param.ArrivalTime })
+      .then((response) => {
+        showSuccess(response.Message);
+        closeDialog();
+      })
+      .then(() => {
+        if (submitCallback != null) {
+          submitCallback();
+        }
+      });
   };
 
   useEffect(() => {

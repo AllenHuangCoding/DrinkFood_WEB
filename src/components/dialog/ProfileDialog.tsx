@@ -19,6 +19,7 @@ import ControlNumberInput from "@/src/components/form/ControlNumberInput";
 import ControlCheckbox from "../form/ControlCheckbox";
 import axiosApiClient from "@/src/services/axiosClient";
 import { GetAccountID } from "@/src/store/localStorage";
+import { showSuccess, showWarn } from "@/src/components/form/CustomToast";
 
 export interface ProfileDialogFullModel {
   AccountID: string | null;
@@ -84,8 +85,8 @@ export default function ProfileDialog({
           CloseNotify: dialogData.CloseNotify,
         };
         CreateAccount(param)
-          .then(() => {
-            alert("新增使用者資料成功");
+          .then((response) => {
+            showSuccess(response.Message!);
             closeDialog();
           })
           .then(() => {
@@ -104,12 +105,18 @@ export default function ProfileDialog({
             DrinkNotify: dialogData.DrinkNotify,
             CloseNotify: dialogData.CloseNotify,
           };
-          UpdateProfile(dialogData.AccountID!, param).then(() => {
-            alert("修改使用者資料成功");
-            closeDialog();
-          });
+          UpdateProfile(dialogData.AccountID!, param)
+            .then((response) => {
+              showSuccess(response.Message!);
+              closeDialog();
+            })
+            .then(() => {
+              if (submitCallback != null) {
+                submitCallback();
+              }
+            });
         } else {
-          alert("缺少變更帳號ID");
+          showWarn("缺少變更帳號ID");
         }
         break;
     }

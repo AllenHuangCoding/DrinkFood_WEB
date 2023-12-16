@@ -22,6 +22,7 @@ import {
 } from "@/src/app/main/order/[OrderID]/UpdateCloseDialog";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { confirmDialog } from "primereact/confirmdialog";
+import { showSuccess } from "@/src/components/form/CustomToast";
 
 interface TitleContentCell {
   Title: string;
@@ -177,7 +178,9 @@ const OrderInfo = (params: { OrderID: string }) => {
               message: "確認要發送遲到通知?\r\n(只會通知已點餐的使用者)",
               icon: "pi pi-exclamation-triangle",
               accept() {
-                DelayNotify(data?.Data.OrderID!);
+                DelayNotify(data?.Data.OrderID!).then((response) => {
+                  showSuccess(response.Message);
+                });
               },
               reject() {},
             });
@@ -197,7 +200,9 @@ const OrderInfo = (params: { OrderID: string }) => {
               message: "確認要發送取餐通知?\r\n(只會通知已點餐的使用者)",
               icon: "pi pi-exclamation-triangle",
               accept() {
-                DelayArrivalNotify(data?.Data.OrderID!);
+                DelayArrivalNotify(data?.Data.OrderID!).then((response) => {
+                  showSuccess(response.Message);
+                });
               },
               reject() {},
             });
@@ -214,7 +219,8 @@ const OrderInfo = (params: { OrderID: string }) => {
               message: "完成訂單後將無法再進行後續流程操作",
               icon: "pi pi-exclamation-triangle",
               accept() {
-                FinishOrder(data?.Data.OrderID!).then(() => {
+                FinishOrder(data?.Data.OrderID!).then((response) => {
+                  showSuccess(response.Message);
                   refetch();
                 });
               },
@@ -234,7 +240,8 @@ const OrderInfo = (params: { OrderID: string }) => {
               icon: "pi pi-info-circle",
               acceptClassName: "p-button-danger",
               accept() {
-                CloseOrder(data?.Data.OrderID!).then(() => {
+                CloseOrder(data?.Data.OrderID!).then((response) => {
+                  showSuccess(response.Message);
                   refetch();
                 });
               },

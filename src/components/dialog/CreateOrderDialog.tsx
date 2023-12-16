@@ -12,6 +12,7 @@ import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import ControlCheckbox from "@/src/components/form/ControlCheckbox";
 import useLoginStore from "@/src/store/LoginStore";
+import { showSuccess } from "../form/CustomToast";
 
 const CreateOrderButton = ({ showDialog }: { showDialog: () => void }) => {
   return (
@@ -60,8 +61,8 @@ const CreateOrderDialog = ({
   const onSubmit = (param: RequestPostOrderModel) => {
     param.CreateAccountID = loginData?.AccountID!;
     CreateOrder(param)
-      .then(() => {
-        showMessage("新增訂單成功", toastBottomCenter, "success");
+      .then((response) => {
+        showSuccess(response.Message);
         closeDialog();
         reset();
       })
@@ -74,17 +75,6 @@ const CreateOrderDialog = ({
 
   const { data } = useCreateOrderDialogOptions();
 
-  const toastBottomCenter = useRef(null);
-
-  const showMessage = (label: string, ref: any, severity: string) => {
-    ref.current.show({
-      severity: severity,
-      summary: label,
-      detail: label,
-      life: 3000,
-    });
-  };
-
   useEffect(() => {
     reset();
   }, [visible]);
@@ -95,7 +85,6 @@ const CreateOrderDialog = ({
 
   return (
     <>
-      <Toast ref={toastBottomCenter} position="bottom-center" />
       <Dialog
         header="開團"
         visible={visible}

@@ -28,7 +28,6 @@ export default function AccountPage() {
           setUserData(null);
           setAction("Create");
           setVisible(true);
-          // showSuccess("成功");
         }}
       />
     </div>
