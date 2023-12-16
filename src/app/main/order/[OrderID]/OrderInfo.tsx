@@ -15,7 +15,7 @@ import {
   UpdateArrivalButton,
   UpdateArrivalDialog,
 } from "@/src/app/main/order/[OrderID]/UpdateArrivalDialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   UpdateCloseButton,
   UpdateCloseDialog,
@@ -99,6 +99,14 @@ const OrderInfo = (params: { OrderID: string }) => {
     );
   };
 
+  // const [arrivalTime, setArrivalTime] = useState<string>(
+  //   data?.Data.ArrivalTime!
+  // );
+
+  // useEffect(() => {
+  //   console.log("Update");
+  // }, [arrivalTime]);
+
   return (
     <>
       <div className="flex flex-row align-items-center gap-2 border-bottom-3 border-300">
@@ -138,6 +146,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           <UpdateCloseDialog
             orderID={data?.Data.OrderID!}
             visible={closeVisible}
+            value={data?.Data.CloseTime!}
             closeDialog={() => {
               setCloseVisible(false);
             }}
@@ -156,6 +165,7 @@ const OrderInfo = (params: { OrderID: string }) => {
           <UpdateArrivalDialog
             orderID={data?.Data.OrderID!}
             visible={arrivalVisible}
+            value={data?.Data.ArrivalTime!}
             closeDialog={() => {
               setArrivalVisible(false);
             }}

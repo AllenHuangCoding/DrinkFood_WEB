@@ -13,16 +13,18 @@ interface UpdateArrivalModel {
 const UpdateArrivalDialog = ({
   orderID,
   visible,
+  value,
   closeDialog,
   submitCallback,
 }: {
   orderID: string;
   visible: boolean;
+  value: string;
   closeDialog: () => void;
   submitCallback?: () => void;
 }) => {
   const defaultValues: UpdateArrivalModel = {
-    ArrivalTime: new Date(),
+    ArrivalTime: new Date(value),
   };
 
   const {

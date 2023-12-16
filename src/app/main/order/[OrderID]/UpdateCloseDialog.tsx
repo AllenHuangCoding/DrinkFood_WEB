@@ -13,16 +13,18 @@ interface UpdateCloseModel {
 const UpdateCloseDialog = ({
   orderID,
   visible,
+  value,
   closeDialog,
   submitCallback,
 }: {
   orderID: string;
   visible: boolean;
+  value: string;
   closeDialog: () => void;
   submitCallback?: () => void;
 }) => {
   const defaultValues: UpdateCloseModel = {
-    CloseTime: new Date(),
+    CloseTime: new Date(value),
   };
 
   const {

@@ -5,7 +5,7 @@ import { useDrinkFoodList } from "@/src/services/admin/StoreService";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { TabPanel, TabView } from "primereact/tabview";
 
-const MenuTemplate = (product: ViewDrinkFood) => {
+const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
   return (
     <>
       <div className="col-12 sm:col-6 md:col-6 lg:col-4 xl:col-3">
@@ -53,7 +53,7 @@ function MenuTabView(params: { StoreID: string }) {
             <TabPanel key={x.DrinkFoodTypeID} header={x.DrinkFoodTypeDesc}>
               <div className="grid">
                 {x.DrinkFoodList?.map((y: ViewDrinkFood) => {
-                  return <>{MenuTemplate(y)}</>;
+                  return <MenuTemplate key={y.DrinkFoodID} product={y} />;
                 })}
               </div>
             </TabPanel>

@@ -13,6 +13,10 @@ const StoreInfo = (params: { StoreID: string }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;
 
+  if (data == null || data?.Code != 200) {
+    return <></>;
+  }
+
   return (
     <>
       <div className="bg-white p-2">
