@@ -4,6 +4,7 @@ export * from './AccountApi';
 export * from './BrandApi';
 export * from './DrinkFoodApi';
 export * from './ExportApi';
+export * from './HomeApi';
 export * from './ImportApi';
 export * from './LoginApi';
 export * from './MenuApi';

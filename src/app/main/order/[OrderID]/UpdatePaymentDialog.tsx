@@ -2,10 +2,10 @@ import ControlDateTimePicker from "@/src/components/form/ControlDateTimePicker";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import { showSuccess } from "@/src/components/form/CustomToast";
 import { useProfileDialogOptions } from "@/src/services/admin/AccountService";
-import { UpdateCloseTime } from "@/src/services/order/OrderService";
+import { PutPayment, UpdateCloseTime } from "@/src/services/order/OrderService";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface UpdatePaymentModel {
@@ -16,15 +16,16 @@ const UpdateLunchPaymentDialog = ({
   detailID,
   visible,
   closeDialog,
+  submitCallback,
 }: {
   detailID: string;
   visible: boolean;
   closeDialog: () => void;
+  submitCallback?: () => void;
 }) => {
   const defaultValues: UpdatePaymentModel = {
     Payment: "",
   };
-
   const {
     control,
     formState: { errors },
@@ -33,8 +34,16 @@ const UpdateLunchPaymentDialog = ({
   } = useForm({ defaultValues });
 
   const onSubmit = (param: UpdatePaymentModel) => {
-    showSuccess(param.Payment);
-    closeDialog();
+    PutPayment(detailID, { PaymentID: param.Payment })
+      .then((response) => {
+        showSuccess(response.Message);
+        closeDialog();
+      })
+      .then(() => {
+        if (submitCallback != null) {
+          submitCallback();
+        }
+      });
   };
 
   useEffect(() => {
@@ -83,7 +92,7 @@ const UpdateLunchPaymentDialog = ({
 const UpdatePaymentButton = ({ showDialog }: { showDialog: () => void }) => {
   return (
     <Button
-      label="更改結單時間"
+      label="更改付款方式"
       severity="secondary"
       className="w-full"
       onClick={() => {

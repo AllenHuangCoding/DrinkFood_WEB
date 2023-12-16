@@ -86,7 +86,7 @@ export default function ProfileDialog({
         };
         CreateAccount(param)
           .then((response) => {
-            showSuccess(response.Message!);
+            showSuccess(response.Message);
             closeDialog();
           })
           .then(() => {
@@ -107,7 +107,7 @@ export default function ProfileDialog({
           };
           UpdateProfile(dialogData.AccountID!, param)
             .then((response) => {
-              showSuccess(response.Message!);
+              showSuccess(response.Message);
               closeDialog();
             })
             .then(() => {

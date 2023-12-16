@@ -7,6 +7,9 @@ import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel
 import {
   RequestPutArrivalTimeModel,
   RequestPutCloseTimeModel,
+  RequestPutPaymentDateTimeModel,
+  RequestPutPaymentModel,
+  ResponseModel,
 } from "@/src/models";
 
 // 成員API
@@ -40,42 +43,59 @@ const useCreateOrderDialogOptions = () => {
 };
 
 const CreateOrder = (Param: RequestPostOrderModel) => {
-  return POST<any>("/Order/PostOrder", Param);
+  return POST<ResponseModel>("/Order/PostOrder", Param);
 };
 
 const CloseOrder = (OrderID: string) => {
-  return PUT<any>(`/Order/CloseOrder/${OrderID}`, []);
+  return PUT<ResponseModel>(`/Order/CloseOrder/${OrderID}`, []);
 };
 
 const FinishOrder = (OrderID: string) => {
-  return PUT<any>(`/Order/FinishOrder/${OrderID}`, []);
+  return PUT<ResponseModel>(`/Order/FinishOrder/${OrderID}`, []);
 };
 
 const UpdateArrivalTime = (
   OrderID: string,
   Param: RequestPutArrivalTimeModel
 ) => {
-  return PUT<any>(`/Order/PutArrivalTime/${OrderID}`, Param);
+  return PUT<ResponseModel>(`/Order/PutArrivalTime/${OrderID}`, Param);
 };
 
 const UpdateCloseTime = (OrderID: string, Param: RequestPutCloseTimeModel) => {
-  return PUT<any>(`/Order/PutCloseTime/${OrderID}`, Param);
+  return PUT<ResponseModel>(`/Order/PutCloseTime/${OrderID}`, Param);
 };
 
 const DelayNotify = (OrderID: string) => {
-  return PUT<any>(`/Order/DelayNotify/${OrderID}`, null);
+  return PUT<ResponseModel>(`/Order/DelayNotify/${OrderID}`, null);
 };
 
 const DelayArrivalNotify = (OrderID: string) => {
-  return PUT<any>(`/Order/DelayArrivalNotify/${OrderID}`, null);
+  return PUT<ResponseModel>(`/Order/DelayArrivalNotify/${OrderID}`, null);
 };
 
 const JoinOrder = (OrderID: string) => {
-  return POST<any>(`/Order/JoinOrder/${OrderID}`, null);
+  return POST<ResponseModel>(`/Order/JoinOrder/${OrderID}`, null);
 };
 
 const DeleteOrderDetail = (OrderDetailID: string) => {
-  return DELETE<any>(`/Order/DeleteOrderDetail/${OrderDetailID}`, null);
+  return DELETE<ResponseModel>(
+    `/Order/DeleteOrderDetail/${OrderDetailID}`,
+    null
+  );
+};
+
+const PutPayment = (OrderDetailID: string, Param: RequestPutPaymentModel) => {
+  return PUT<ResponseModel>(`/Order/PutPayment/${OrderDetailID}`, Param);
+};
+
+const PutPaymentDateTime = (
+  OrderDetailID: string,
+  Param: RequestPutPaymentDateTimeModel
+) => {
+  return PUT<ResponseModel>(
+    `/Order/PutPaymentDateTime/${OrderDetailID}`,
+    Param
+  );
 };
 
 export {
@@ -92,4 +112,6 @@ export {
   DelayArrivalNotify,
   JoinOrder,
   DeleteOrderDetail,
+  PutPayment,
+  PutPaymentDateTime,
 };

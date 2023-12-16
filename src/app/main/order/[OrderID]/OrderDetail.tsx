@@ -1,13 +1,23 @@
 "use client";
 
-import { DeleteOrderDetail, useOrder } from "@/src/services/order/OrderService";
+import {
+  DeleteOrderDetail,
+  PutPaymentDateTime,
+  useOrder,
+} from "@/src/services/order/OrderService";
 import { GroupOrderDetailModel, OrderDetailListModel } from "@/src/models";
 import { AddItemButton } from "./AddItemDialog";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { confirmDialog } from "primereact/confirmdialog";
+import { useState } from "react";
+import { UpdateLunchPaymentDialog } from "./UpdatePaymentDialog";
+import { showSuccess } from "@/src/components/form/CustomToast";
 
 const OrderDetail = ({ OrderID }: { OrderID: string }) => {
+  const [paymentVisible, setPaymentVisible] = useState<boolean>(false);
+  const [selectedDetailID, setSelectedDetailID] = useState<string>("");
+
   const { data, isError, isLoading, refetch } = useOrder(OrderID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -15,6 +25,16 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
 
   return (
     <>
+      <UpdateLunchPaymentDialog
+        detailID={selectedDetailID}
+        visible={paymentVisible}
+        closeDialog={() => {
+          setPaymentVisible(false);
+        }}
+        submitCallback={() => {
+          refetch();
+        }}
+      />
       <div className={classNames({ hidden: !data?.Data.ShowAdd })}>
         <AddItemButton
           showDialog={() => {
@@ -36,53 +56,89 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
                   return (
                     <div
                       key={y.OrderDetailID}
-                      className="p-3 bg-gray-100 flex flex-column gap-2"
+                      className="p-3 bg-gray-100 flex flex-row justify-content-between align-items-center"
                     >
+                      <div className="flex flex-column gap-2">
+                        <div>
+                          {y.DrinkFoodName != null
+                            ? `${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice}元 / ${y.Quantity}份 / 備註:${y.DetailRemark}`
+                            : "尚未點餐"}
+                        </div>
+                        <div className="flex flex-row gap-2 align-items-center">
+                          <div>{`付款資訊：${
+                            y.PaymentDesc ?? "選擇方式"
+                          }`}</div>
+                          <i
+                            className="pi pi-pencil cursor-pointer"
+                            onClick={() => {
+                              setSelectedDetailID(y.OrderDetailID);
+                              setPaymentVisible(true);
+                            }}
+                          />
+                          <div>/</div>
+                          <div>{y.PaymentDatetime ? "已付款" : "尚未付款"}</div>
+                          <div>
+                            {y.PaymentDatetime ? (
+                              <i
+                                className="pi pi-bookmark-fill cursor-pointer"
+                                onClick={() => {
+                                  PutPaymentDateTime(y.OrderDetailID, {
+                                    PaymentDateTime: null,
+                                  }).then((response) => {
+                                    showSuccess(response.Message);
+                                    refetch();
+                                  });
+                                }}
+                              />
+                            ) : (
+                              <i
+                                className="pi pi-bookmark cursor-pointer"
+                                onClick={() => {
+                                  PutPaymentDateTime(y.OrderDetailID, {
+                                    PaymentDateTime: new Date(),
+                                  }).then((response) => {
+                                    showSuccess(response.Message);
+                                    refetch();
+                                  });
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
                       <div>
-                        {y.DrinkFoodName != null
-                          ? `${y.DrinkFoodName} / ${y.IceDesc} / ${y.SugarDesc} / ${y.DrinkFoodPrice}元 / ${y.Quantity}份 / 備註:${y.DetailRemark}`
-                          : "尚未點餐"}
-                      </div>
-                      <div className="flex flex-row gap-2">
-                        <div>{`付款資訊：${y.PaymentDesc}`}</div>
-                        {/* <Button icon="pi pi-dollar" text onClick={() => {}} /> */}
-                        {/* 
-                        <Button
-                          label={y.PaymentDesc ?? "尚未付款"}
-                          text
-                          outlined
-                          onClick={() => {}}
+                        <i
+                          className="pi pi-trash cursor-pointer"
+                          onClick={() => {
+                            confirmDialog({
+                              header: "刪除品項",
+                              message: `確認要刪除 [${
+                                y.DrinkFoodName ?? "尚未點餐"
+                              }] ?`,
+                              icon: "pi pi-info-circle",
+                              acceptClassName: "p-button-danger",
+                              accept() {
+                                DeleteOrderDetail(y.OrderDetailID!).then(
+                                  (response) => {
+                                    showSuccess(response.Message);
+                                    refetch();
+                                  }
+                                );
+                              },
+                              reject() {},
+                            });
+                          }}
                         />
-                        */}
                       </div>
-                      {/* <div className="flex flex-row gap-2">
-                        <div>{`取餐狀態：${y.PickUpDesc}`}</div>
-                        <Button icon="pi pi-bookmark" text onClick={() => {}} />
-                      </div> */}
-                      <Button
+                      {/* <Button
                         label="刪除"
                         severity="danger"
                         className={classNames({ hidden: !y.ShowDelete })}
                         text
                         outlined
                         raised
-                        onClick={() => {
-                          confirmDialog({
-                            header: "刪除品項",
-                            message: `確認要刪除 [${
-                              y.DrinkFoodName ?? "尚未點餐"
-                            }] ?`,
-                            icon: "pi pi-info-circle",
-                            acceptClassName: "p-button-danger",
-                            accept() {
-                              DeleteOrderDetail(y.OrderDetailID!).then(() => {
-                                refetch();
-                              });
-                            },
-                            reject() {},
-                          });
-                        }}
-                      />
+                        
+                      /> */}
                     </div>
                   );
                 })}

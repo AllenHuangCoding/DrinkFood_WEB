@@ -42,19 +42,19 @@ const useProfileDialogOptions = () => {
 
 const UpdateProfile = (ID: string, Param: RequestUpdateProfileModel) => {
   return PUT<ResponseModel>(`/Account/UpdateProfile/${ID}`, Param).then(
-    (respone) => respone.Data
+    (respone) => respone
   );
 };
 
 const CreateAccount = (Param: RequestCreateAccountModel) => {
   return POST<ResponseModel>("/Account/CreateAccount", Param).then(
-    (respone) => respone.Data
+    (respone) => respone
   );
 };
 
 const BindLine = (ID: string, Param: RequestBindLineModel) => {
   return PUT<ResponseModel>(`/Account/BindLine/${ID}`, Param).then(
-    (respone) => respone.Data
+    (respone) => respone
   );
 };
 

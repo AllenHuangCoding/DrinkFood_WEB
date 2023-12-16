@@ -85,6 +85,24 @@ export interface ViewDetailHistory {
      * @memberof ViewDetailHistory
      */
     DetailAccountID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewDetailHistory
+     */
+    IceDesc?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewDetailHistory
+     */
+    SugarDesc?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ViewDetailHistory
+     */
+    StoreName?: string | null;
 }
 
 /**
@@ -117,6 +135,9 @@ export function ViewDetailHistoryFromJSONTyped(json: any, ignoreDiscriminator: b
         'Quantity': !exists(json, 'Quantity') ? undefined : json['Quantity'],
         'OfficeName': !exists(json, 'OfficeName') ? undefined : json['OfficeName'],
         'DetailAccountID': !exists(json, 'DetailAccountID') ? undefined : json['DetailAccountID'],
+        'IceDesc': !exists(json, 'IceDesc') ? undefined : json['IceDesc'],
+        'SugarDesc': !exists(json, 'SugarDesc') ? undefined : json['SugarDesc'],
+        'StoreName': !exists(json, 'StoreName') ? undefined : json['StoreName'],
     };
 }
 
@@ -140,6 +161,9 @@ export function ViewDetailHistoryToJSON(value?: ViewDetailHistory | null): any {
         'Quantity': value.Quantity,
         'OfficeName': value.OfficeName,
         'DetailAccountID': value.DetailAccountID,
+        'IceDesc': value.IceDesc,
+        'SugarDesc': value.SugarDesc,
+        'StoreName': value.StoreName,
     };
 }
 

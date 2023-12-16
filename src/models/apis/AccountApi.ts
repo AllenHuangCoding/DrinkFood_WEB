@@ -18,10 +18,8 @@ import type {
   RequestBindLineModel,
   RequestCreateAccountModel,
   RequestUpdateProfileModel,
-  ResponseInfoCardModel,
-  ResponseModel,
+  ResponseData,
   ResponseProfileDialogOptions,
-  ResponseTodayOrderModel,
   ViewAccount,
 } from '../models/index';
 import {
@@ -31,14 +29,10 @@ import {
     RequestCreateAccountModelToJSON,
     RequestUpdateProfileModelFromJSON,
     RequestUpdateProfileModelToJSON,
-    ResponseInfoCardModelFromJSON,
-    ResponseInfoCardModelToJSON,
-    ResponseModelFromJSON,
-    ResponseModelToJSON,
+    ResponseDataFromJSON,
+    ResponseDataToJSON,
     ResponseProfileDialogOptionsFromJSON,
     ResponseProfileDialogOptionsToJSON,
-    ResponseTodayOrderModelFromJSON,
-    ResponseTodayOrderModelToJSON,
     ViewAccountFromJSON,
     ViewAccountToJSON,
 } from '../models/index';
@@ -68,7 +62,7 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiAccountBindLineAccountIDPutRaw(requestParameters: ApiAccountBindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountBindLineAccountIDPutRaw(requestParameters: ApiAccountBindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseData>> {
         if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
             throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiAccountBindLineAccountIDPut.');
         }
@@ -91,19 +85,19 @@ export class AccountApi extends runtime.BaseAPI {
             body: RequestBindLineModelToJSON(requestParameters.requestBindLineModel),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseDataFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiAccountBindLineAccountIDPut(requestParameters: ApiAccountBindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiAccountBindLineAccountIDPut(requestParameters: ApiAccountBindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseData> {
         const response = await this.apiAccountBindLineAccountIDPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiAccountCreateAccountPostRaw(requestParameters: ApiAccountCreateAccountPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountCreateAccountPostRaw(requestParameters: ApiAccountCreateAccountPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseData>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -122,12 +116,12 @@ export class AccountApi extends runtime.BaseAPI {
             body: RequestCreateAccountModelToJSON(requestParameters.requestCreateAccountModel),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseDataFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiAccountCreateAccountPost(requestParameters: ApiAccountCreateAccountPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiAccountCreateAccountPost(requestParameters: ApiAccountCreateAccountPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseData> {
         const response = await this.apiAccountCreateAccountPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -157,34 +151,6 @@ export class AccountApi extends runtime.BaseAPI {
      */
     async apiAccountGetAccountListGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ViewAccount>> {
         const response = await this.apiAccountGetAccountListGetRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async apiAccountGetInfoCardGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseInfoCardModel>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
-        const response = await this.request({
-            path: `/api/Account/GetInfoCard`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseInfoCardModelFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async apiAccountGetInfoCardGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseInfoCardModel> {
-        const response = await this.apiAccountGetInfoCardGetRaw(initOverrides);
         return await response.value();
     }
 
@@ -246,35 +212,7 @@ export class AccountApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiAccountGetTodayOrderGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ResponseTodayOrderModel>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
-        const response = await this.request({
-            path: `/api/Account/GetTodayOrder`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ResponseTodayOrderModelFromJSON));
-    }
-
-    /**
-     */
-    async apiAccountGetTodayOrderGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ResponseTodayOrderModel>> {
-        const response = await this.apiAccountGetTodayOrderGetRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async apiAccountUnbindLineAccountIDPutRaw(requestParameters: ApiAccountUnbindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountUnbindLineAccountIDPutRaw(requestParameters: ApiAccountUnbindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseData>> {
         if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
             throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiAccountUnbindLineAccountIDPut.');
         }
@@ -294,19 +232,19 @@ export class AccountApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseDataFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiAccountUnbindLineAccountIDPut(requestParameters: ApiAccountUnbindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiAccountUnbindLineAccountIDPut(requestParameters: ApiAccountUnbindLineAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseData> {
         const response = await this.apiAccountUnbindLineAccountIDPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async apiAccountUpdateProfileAccountIDPutRaw(requestParameters: ApiAccountUpdateProfileAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseModel>> {
+    async apiAccountUpdateProfileAccountIDPutRaw(requestParameters: ApiAccountUpdateProfileAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResponseData>> {
         if (requestParameters.accountID === null || requestParameters.accountID === undefined) {
             throw new runtime.RequiredError('accountID','Required parameter requestParameters.accountID was null or undefined when calling apiAccountUpdateProfileAccountIDPut.');
         }
@@ -329,12 +267,12 @@ export class AccountApi extends runtime.BaseAPI {
             body: RequestUpdateProfileModelToJSON(requestParameters.requestUpdateProfileModel),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseModelFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResponseDataFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiAccountUpdateProfileAccountIDPut(requestParameters: ApiAccountUpdateProfileAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseModel> {
+    async apiAccountUpdateProfileAccountIDPut(requestParameters: ApiAccountUpdateProfileAccountIDPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResponseData> {
         const response = await this.apiAccountUpdateProfileAccountIDPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
