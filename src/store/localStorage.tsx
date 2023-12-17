@@ -1,13 +1,19 @@
 "use client";
 
 const GetAccountID = () => {
-  const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
-  return logindata?.state?.loginData?.AccountID ?? "";
+  if (typeof localStorage !== "undefined") {
+    const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
+    return logindata?.state?.loginData?.AccountID ?? "";
+  }
+  return "";
 };
 
 const GetToken = () => {
-  const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
-  return logindata?.state?.loginData?.Token ?? "";
+  if (typeof localStorage !== "undefined") {
+    const logindata = JSON.parse(localStorage.getItem("LoginStore")!);
+    return logindata?.state?.loginData?.Token ?? "";
+  }
+  return "";
 };
 
 export { GetAccountID, GetToken };

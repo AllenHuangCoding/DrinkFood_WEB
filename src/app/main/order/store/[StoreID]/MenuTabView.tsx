@@ -3,25 +3,31 @@
 import { DrinkFoodDialog } from "@/src/components/dialog/DrinkFoodDialog";
 import { GroupDrinkFoodModel, ViewDrinkFood } from "@/src/models";
 import { useDrinkFoodList } from "@/src/services/admin/StoreService";
+import useDrinkFoodDialogStore from "@/src/store/DrinkFoodDialogStore";
 import { formatCurrency } from "@/src/utils/IntExtension";
 import { TabPanel, TabView } from "primereact/tabview";
 import { useState } from "react";
 
 const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
+  const { setSelectedDrinkFood, setVisible } = useDrinkFoodDialogStore();
+
   return (
     <>
       <div className="col-12 sm:col-6 md:col-6 lg:col-4 xl:col-3">
-        <div
-          className="flex flex-column p-2 border-bottom-1 cursor-pointer"
-          onClick={() => console.log(product)}
-        >
+        <div className="flex flex-column p-2 border-bottom-1">
           {/* <img
             className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
             src={product.image}
             alt={product.name}
           /> */}
-          <div className="flex gap-2">
-            <div className="text-lg font-bold text-900">
+          <div
+            className="flex gap-2 cursor-pointer"
+            onClick={() => {
+              setSelectedDrinkFood(product);
+              setVisible(true);
+            }}
+          >
+            <div className="text-lg font-bold text-900 ">
               {product.DrinkFoodName}
             </div>
             <div className="gap-2">
@@ -42,8 +48,6 @@ const MenuTemplate = ({ product }: { product: ViewDrinkFood }) => {
 };
 
 function MenuTabView(params: { StoreID: string }) {
-  const [visible, setVisible] = useState<boolean>(false);
-
   const { data, isLoading, isError } = useDrinkFoodList(params.StoreID);
 
   if (isLoading) return <p>Loading...</p>;
@@ -51,19 +55,8 @@ function MenuTabView(params: { StoreID: string }) {
 
   return (
     <>
-      <DrinkFoodDialog
-        action="Create"
-        visible={visible}
-        closeDialog={() => {
-          setVisible(false);
-        }}
-        submitCallback={() => {}}
-      />
-      <TabView
-        onClick={() => {
-          setVisible(true);
-        }}
-      >
+      <DrinkFoodDialog action="Create" />
+      <TabView>
         {data?.Data.map((x: GroupDrinkFoodModel) => {
           return (
             <TabPanel key={x.DrinkFoodTypeID} header={x.DrinkFoodTypeDesc}>

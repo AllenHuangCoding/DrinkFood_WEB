@@ -4,22 +4,27 @@ import { useForm } from "react-hook-form";
 import ControlDropDown from "@/src/components/form/ControlDropDown";
 import { RequestPostOrderDetailModel } from "@/src/models/models";
 import ControlTextInput from "../form/ControlTextInput";
+import useDrinkFoodDialogStore from "@/src/store/DrinkFoodDialogStore";
 
-const DrinkFoodDialog = ({
-  visible,
-  drinkFoodID,
-  closeDialog,
-  action,
-  submitCallback,
-}: {
-  visible: boolean;
-  drinkFoodID?: string;
-  action: "Create" | "Update";
-  closeDialog: () => void;
-  submitCallback?: () => void;
-}) => {
-  const defaultValues: RequestPostOrderDetailModel = {
-    OD_remark: "",
+export interface DetailDialogFullModel {
+  DetailID: string | undefined;
+  OrderID: string | undefined;
+  DrinkFoodID: string | undefined;
+  SugarID: string | undefined;
+  IceID: string | undefined;
+  AddItemID: string | undefined;
+  Remark: string | undefined;
+}
+
+const DrinkFoodDialog = ({ action }: { action: "Create" | "Update" }) => {
+  const defaultValues: DetailDialogFullModel = {
+    DetailID: undefined,
+    OrderID: undefined,
+    DrinkFoodID: undefined,
+    SugarID: undefined,
+    IceID: undefined,
+    AddItemID: undefined,
+    Remark: undefined,
   };
 
   const {
@@ -29,10 +34,12 @@ const DrinkFoodDialog = ({
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = (param: any) => {
+  const onSubmit = (param: DetailDialogFullModel) => {
+    param.DrinkFoodID = selectedDrinkFood?.DrinkFoodID;
+    param.OrderID = "";
     switch (action) {
       case "Create":
-        alert(JSON.stringify(param));
+        console.log(param);
         break;
       case "Update":
         break;
@@ -51,6 +58,24 @@ const DrinkFoodDialog = ({
       break;
   }
 
+  const { selectedDrinkFood, visible, setVisible } = useDrinkFoodDialogStore();
+
+  const sugarOption = [
+    { ID: "1", Text: "無糖" },
+    { ID: "2", Text: "微糖" },
+    { ID: "3", Text: "少糖" },
+  ];
+  const iceOption = [
+    { ID: "1", Text: "去冰" },
+    { ID: "2", Text: "微冰" },
+    { ID: "3", Text: "少冰" },
+  ];
+
+  const addItemOption = [
+    { ID: "1", Text: "珍珠 +10元" },
+    { ID: "2", Text: "仙草凍 +10元" },
+    { ID: "3", Text: "布丁 +15元" },
+  ];
   return (
     <>
       <Dialog
@@ -59,7 +84,10 @@ const DrinkFoodDialog = ({
         className="w-10 md:w-6 lg:w-5 xl:w-4"
         draggable={false}
         position="top"
-        onHide={() => closeDialog()}
+        onHide={() => {
+          setVisible(false);
+          reset();
+        }}
       >
         <div className="flex justify-content-center">
           <form
@@ -67,15 +95,51 @@ const DrinkFoodDialog = ({
             className="w-full flex flex-column gap-3"
           >
             <div>
-              <ControlTextInput
-                name={"OD_remark"}
+              <div>{selectedDrinkFood?.DrinkFoodName}</div>
+              <div>{selectedDrinkFood?.DrinkFoodRemark}</div>
+            </div>
+            <div>價格：{selectedDrinkFood?.DrinkFoodPrice}</div>
+            <div>
+              <ControlDropDown
+                name="SugarID"
                 control={control}
-                rules={{
-                  required: "必填欄位",
-                }}
+                rules={{ required: "必填欄位" }}
+                options={sugarOption}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇甜度"
+                errorKey={errors.SugarID}
+              />
+            </div>
+            <div>
+              <ControlDropDown
+                name="IceID"
+                control={control}
+                rules={{ required: "必填欄位" }}
+                options={iceOption}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇冰塊"
+                errorKey={errors.IceID}
+              />
+            </div>
+            <div>
+              <ControlDropDown
+                name="AddItemID"
+                control={control}
+                options={addItemOption}
+                optionLabel="Text"
+                optionValue="ID"
+                placeholder="選擇加料 (可不填)"
+                errorKey={errors.AddItemID}
+              />
+            </div>
+            <div>
+              <ControlTextInput
+                name={"Remark"}
+                control={control}
                 placeholder="備註"
-                errorKey={errors.OD_remark}
-                disabled={false}
+                errorKey={errors.Remark}
               />
             </div>
 
