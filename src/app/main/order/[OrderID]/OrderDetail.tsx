@@ -63,7 +63,9 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
                     PaymentDateTime: null,
                   }).then((response) => {
                     showSuccess(response.Message);
-                    OrderRefetch();
+                    if (OrderRefetch != null) {
+                      OrderRefetch();
+                    }
                   });
                 }}
               />
@@ -75,7 +77,10 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
                     PaymentDateTime: new Date(),
                   }).then((response) => {
                     showSuccess(response.Message);
-                    OrderRefetch();
+                    console.log(OrderRefetch);
+                    if (OrderRefetch != null) {
+                      OrderRefetch();
+                    }
                   });
                 }}
               />
@@ -95,7 +100,9 @@ const DetailTemplate = ({ detail }: { detail: OrderDetailListModel }) => {
               accept() {
                 DeleteOrderDetail(detail.OrderDetailID!).then((response) => {
                   showSuccess(response.Message);
-                  OrderRefetch();
+                  if (OrderRefetch != null) {
+                    OrderRefetch();
+                  }
                 });
               },
               reject() {},
@@ -115,14 +122,17 @@ const OrderDetail = ({ OrderID }: { OrderID: string }) => {
   const {
     selectedDetailID,
     paymentVisible,
+    OrderRefetch,
     setPaymentVisible,
     setOrderRefetch,
   } = useDetailStore();
 
-  // 無限迴圈
-  // setOrderRefetch(() => {
-  //   refetch();
-  // });
+  // 當重整方法是空值時進行初始化設定
+  if (OrderRefetch == undefined) {
+    setOrderRefetch(() => {
+      refetch();
+    });
+  }
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error :(</p>;

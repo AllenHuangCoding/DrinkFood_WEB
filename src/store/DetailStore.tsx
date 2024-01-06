@@ -3,7 +3,7 @@ import { create } from "zustand";
 type DetailStore = {
   selectedDetailID: string;
   paymentVisible: boolean;
-  OrderRefetch: () => void;
+  OrderRefetch?: () => void;
 
   setSelectedDetailID: (newData: string) => void;
   setPaymentVisible: (newData: boolean) => void;
@@ -13,7 +13,7 @@ type DetailStore = {
 const useDetailStore = create<DetailStore>()((set) => ({
   selectedDetailID: "",
   paymentVisible: false,
-  OrderRefetch: () => {},
+  OrderRefetch: undefined,
 
   setSelectedDetailID: (newValue: string) => {
     set({ selectedDetailID: newValue });

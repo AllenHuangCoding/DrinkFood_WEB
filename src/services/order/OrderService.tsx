@@ -5,6 +5,7 @@ import { ViewDetailHistory } from "@/src/models/models/ViewDetailHistory";
 import { ViewOrderAndDetail } from "@/src/models/models/ViewOrderAndDetail";
 import { RequestPostOrderModel } from "@/src/models/models/RequestPostOrderModel";
 import {
+  RequestPostOrderDetailModel,
   RequestPutArrivalTimeModel,
   RequestPutCloseTimeModel,
   RequestPutPaymentDateTimeModel,
@@ -98,6 +99,10 @@ const PutPaymentDateTime = (
   );
 };
 
+const PostOrderDetail = (param: RequestPostOrderDetailModel) => {
+  return POST<ResponseModel>("/Order/PostOrderDetail/", param);
+};
+
 export {
   useOrder,
   useOrderList,
@@ -114,4 +119,5 @@ export {
   DeleteOrderDetail,
   PutPayment,
   PutPaymentDateTime,
+  PostOrderDetail,
 };

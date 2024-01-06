@@ -5,6 +5,7 @@ import ControlDropDown from "@/src/components/form/ControlDropDown";
 import { RequestPostOrderDetailModel } from "@/src/models/models";
 import ControlTextInput from "../form/ControlTextInput";
 import useDrinkFoodDialogStore from "@/src/store/DrinkFoodDialogStore";
+import { PostOrderDetail } from "@/src/services/order/OrderService";
 
 export interface DetailDialogFullModel {
   DetailID: string | undefined;
@@ -36,10 +37,19 @@ const DrinkFoodDialog = ({ action }: { action: "Create" | "Update" }) => {
 
   const onSubmit = (param: DetailDialogFullModel) => {
     param.DrinkFoodID = selectedDrinkFood?.DrinkFoodID;
-    param.OrderID = "";
+    param.OrderID = orderID;
     switch (action) {
       case "Create":
         console.log(param);
+        PostOrderDetail({
+          OD_order_id: param.OrderID,
+          OD_drink_food_id: param.DrinkFoodID,
+          OD_sugar_id: param.SugarID,
+          OD_ice_id: param.IceID,
+          // OD_size_id: param
+          // OD_account_id: param
+          OD_remark: param.Remark,
+        });
         break;
       case "Update":
         break;
@@ -58,7 +68,8 @@ const DrinkFoodDialog = ({ action }: { action: "Create" | "Update" }) => {
       break;
   }
 
-  const { selectedDrinkFood, visible, setVisible } = useDrinkFoodDialogStore();
+  const { selectedDrinkFood, visible, orderID, setVisible } =
+    useDrinkFoodDialogStore();
 
   const sugarOption = [
     { ID: "1", Text: "無糖" },
